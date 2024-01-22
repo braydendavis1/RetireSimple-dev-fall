@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CurrencyInput from 'react-currency-input-field';
+import { getUserInfo } from '../api/UserAPI'
 
 interface Settings {
   currentAge: number;
@@ -57,7 +58,13 @@ const SettingsForm: React.FC = () => {
 
 	const handleSave = () => {
 		console.log("save");
+
+
+
+
 		console.log(settings);
+
+
 		
 
 		// saveDataToDatabase();

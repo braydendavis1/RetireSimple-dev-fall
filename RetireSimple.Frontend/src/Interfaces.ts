@@ -18,6 +18,13 @@ export interface InvestmentModel {
 	lastUpdated: string; //treat as a date later?
 }
 
+export interface UserInfo {
+	age: number;
+	retirementAge: number
+	retirementGoal: number
+	filingStatus: string
+}
+
 export interface Projection {
 	values: number[];
 }
