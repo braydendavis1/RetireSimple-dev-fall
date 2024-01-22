@@ -7,7 +7,7 @@ import {
 	InvestmentVehicle,
 	InvestmentVehicleModel,
 	PortfolioModel,
-	Projection,
+	Projection, UserInfo
 } from '../Interfaces';
 import { API_BASE_URL } from './ApiCommon';
 
@@ -24,6 +24,9 @@ export const convertVehicleModelData = (model: Projection) => {
 	return result;
 };
 
+export const convertToUserInfo = (model: any) => {
+	UserInfo
+}
 
 export const getTestData = async () : Promise<Projection> => {
 	const response = await fetch(`${API_BASE_URL}/NewVehicle/Test`);
