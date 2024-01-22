@@ -6,6 +6,7 @@ import {
 	InvestmentVehicle,
 	InvestmentVehicleModel,
 	PortfolioModel,
+	UserInfo,
 } from '../Interfaces';
 
 //Flattens API Investment object for form use
@@ -117,6 +118,37 @@ export const getFlatVehicleData = (vehicle: InvestmentVehicle) => {
 	}, {} as {[key: string]: any});
 
 	Object.assign(result, renamedOverrides);
+
+	return result;
+};
+
+
+
+export const convertUserInfo = (data: any): UserInfo => {
+	const result: UserInfo = {
+		age: 0,
+		retirementAge: 0,
+		retirementGoal: 0,
+		filingStatus: '',
+	};
+
+	Object.keys(data).forEach((analysis_key) => {
+
+		//ARI- IMPLEMENT THIS
+		// const properName = analysis_key.charAt(0).toUpperCase() + analysis_key.slice(1);
+		// result[properName] = {};
+
+		// Object.keys(data[analysis_key]).forEach((preset_key) => {
+		// 	const properPresetName = preset_key.charAt(0).toUpperCase() + preset_key.slice(1);
+		// 	result[properName][properPresetName] = {};
+
+		// 	Object.keys(data[analysis_key][preset_key]).forEach((option_key) => {
+		// 		const presetOption = `analysis_${option_key}`;
+		// 		result[properName][properPresetName][presetOption] =
+		// 			data[analysis_key][preset_key][option_key];
+		// 	});
+		// });
+	});
 
 	return result;
 };

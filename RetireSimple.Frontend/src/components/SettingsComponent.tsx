@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CurrencyInput from 'react-currency-input-field';
 import { getUserInfo } from '../api/UserAPI'
+import { UserInfo } from '../Interfaces';
 
 interface Settings {
   currentAge: number;
@@ -8,6 +9,11 @@ interface Settings {
   retirementGoal: number;
   filingStatus: string;
 }
+
+interface SettingsInfo {
+	userInfo: UserInfo | undefined;
+}
+
 
 const filingStatusOptions = [
 	'Single',
@@ -17,7 +23,7 @@ const filingStatusOptions = [
 	'Qualifying widow(er) with dependent child',
 ];
 
-const SettingsForm: React.FC = () => {
+export const SettingsForm = (settingsInfo: SettingsInfo) => {
 	const [settings, setSettings] = useState<Settings>({
 		currentAge: 0,
 		retirementAge: 0,

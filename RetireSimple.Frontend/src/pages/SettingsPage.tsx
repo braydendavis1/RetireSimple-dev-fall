@@ -7,12 +7,17 @@ import { UserInfo } from '../Interfaces';
   
 export function SettingsPage() { 
 
-	const getUserInfo = () => {
+	const [userInfo, setUserInfo] = React.useState<UserInfo>();
 
-		var userInfo = getUserInfo();
-		
-	}
+	React.useEffect(() => {
+		if (userInfo === undefined) {
+			getUserInfo().then((data) => {
+				setUserInfo(data);
+			});
+		}
+	});
 
+	
 	const updateUserInfo = (data: UserInfo) => {
 
 		updateUserInfo(data);
@@ -22,7 +27,7 @@ export function SettingsPage() {
 	return (<div>
 		<h1>Account Settings</h1>
 		<Box sx={{padding: '2rem'}}>
-			<SettingsForm />
+			<SettingsForm userInfo={userInfo}  />
 		</Box>
 	</div>
 	);
