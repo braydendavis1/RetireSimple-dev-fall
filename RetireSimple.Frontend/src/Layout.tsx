@@ -55,7 +55,7 @@ export const Layout = () => {
 		setInvAddDialogOpen(true);
 	};
 
-	const renderInvestmentsTable = (
+	const renderPageList = (
 		<Box sx={{width: '100%', alignSelf: 'start'}}>
 			<List>
 				<MenuItem component={Link} to='/'>
@@ -83,6 +83,13 @@ export const Layout = () => {
 					<Icon baseClassName='material-icons'>paid</Icon>
 					<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
 						Expenses
+					</Typography>
+				</MenuItem>
+				<Divider />
+				<MenuItem component={Link} to='/EngineInfoPage'>
+					<Icon baseClassName='material-icons'>info</Icon>
+					<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
+						Engine Info
 					</Typography>
 				</MenuItem>
 				<Divider />
@@ -160,7 +167,7 @@ export const Layout = () => {
 		<Paper
 			elevation={2}
 			sx={{marginX: '1rem', height: '90vh', width: '100%', overflow: 'auto'}}>
-			{renderInvestmentsTable}
+			{renderPageList}
 		</Paper>
 	);
 
@@ -188,6 +195,14 @@ export const Layout = () => {
 								<Icon baseClassName='material-icons'>info</Icon>
 							</IconButton>
 						</Tooltip> */}
+						<Tooltip title='Open the settings page'>
+							<IconButton
+								color='inherit'
+								href='/settings'>
+								{/* onClick={this.openSettings} */}
+								<Icon baseClassName='material-icons'>settings</Icon>
+							</IconButton>
+						</Tooltip>
 						<Tooltip title='Report Bug/Issue on GitHub'>
 							<IconButton
 								color='inherit'

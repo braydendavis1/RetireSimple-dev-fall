@@ -24,6 +24,7 @@ export const InvestmentDataForm = (props: InvestmentDataFormProps) => {
 	});
 	const {errors} = formContext.formState;
 
+	console.log(props.selectedInvestment?.investmentName);
 	//==============================================
 	//Field definitions (To reduce indent depth)
 	//==============================================
@@ -31,7 +32,8 @@ export const InvestmentDataForm = (props: InvestmentDataFormProps) => {
 		<FormTextField
 			name='investmentName'
 			label='Name'
-			//defaultValue={props.selectedInvestment ? props.selectedInvestment.investmentName : ''}
+			// defaultValue='default-testing'
+			defaultValue={props.selectedInvestment ? props.selectedInvestment.investmentName : ''}
 			control={formContext.control}
 			errorField={errors.investmentName}
 			tooltip='The name of this investment. Can be a personally identifiable name.'
@@ -44,14 +46,15 @@ export const InvestmentDataForm = (props: InvestmentDataFormProps) => {
 			label='Investment Type'
 			control={formContext.control}
 			errorField={errors.investmentType}
-			defaultOption='StockInvestment'
+			defaultOption={props.selectedInvestment ? props.selectedInvestment.investmentType : ''}
 			options={[
-				{value: 'StockInvestment', label: 'Stock'},
-				{value: 'BondInvestment', label: 'Bond'},
-				{value: 'PensionInvestment', label: 'Pension/Social Security'},
+				{value: 'StockInvestment', label: 'Stock', tooltip:'A stock investment is calculated as ...'},
+				{value: 'BondInvestment', label: 'Bond', tooltip:'This is a bond'},
+				{value: 'PensionInvestment', label: 'Pension/Social Security', tooltip:'This is a pension'},
 			]}
 			disable={props.disableTypeSelect ?? false}
-			tooltip='The type of security this investment represents.'
+			tooltip=''
+			// tooltip='The type of security this investment represents.'
 		/>
 	);
 
@@ -60,6 +63,7 @@ export const InvestmentDataForm = (props: InvestmentDataFormProps) => {
 			case 'StockInvestment':
 				return (
 					<StockForm
+						defaultValues={props.selectedInvestment}
 						analysisTypeField={
 							<FormSelectField
 								name='analysisType'
@@ -70,13 +74,15 @@ export const InvestmentDataForm = (props: InvestmentDataFormProps) => {
 									{
 										value: 'MonteCarlo',
 										label: 'Monte Carlo',
+										tooltip:'This is monte carlo',
 									},
 									{
 										value: 'BinomialRegression',
 										label: 'Binomial Regression',
+										tooltip:'This is binomial',
 									},
 								]}
-								defaultOption=''
+								defaultOption={props.selectedInvestment ? props.selectedInvestment.analysisType : ''}
 								disable={false}
 								tooltip='The type of analysis to run on this investment. Only Monte Carlo Simulations are currently supported.'
 							/>
@@ -92,7 +98,7 @@ export const InvestmentDataForm = (props: InvestmentDataFormProps) => {
 								label='Analysis Type'
 								control={formContext.control}
 								errorField={errors.analysisType}
-								options={[{value: 'StdBondValuation', label: 'Bond Valuation'}]}
+								options={[{value: 'StdBondValuation', label: 'Bond Valuation', tooltip:'This is monte bond form'}]}
 								defaultOption=''
 								disable={false}
 								tooltip='The type of analysis to run on this investment. Only standard bond valuation is currently supported.'
@@ -113,6 +119,7 @@ export const InvestmentDataForm = (props: InvestmentDataFormProps) => {
 									{
 										value: 'PensionSimulation',
 										label: 'Pension Simulation',
+										tooltip:'This is pension',
 									},
 								]}
 								defaultOption=''
