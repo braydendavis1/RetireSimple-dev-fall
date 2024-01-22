@@ -21,7 +21,11 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 
 		private Manager portfolioManager;
 
-		public User(UserInfo userInfo) {
+		private String id;
+
+		public User(UserInfo userInfo, String id) {
+
+			this.id = id;
 		
 			this.userInfo = userInfo;
 
@@ -31,10 +35,13 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 		}
 
 		public User() {
+			this.id = "id here";
 			this.userInfo = new UserInfo(30, 65, 0, UserTaxStatus.SINGLE);
 			this.tax = new NullTax();
 			this.portfolioManager = new PortfolioManager();
 		}
+
+		
 	
 		public void AddTax(ITax tax) {
 			this.tax = tax;

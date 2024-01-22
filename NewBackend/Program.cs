@@ -1,6 +1,12 @@
 using NewBackend.Models;
 using NewBackend.Services;
 
+using System.ComponentModel.DataAnnotations;
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,6 +15,15 @@ builder.Services.Configure<RetireSimpleDatabaseSettings>(
 
 builder.Services.AddSingleton<UsersService>();
 
+builder.Services.AddCors(options => {
+	options.AddPolicy(name: MyAllowSpecificOrigins,
+					  policy => {
+						  policy
+						  .WithOrigins("http://127.0.0.1:3000")
+						  .WithMethods("GET", "POST", "PUT")
+						  .AllowAnyHeader();
+					  });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -24,9 +39,13 @@ if (app.Environment.IsDevelopment()) {
 }
 
 app.UseHttpsRedirection();
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+
+
 
 app.Run();

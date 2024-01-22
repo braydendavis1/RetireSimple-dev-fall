@@ -4,6 +4,8 @@ using NewBackend.Models;
 using NewBackend.Services;
 
 using RetireSimple.NewEngine.New_Engine.Users;
+using RetireSimple.NewEngine.New_Engine;
+using Microsoft.AspNetCore.Cors;
 
 namespace UserstoreApi.Controllers;
 
@@ -11,15 +13,19 @@ namespace UserstoreApi.Controllers;
 [Route("api/[controller]")]
 public class UsersController : ControllerBase {
 	private readonly UsersService _UsersService;
-	private static RetireSimple.NewEngine.New_Engine.NewEngineMain newEngineMain;
+	private static NewEngineMain newEngineMain;
 
-	public UsersController(UsersService UsersService) =>
+	public UsersController(UsersService UsersService) {
 		_UsersService = UsersService;
+		newEngineMain = new NewEngineMain();
+	}
 
+	[EnableCors]
 	[HttpGet]
 	public async Task<List<Users>> Get() =>
 		await _UsersService.GetAsync();
 
+	//Initialization
 	[HttpPost]
 	public async Task<IActionResult> Post(Users newUsers) {
 		await _UsersService.CreateAsync(newUsers);

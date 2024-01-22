@@ -19,6 +19,7 @@ export interface InvestmentModel {
 }
 
 export interface UserInfo {
+	id: string
 	age: number;
 	retirementAge: number
 	retirementGoal: number

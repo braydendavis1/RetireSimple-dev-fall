@@ -12,6 +12,7 @@ namespace RetireSimple.NewEngine.New_Engine {
 	public class NewEngineMain {
 
 		private User user;
+		private String userId;
 		
 		public NewEngineMain() {
 			this.user = new User();

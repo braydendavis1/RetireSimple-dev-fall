@@ -3,9 +3,7 @@ import { getUserInfo } from '../api/UserAPI'
 import { UserInfo } from '../Interfaces';
 import CurrencyInput from 'react-currency-input-field';
 
-interface SettingsInfo {
-	userInfo: UserInfo | undefined;
-}
+
 
 
 const filingStatusOptions = [
@@ -13,15 +11,31 @@ const filingStatusOptions = [
 	'Married filing jointly',
 	'Married filing separately',
 	'Head of household',
-	'Qualifying widow(er) with dependent child',
 ];
 
+interface SettingsInfo {
+	userInfo: UserInfo | undefined;
+	setUserInfo: any
+}
+
+
 export const SettingsForm = (settingsInfo: SettingsInfo) => {
-	const [settings, setSettings] = useState<UserInfo>({
-		age: settingsInfo.userInfo?.age || 0,
-		retirementAge: settingsInfo.userInfo?.retirementAge || 0,
-		retirementGoal: settingsInfo.userInfo?.retirementGoal || 0,
-		filingStatus: settingsInfo.userInfo?.filingStatus || '',
+
+
+	console.log(settingsInfo.userInfo);
+
+
+
+	const [settings, setSettings] = useState<UserInfo>(settingsInfo.userInfo!);
+
+
+
+
+	React.useEffect(() => {
+		//settingsInfo.setUserInfo(settingsInfo.userInfo)
+		if(settings == undefined){
+			setSettings(settingsInfo.userInfo!)
+		}
 	});
 
 	// useEffect(() => {
@@ -58,14 +72,10 @@ export const SettingsForm = (settingsInfo: SettingsInfo) => {
 	const handleSave = () => {
 		console.log("save");
 
+	
 
-
-
-		console.log(settings);
-
-
+		settingsInfo.setUserInfo(settings);
 		
-
 		// saveDataToDatabase();
 	};
 
@@ -78,7 +88,7 @@ export const SettingsForm = (settingsInfo: SettingsInfo) => {
 				<input
 					// type='number'
 					//defaultValue={settings.age}
-					defaultValue = {settingsInfo.userInfo?.retirementGoal || 0}
+					defaultValue = {settingsInfo.userInfo?.age}
 					onChange={(e) => handleInputChange('age', Number(e.target.value))}
 				/>
 			</label>
@@ -87,19 +97,16 @@ export const SettingsForm = (settingsInfo: SettingsInfo) => {
 				Retirement Age:
 				<input
 					// type='number'
-					defaultValue={settings.retirementAge}
+					defaultValue={settingsInfo.userInfo?.retirementAge }
 					onChange={(e) => handleInputChange('retirementAge', Number(e.target.value))}
 				/>
 			</label>
 			<br />
 			<label>
 				Retirement Goal ($):
-				<CurrencyInput
-					id='input-example'
-					name='input-name'
+				<input
 					placeholder='Please enter a number'
-					defaultValue={settings.retirementGoal}
-					decimalsLimit={2}
+					defaultValue={settingsInfo.userInfo?.retirementGoal}
 					onChange={(e: { target: { value: any; }; }) =>  
 						handleRetirementGoalChange(e.target.value)}
 					// onValueChange={(value: any, name: any, values: any) =>
@@ -110,7 +117,7 @@ export const SettingsForm = (settingsInfo: SettingsInfo) => {
 			<label>
 				Filing Status:
 				<select
-					value={settings.filingStatus}
+					value={settingsInfo.userInfo?.filingStatus}
 					onChange={(e) => handleInputChange('filingStatus', e.target.value)}
 				>
 					<option value=''>Select filing status</option>
