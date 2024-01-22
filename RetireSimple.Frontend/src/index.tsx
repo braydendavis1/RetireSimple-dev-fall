@@ -16,7 +16,12 @@ import {flattenApiInvestment, getFlatVehicleData} from './api/ApiMapper';
 import {convertFromDecimal} from './api/ConvertUtils';
 import {deleteInvestment, getInvestment} from './api/InvestmentApi';
 import {deleteVehicle, getVehicle} from './api/VehicleApi';
+import {InvestmentsPage} from './pages/InvestmentsPage';
+import {VehiclesPage} from './pages/VehiclesPage';
+import {AboutPage} from './pages/AboutPage';
 import './index.css';
+import { HelpPage } from './pages/HelpPage';
+import { ExpensesPage } from './pages/ExpensesPage';
 
 /************************
  * Lazy Loaded Components
@@ -139,6 +144,41 @@ const router = createBrowserRouter(
 					<SuspenseRoute>
 						<RootView />
 					</SuspenseRoute>
+				}
+			/>
+			
+			<Route
+				path='InvestmentPage/'
+				//why are we loading in the entire portfolio???
+				loader={async () => await getPortfolio()}
+				element={
+					<InvestmentsPage />
+				}
+			/>
+			<Route
+				path='VehiclesPage/'
+				//why are we loading in the entire portfolio???
+				loader={async () => await getPortfolio()}
+				element={
+					<VehiclesPage />
+				}
+			/>
+			<Route
+				path='ExpensesPage/'
+				element={
+					<ExpensesPage />
+				}
+			/>
+			<Route
+				path='AboutPage/'
+				element={
+					<AboutPage />
+				}
+			/>
+			<Route
+				path='HelpPage/'
+				element={
+					<HelpPage />
 				}
 			/>
 			<Route

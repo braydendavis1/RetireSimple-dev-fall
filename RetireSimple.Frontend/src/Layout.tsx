@@ -29,6 +29,12 @@ export const Layout = () => {
 	const portfolio = useLoaderData() as Portfolio;
 	const {investments, investmentVehicles: vehicles} = portfolio;
 
+	
+
+	// console.log("Portfolio in layout");
+	console.log("Portfolio:" + portfolio.portfolioModel.portfolioModelId);
+	console.log("Investments:" + investments);
+
 	const [presetData, setPresetData] = React.useState<ApiPresetData | undefined>(undefined);
 	const [invAddDialogOpen, setInvAddDialogOpen] = React.useState(false);
 	const [vehicleAddDialogOpen, setVehicleAddDialogOpen] = React.useState(false);
@@ -59,28 +65,35 @@ export const Layout = () => {
 					</Typography>
 				</MenuItem>
 				<Divider />
-				<MenuItem component={Link} to='/'>
+				<MenuItem component={Link} to='/InvestmentPage'>
 					<Icon baseClassName='material-icons'>show_chart</Icon>
 					<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
 						Investments
 					</Typography>
 				</MenuItem>
 				<Divider />
-				<MenuItem component={Link} to='/'>
+				<MenuItem component={Link} to='/VehiclesPage'>
 					<Icon baseClassName='material-icons'>stacked_line_chart</Icon>
 					<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
 						Vehicles
 					</Typography>
 				</MenuItem>
 				<Divider />
-				<MenuItem component={Link} onClick={() => setAboutOpen(true)} to='/'>
+				<MenuItem component={Link} to='/ExpensesPage'>
+					<Icon baseClassName='material-icons'>paid</Icon>
+					<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
+						Expenses
+					</Typography>
+				</MenuItem>
+				<Divider />
+				<MenuItem component={Link} to='/AboutPage'>
 					<Icon baseClassName='material-icons'>info</Icon>
 					<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
 						About
 					</Typography>
 				</MenuItem>
 				<Divider />
-				<MenuItem component={Link} onClick={() => setHelpOpen(true)} to='/'>
+				<MenuItem component={Link} to='/HelpPage'>
 					<Icon baseClassName='material-icons'>help</Icon>
 					<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
 						Help
