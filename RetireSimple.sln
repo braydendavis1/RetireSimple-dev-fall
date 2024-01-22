@@ -28,7 +28,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetireSimple.NewEngine", "R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetireSimple.NewTests", "RetireSimple.NewTests\RetireSimple.NewTests.csproj", "{D9AE887F-7F80-4E74-BF32-F12B02DBBD26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewBackend", "NewBackend\NewBackend.csproj", "{044C0F67-E41B-47D9-AADA-3DCC0303C3C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetireSimple.NewBackend", "NewBackend\RetireSimple.NewBackend.csproj", "{044C0F67-E41B-47D9-AADA-3DCC0303C3C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
