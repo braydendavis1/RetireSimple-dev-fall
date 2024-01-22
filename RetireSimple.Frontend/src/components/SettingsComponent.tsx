@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { getUserInfo } from '../api/UserAPI'
 import { UserInfo } from '../Interfaces';
+import CurrencyInput from 'react-currency-input-field';
 
 interface SettingsInfo {
-	userInfo: UserInfo;
+	userInfo: UserInfo | undefined;
 }
 
 
@@ -17,10 +18,10 @@ const filingStatusOptions = [
 
 export const SettingsForm = (settingsInfo: SettingsInfo) => {
 	const [settings, setSettings] = useState<UserInfo>({
-		age: 0,
-		retirementAge: 0,
-		retirementGoal: 0,
-		filingStatus: '',
+		age: settingsInfo.userInfo?.age || 0,
+		retirementAge: settingsInfo.userInfo?.retirementAge || 0,
+		retirementGoal: settingsInfo.userInfo?.retirementGoal || 0,
+		filingStatus: settingsInfo.userInfo?.filingStatus || '',
 	});
 
 	// useEffect(() => {
@@ -76,7 +77,8 @@ export const SettingsForm = (settingsInfo: SettingsInfo) => {
 				Current Age:
 				<input
 					// type='number'
-					defaultValue={settings.age}
+					//defaultValue={settings.age}
+					defaultValue = {settingsInfo.userInfo?.retirementGoal || 0}
 					onChange={(e) => handleInputChange('age', Number(e.target.value))}
 				/>
 			</label>

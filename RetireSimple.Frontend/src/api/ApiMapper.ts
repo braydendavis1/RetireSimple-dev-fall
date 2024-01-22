@@ -126,8 +126,8 @@ export const getFlatVehicleData = (vehicle: InvestmentVehicle) => {
 
 export const convertUserInfo = (data: any): UserInfo => {
 	const result: UserInfo = {
-		age: 0,
-		retirementAge: 0,
+		age: 22,
+		retirementAge: 63,
 		retirementGoal: 0,
 		filingStatus: '',
 	};

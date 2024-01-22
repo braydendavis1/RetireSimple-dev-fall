@@ -11,8 +11,11 @@ export function SettingsPage() {
 
 	React.useEffect(() => {
 		if (userInfo === undefined) {
+			console.log("SETTINGS");
 			getUserInfo().then((data) => {
 				setUserInfo(data);
+				
+				console.log(data);
 			});
 		}
 	});

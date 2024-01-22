@@ -7,7 +7,7 @@ import {
 	InvestmentVehicle,
 	InvestmentVehicleModel,
 	PortfolioModel,
-	Projection, UserInfo
+	Projection, UserInfo,
 } from '../Interfaces';
 import { API_BASE_URL } from './ApiCommon';
 
