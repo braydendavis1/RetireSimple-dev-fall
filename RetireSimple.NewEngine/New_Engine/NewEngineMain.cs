@@ -7,15 +7,19 @@ using System.Text;
 using System.Threading.Tasks;
 
 using RetireSimple.NewEngine.New_Engine.Users;
+using RetireSimple.NewEngine.New_Engine;
+using RetireSimple.NewEngine.New_Engine.Database.Services;
+using MongoDB.Bson;
 
 namespace RetireSimple.NewEngine.New_Engine {
 	public class NewEngineMain {
 
 		private User user;
-		private String userId;
+		private string id = "61a6058e6c43f32854e51f51";
 		
-		public NewEngineMain() {
-			this.user = new User();
+		public NewEngineMain(UsersService userService) {
+
+			this.user = new User(userService,id );
 		
 		}
 	
@@ -25,15 +29,12 @@ namespace RetireSimple.NewEngine.New_Engine {
 			return true;
 		}
 
-		public UserInfo HandleReadUser() {
-			var log = new StringBuilder();
-			log.Append(this.user.GetInfo().ToString());
-
-			System.IO.File.WriteAllText("..\\logs\\" + "log" + ".txt", log.ToString());
-			return this.user.GetInfo();
+		public async Task<Database.Models.Users> HandleReadUser() {
+			return await this.user.GetInfo();
 		}
 
 		public Boolean HandleUpdateUser(UserInfo info) {
+
 			this.user.UpdateInfo(info);
 			return true;
 		}

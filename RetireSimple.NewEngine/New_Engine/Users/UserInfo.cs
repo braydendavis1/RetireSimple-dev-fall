@@ -4,12 +4,14 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using RetireSimple.NewEngine.New_Engine.Database.Models;
+
 
 namespace RetireSimple.NewEngine.New_Engine.Users {
 	public class UserInfo {
 
 
-		public readonly int age;
+		public int age;
 
 		public int retirementAge;
 
@@ -23,6 +25,13 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			this.retirementAge = retirementAge;
 			this.retirementGoal = retirementGoal;
 			this.status = status;
+		}
+
+		public UserInfo(Database.Models.Users users) {
+			this.age = users.Age;
+			this.retirementAge= users.RetirementAge;
+			this.retirementGoal = users.RetirementGoal;
+			this.status = StringToStatus(users.FilingStatus);
 		}
 
 		public static UserTaxStatus StringToStatus(String status) {
@@ -46,5 +55,11 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			return "Age: " + this.age + ", Retirement Age: " + this.retirementAge + ", RetirementGoal: " + this.retirementGoal + ", Filing Status: " + this.status;
 		}
 
+		public Database.Models.Users ConvertToUsers(string id) {
+			return new Database.Models.Users(id, this.age, this.retirementAge, this.retirementGoal, this.status.ToString());
+
+		}
+
+		
 	}
 }

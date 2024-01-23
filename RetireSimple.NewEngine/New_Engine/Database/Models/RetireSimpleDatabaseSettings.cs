@@ -1,4 +1,4 @@
-﻿namespace NewBackend.Models {
+﻿namespace RetireSimple.NewEngine.New_Engine.Database.Models {
 	public class RetireSimpleDatabaseSettings {
 
 		public string ConnectionString { get; set; }

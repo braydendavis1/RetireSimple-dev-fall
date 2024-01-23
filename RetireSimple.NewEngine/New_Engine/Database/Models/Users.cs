@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace NewBackend.Models {
+namespace RetireSimple.NewEngine.New_Engine.Database.Models {
 
 	public class Users {
 
@@ -15,6 +15,16 @@ namespace NewBackend.Models {
 		public double RetirementGoal { get; set; }
 
 		public string FilingStatus { get; set; }
+
+
+		public Users (string id, int Age, int RetirementAge, double RetirementGoal, string FilingStatus) {
+			this.Id = id;
+			this.Age = Age;
+			this.RetirementAge = RetirementAge;
+			this.RetirementGoal = RetirementGoal;
+			this.FilingStatus = FilingStatus;
+	
+		}
 
 
 
