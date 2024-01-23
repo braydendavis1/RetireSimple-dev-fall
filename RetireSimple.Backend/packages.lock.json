@@ -371,7 +371,12 @@
         }
       },
       "retiresimple.newengine": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.Extensions.Options": "[7.0.0, )",
+          "MongoDB.Bson": "[2.23.1, )",
+          "MongoDB.Driver": "[2.23.1, )"
+        }
       }
     }
   }

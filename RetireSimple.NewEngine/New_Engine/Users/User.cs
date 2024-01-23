@@ -1,4 +1,6 @@
 ﻿using RetireSimple.Engine.New_Engine;
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
+using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles;
 using RetireSimple.NewEngine.New_Engine.Managers;
 using RetireSimple.NewEngine.New_Engine.TaxModels;
@@ -21,9 +23,11 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 
 		private Manager portfolioManager;
 
-		private String id;
+		private UserService userService;
 
-		public User(UserInfo userInfo, String id) {
+		private string id;
+
+		public User(UserInfo userInfo, string id) {
 
 			this.id = id;
 		
@@ -41,6 +45,14 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			this.portfolioManager = new PortfolioManager();
 		}
 
+		public User(UserService userService, string id) {
+			this.userService = userService;
+			this.id = id;
+			this.userInfo = new UserInfo(30, 65, 0, UserTaxStatus.SINGLE);
+			this.tax = new NullTax();
+			this.portfolioManager = new PortfolioManager();
+		}
+
 		
 	
 		public void AddTax(ITax tax) {
@@ -51,8 +63,8 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			this.userInfo = userInfo;
 		}
 
-		public UserInfo GetInfo() {
-			return this.userInfo;
+		public async Task<UserInfoModel> GetInfo() {
+			return await this.userService.GetAsync(this.id);
 		}
 
 

@@ -1,5 +1,8 @@
-using NewBackend.Models;
+
 using NewBackend.Services;
+
+using RetireSimple.NewEngine.New_Engine.Database;
+using RetireSimple.NewEngine.New_Engine.Database.Services;
 
 using System.ComponentModel.DataAnnotations;
 
@@ -13,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<RetireSimpleDatabaseSettings>(
 	builder.Configuration.GetSection("RetireSimpleDatabase"));
 
-builder.Services.AddSingleton<UsersService>();
+builder.Services.AddSingleton<UserService>();
 
 builder.Services.AddCors(options => {
 	options.AddPolicy(name: MyAllowSpecificOrigins,

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
-using NewBackend.Models;
 using NewBackend.Services;
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
+using RetireSimple.NewEngine.New_Engine.Database.Services;
 
 using RetireSimple.NewEngine.New_Engine.Users;
 using RetireSimple.NewEngine.New_Engine;
@@ -12,23 +12,23 @@ namespace UserstoreApi.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class UsersController : ControllerBase {
-	private readonly UsersService _UsersService;
+	private readonly UserService _UserService;
 	private static NewEngineMain newEngineMain;
 
-	public UsersController(UsersService UsersService) {
-		_UsersService = UsersService;
-		newEngineMain = new NewEngineMain();
+	public UsersController(UserService UserService) {
+		_UserService = UserService;
+		newEngineMain = new NewEngineMain(UserService);
 	}
 
 	[EnableCors]
 	[HttpGet]
-	public async Task<List<Users>> Get() =>
-		await _UsersService.GetAsync();
+	public async Task<UserInfoModel> Get() =>
+		await newEngineMain.HandleReadUser();
 
 	//Initialization
 	[HttpPost]
-	public async Task<IActionResult> Post(Users newUsers) {
-		await _UsersService.CreateAsync(newUsers);
+	public async Task<IActionResult> Post(UserInfoModel newUsers) {
+		await _UserService.CreateAsync(newUsers);
 
 		newEngineMain.HandleCreateUser(new UserInfo(newUsers.Age, newUsers.RetirementAge, newUsers.RetirementGoal, UserInfo.StringToStatus(newUsers.FilingStatus)));
 
@@ -36,8 +36,8 @@ public class UsersController : ControllerBase {
 	}
 
 	[HttpPut]
-	public async Task<IActionResult> Update(string id, Users updatedUsers) {
-		var Users = await _UsersService.GetAsync(id);
+	public async Task<IActionResult> Update(string id, UserInfoModel updatedUsers) {
+		var Users = await _UserService.GetAsync(id);
 
 		if (Users is null) {
 			return NotFound();
@@ -45,7 +45,7 @@ public class UsersController : ControllerBase {
 
 		updatedUsers.Id = Users.Id;
 
-		await _UsersService.UpdateAsync(id, updatedUsers);
+		await _UserService.UpdateAsync(id, updatedUsers);
 
 		newEngineMain.HandleUpdateUser(new UserInfo(updatedUsers.Age, updatedUsers.RetirementAge, updatedUsers.RetirementGoal, UserInfo.StringToStatus(updatedUsers.FilingStatus)));
 

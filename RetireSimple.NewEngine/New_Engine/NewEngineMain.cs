@@ -6,6 +6,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
+using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.NewEngine.New_Engine.Users;
 
 namespace RetireSimple.NewEngine.New_Engine {
@@ -13,10 +15,14 @@ namespace RetireSimple.NewEngine.New_Engine {
 
 		private User user;
 		private String userId;
+		private UserService userService;
 		
-		public NewEngineMain() {
-			this.user = new User();
-		
+		public NewEngineMain(UserService userService) {
+			//handle if there is not a user in the system
+			
+			//hard coded for testing right now
+			this.user = new User(userService, "61a6058e6c43f32854e51f51");
+
 		}
 	
 
@@ -25,12 +31,9 @@ namespace RetireSimple.NewEngine.New_Engine {
 			return true;
 		}
 
-		public UserInfo HandleReadUser() {
-			var log = new StringBuilder();
-			log.Append(this.user.GetInfo().ToString());
-
-			System.IO.File.WriteAllText("..\\logs\\" + "log" + ".txt", log.ToString());
-			return this.user.GetInfo();
+		public async Task<UserInfoModel> HandleReadUser() {
+		
+			return await this.user.GetInfo();
 		}
 
 		public Boolean HandleUpdateUser(UserInfo info) {
