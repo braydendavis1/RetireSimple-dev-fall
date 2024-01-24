@@ -12,5 +12,8 @@ namespace RetireSimple.NewEngine.New_Engine.Database {
 		public string DatabaseName { get; set; } = null!;
 
 		public string UsersCollectionName { get; set; } = null!;
+
+		public string InvestmentVehiclesCollectionName { get; set; } = null!;
+
 	}
 }

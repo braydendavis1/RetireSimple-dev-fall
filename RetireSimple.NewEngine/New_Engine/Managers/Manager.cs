@@ -1,4 +1,5 @@
 ﻿using RetireSimple.Engine.New_Engine;
+using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.NewEngine.New_Engine.Financials;
 
 using System;
@@ -15,9 +16,12 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 		protected List<Financial> items;
 
 
+
+
 		public Manager() 
 		{
 			this.items = new List<Financial>();
+
 		}
 
 		public Projection Calculate(int years) 
@@ -34,7 +38,6 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 		}
 
 		public abstract Boolean Add(Financial f); 
-
 
 		public Financial? Read(int id) 
 		{

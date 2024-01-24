@@ -6,24 +6,26 @@ using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.NewEngine.New_Engine.Users;
 using RetireSimple.NewEngine.New_Engine;
 using Microsoft.AspNetCore.Cors;
+using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.InvestmentVehicleInfos;
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 
 namespace UserstoreApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UsersController : ControllerBase {
+public class InvestmentVehicleController : ControllerBase {
 	private readonly UserService _UserService;
 	private static NewEngineMain newEngineMain;
 
-	public UsersController(UserService UserService) {
+	public InvestmentVehicleController(UserService UserService) {
 		_UserService = UserService;
 		newEngineMain = new NewEngineMain(UserService);
 	}
 
 	[EnableCors]
 	[HttpGet]
-	public async Task<UserInfoModel> Get() =>
-		await newEngineMain.HandleReadUser();
+	public async Task<List<InvestmentVehicleInfoModel>> Get() =>
+		await newEngineMain.HandleReadInvestmentVehicles();
 
 	//Initialization
 	[HttpPost]

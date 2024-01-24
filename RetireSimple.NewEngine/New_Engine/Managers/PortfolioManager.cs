@@ -7,13 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RetireSimple.NewEngine.New_Engine.Financials;
+using RetireSimple.NewEngine.New_Engine.Database.Services;
+using System.ComponentModel;
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 
 namespace RetireSimple.NewEngine.New_Engine.Managers {
 	public class PortfolioManager : Manager {
+		private readonly InvestmentVehicleService _investmentVehicleService;
 
+		public PortfolioManager(InvestmentVehicleService service) : base(){
+			this._investmentVehicleService = service;
+		}
 
-		public PortfolioManager() {
-			
+		public async Task<List<InvestmentVehicleInfoModel>> GetInvestmentVehicles() {
+			return await this._investmentVehicleService.GetAsync();
+		}
+
+		public async Task CreateNewInvestmentVehicle(InvestmentVehicleInfoModel info) {
+			await this._investmentVehicleService.CreateAsync(info);
+		}
+
+		public async Task UpdateInvestmentVehcile(string id, InvestmentVehicleInfoModel info) {
+			await this._investmentVehicleService.UpdateAsync(id, info);
+		}
+
+		public async Task DeleteInvestmentVehicle(string id) {
+			await this._investmentVehicleService.RemoveAsync(id);
 		}
 
 		public override bool Add(Financial f) 
@@ -25,8 +44,6 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			else { 
 				return false; 
 			}
-
-
 		}
 
 		public override bool DoDelete(int id) {
