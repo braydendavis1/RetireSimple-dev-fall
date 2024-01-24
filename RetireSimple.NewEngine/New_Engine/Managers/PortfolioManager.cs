@@ -12,51 +12,31 @@ using System.ComponentModel;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 
 namespace RetireSimple.NewEngine.New_Engine.Managers {
-	public class PortfolioManager : Manager {
-		private readonly InvestmentVehicleService _investmentVehicleService;
+	public class PortfolioManager : Manager<InvestmentVehicleInfoModel> {
 
-		public PortfolioManager(InvestmentVehicleService service) : base(){
-			this._investmentVehicleService = service;
+
+		public async Task<List<InvestmentVehicleInfoModel>> HandleGetInvestmentVehicles() {
+			List<InvestmentVehicleInfoModel> vehiclesInfoModels = new List<InvestmentVehicleInfoModel>();
+			for (int i = 0; i < base.items.Count; i++) {
+				InvestmentVehicleInfoModel info = await base.items[i].GetInfo();
+				vehiclesInfoModels.Add(info);
+			}
+			return vehiclesInfoModels;
+
 		}
 
-		public async Task<List<InvestmentVehicleInfoModel>> GetInvestmentVehicles() {
-			return await this._investmentVehicleService.GetAsync();
-		}
+		public abstract Task HandleCreateNewInvestmentVehicle(InvestmentVehicleInfoModel info);
 
-		public async Task CreateNewInvestmentVehicle(InvestmentVehicleInfoModel info) {
-			await this._investmentVehicleService.CreateAsync(info);
-		}
+
+
 
 		public async Task UpdateInvestmentVehcile(string id, InvestmentVehicleInfoModel info) {
-			await this._investmentVehicleService.UpdateAsync(id, info);
+
 		}
 
 		public async Task DeleteInvestmentVehicle(string id) {
-			await this._investmentVehicleService.RemoveAsync(id);
+
 		}
 
-		public override bool Add(Financial f) 
-		{
-			if(f.category == FinCategories.INVESTMENT_VEHICLE) {
-				base.items.Add(f);
-				return true;
-			} 
-			else { 
-				return false; 
-			}
-		}
-
-		public override bool DoDelete(int id) {
-			base.items.RemoveAt(id);
-			return true;
-		}
-		public override Financial DoRead(int id) {
-
-			return base.items[id];
-		}
-		public override bool DoUpdate(Financial f, int id) {
-			base.items[id] = f;
-			return true;
-		}
 	}
 }

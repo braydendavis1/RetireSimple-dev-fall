@@ -14,5 +14,6 @@ namespace RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicl
 		public double EmployerMatch { get; set; }
 		public double EmployerMatchCap {  get; set; }	
 
+
 	}
 }

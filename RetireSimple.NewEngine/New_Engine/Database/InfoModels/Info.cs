@@ -7,7 +7,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace RetireSimple.NewEngine.New_Engine.Database.InfoModels {
-	public abstract class Info {
+	public abstract class Info<T> {
 
 
 		[BsonId]

@@ -1,4 +1,5 @@
 ﻿using RetireSimple.Engine.New_Engine;
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
 using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.NewEngine.New_Engine.Financials;
 
@@ -11,16 +12,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RetireSimple.NewEngine.New_Engine.Managers {
-	abstract public class Manager {
+	abstract public class Manager<T> where T : Info {
 
-		protected List<Financial> items;
-
-
+		protected List<Financial<T>> items;
 
 
 		public Manager() 
 		{
-			this.items = new List<Financial>();
+			this.items = new List<Financial<T>>();
 
 		}
 
@@ -29,7 +28,7 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 			Projection projection = new Projection(new List<double>(), 0);
 
-			foreach (Financial f in this.items) {
+			foreach (Financial<T> f in this.items) {
 				projection = projection.Add(f.Calculate(years));
 			}
 
@@ -37,53 +36,7 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 		}
 
-		public abstract Boolean Add(Financial f); 
 
-		public Financial? Read(int id) 
-		{
-			if(id < this.items.Count) {
-
-				return this.DoRead(id);
-			} else {
-				return null;
-			}
-		}
-		public abstract Financial DoRead(int id);
-
-		public Boolean Update(Financial f, int id) 
-		{
-
-			if(id < this.items.Count) 
-			{
-				return this.DoUpdate(f, id);
-			}
-			else 
-			{
-
-				return false;
-
-			}
-
-		}
-
-		public abstract Boolean DoUpdate(Financial f, int id);
-
-		public Boolean Delete(int id) 
-		{
-
-			if (id < this.items.Count) 
-			{
-				return this.DoDelete(id);
-			}
-			else 
-			{
-				return false;
-			}
-			
-
-		}
-
-		public abstract Boolean DoDelete(int id);
 
 	}
 }
