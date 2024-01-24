@@ -1,4 +1,8 @@
-﻿using RetireSimple.Engine.New_Engine;
+﻿using Amazon.Runtime;
+
+using MongoDB.Bson.IO;
+
+using RetireSimple.Engine.New_Engine;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.InvestmentVehicleInfos;
@@ -8,13 +12,14 @@ using RetireSimple.NewEngine.New_Engine.TaxModels;
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
-	public abstract class InvestmentVehicle : Financial<InvestmentVehicleInfoModel> {
+	public class InvestmentVehicle : Financial<InvestmentVehicleInfoModel> {
 
 
 		private IGrowthModel growthModel;
@@ -37,14 +42,16 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 
 	
 
-		public override Projection Calculate(int years) 
+		public async override Task<Projection> Calculate(int years) 
 		{
 
+			InvestmentVehicleInfoModel info = await base.GetInfo();
 
-
-			return this.growthModel.GenerateProjection(this.value, years, this.info);
+			return this.growthModel.GenerateProjection(info.Value, years, info);
 		}
 
+
+		
 
 
 	}

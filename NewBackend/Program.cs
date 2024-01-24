@@ -17,6 +17,7 @@ builder.Services.Configure<RetireSimpleDatabaseSettings>(
 	builder.Configuration.GetSection("RetireSimpleDatabase"));
 
 builder.Services.AddSingleton<UserService>();
+builder.Services.AddSingleton<InvestmentVehicleService>();
 
 builder.Services.AddCors(options => {
 	options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -28,7 +29,7 @@ builder.Services.AddCors(options => {
 					  });
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(); ;
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

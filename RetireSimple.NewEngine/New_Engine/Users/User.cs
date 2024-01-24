@@ -3,6 +3,7 @@ using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles;
+using RetireSimple.NewEngine.New_Engine.GrowthModels._401kGrowthModels;
 using RetireSimple.NewEngine.New_Engine.Managers;
 using RetireSimple.NewEngine.New_Engine.TaxModels;
 
@@ -27,11 +28,11 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 		private string id;
 
 
-		public User(UserService userService,  string id) {
+		public User(UserService userService, InvestmentVehicleService investmentVehicleService,  string id) {
 			this.userService = userService;
 			this.id = id;
 			this.tax = new NullTax();
-			//this.portfolioManager = new PortfolioManager();
+			this.portfolioManager = new PortfolioManager(investmentVehicleService);
 
 
 		}
@@ -66,19 +67,32 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			return this.portfolioManager.Calculate(years);
 
 		}
-
+		/*
 		public async Task<List<InvestmentVehicleInfoModel>> GetInvestmentVehicles() {
-			return await this.portfolioManager.GetInvestmentVehicles();
+			return await this.portfolioManager.GetInvestmentVehicle();
+		}
+		*/
+
+		public async Task HandleCreateInvestmentVehicle(InvestmentVehicleInfoModel info, string type) {
+			if (type.Equals("401k")) {
+				await this.portfolioManager.CreateNewInvestmentVehicle(info, new _401kGrowth());
+			}
+
+	
 		}
 
-		public async Task CreateInvestmentVehicle() {
-
+		public async Task<InvestmentVehicleInfoModel> HandleGetInvestmentVehicle(string id) {
+			return await this.portfolioManager.GetInvestmentVehicle(id);
 		}
 
-
-		public void AddInvestmentVehicle(InvestmentVehicle vehicle) {
-			this.portfolioManager.Add(vehicle);
+		public async Task HandleUpdateInvestmentVehicle(string id, InvestmentVehicleInfoModel info) {
+			await this.portfolioManager.UpdateInvestmentVehcile(id , info);
 		}
+
+		public async Task HandleDeleteInvestmentVehicle(string id) {
+			await this.portfolioManager.DeleteInvestmentVehicle(id);
+		}
+
 
 		public double ApplyTax(double income) {
 

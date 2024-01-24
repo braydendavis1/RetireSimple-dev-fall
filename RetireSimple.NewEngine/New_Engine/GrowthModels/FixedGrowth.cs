@@ -1,4 +1,5 @@
 ﻿using RetireSimple.Engine.New_Engine;
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.InvestmentVehicleInfos;
 
 using System;
@@ -16,7 +17,7 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels {
 		public FixedGrowth(double rate) {
 			this.rate = rate;
 		}
-		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfo info) {
+		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfoModel info) {
 			List<double> values = new List<double>();
 
 			values.Add(value);

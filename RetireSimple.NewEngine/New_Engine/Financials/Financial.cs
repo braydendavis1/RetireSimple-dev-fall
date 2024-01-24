@@ -8,7 +8,7 @@ namespace RetireSimple.NewEngine.New_Engine.Financials {
 
 	public abstract class Financial<T> where T : Info {
 
-		protected string id;
+		public readonly string id;
 
 		private readonly Service<T> service;
 
@@ -19,7 +19,7 @@ namespace RetireSimple.NewEngine.New_Engine.Financials {
 		}
 
 
-		abstract public Projection Calculate(int years);
+		abstract public Task<Projection> Calculate(int years);
 
 		public async Task SetInfo(T info) {
 			await service.CreateAsync(info);
@@ -31,6 +31,10 @@ namespace RetireSimple.NewEngine.New_Engine.Financials {
 
 		public async Task UpdateInfo(T info) {
 			await service.UpdateAsync(this.id, info);
+		}
+
+		public async Task DeleteInfo() {
+			await service.RemoveAsync(this.id);
 		}
 	}
 

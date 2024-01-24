@@ -1,4 +1,5 @@
 ﻿using RetireSimple.Engine.New_Engine;
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.InvestmentVehicleInfos;
 
 using System;
@@ -6,17 +7,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 
 namespace RetireSimple.NewEngine.New_Engine.GrowthModels.RothIraGrowth {
 	public class RothIraGrowth : IGrowthModel {
-		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfo info) 
+		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfoModel info) 
 		{
 
-			return this.DoGenerateProjection(value, years, (RothIraInfo)info);
+			return this.DoGenerateProjection(value, years, (RothIraInfoModel)info);
 
 		}
 
-		private Projection DoGenerateProjection(double value, int years, RothIraInfo info) 
+		private Projection DoGenerateProjection(double value, int years, RothIraInfoModel info) 
 		{
 
 			List<double> values = new List<double>();

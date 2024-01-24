@@ -25,6 +25,7 @@ namespace RetireSimple.NewEngine.New_Engine.Database.Services {
 		
 		}
 
+
 		public async Task<List<T>> GetAsync() =>
 			await _collection.Find(_ => true).ToListAsync();
 

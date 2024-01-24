@@ -14,38 +14,31 @@ namespace UserstoreApi.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class InvestmentVehicleController : ControllerBase {
-	private readonly UserService _UserService;
+	private readonly InvestmentVehicleService _UserService;
 	private static NewEngineMain newEngineMain;
 
-	public InvestmentVehicleController(UserService UserService) {
-		_UserService = UserService;
-		newEngineMain = new NewEngineMain(UserService);
+	public InvestmentVehicleController(InvestmentVehicleService InvestmentVehicleService, UserService UserService) {
+		_UserService = InvestmentVehicleService;
+		newEngineMain = new NewEngineMain(UserService, InvestmentVehicleService);
 	}
 
 	[EnableCors]
 	[HttpGet]
-	public async Task<List<InvestmentVehicleInfoModel>> Get() =>
-		await newEngineMain.HandleReadInvestmentVehicles();
+	public async Task<InvestmentVehicleInfoModel> Get(string id) =>
+		await newEngineMain.DoHandleGetInvestmentVehicle(id);
 
 	//Initialization
 	[HttpPost]
-	public async Task<IActionResult> Post(UserInfoModel newUsers) {
-		await newEngineMain.HandleCreateUser(newUsers);
+	public async Task<IActionResult> Post(InvestmentVehicleInfoModel info) {
+		await newEngineMain.DoHandleCreateInvestmentVehicle(info);
 
-		return CreatedAtAction(nameof(Get), new { id = newUsers.Id }, newUsers);
+		return CreatedAtAction(nameof(Get), new { id = info.Id }, info);
 	}
 
 	[HttpPut]
-	public async Task<IActionResult> Update(string id, UserInfoModel updatedUsers) {
-		var Users = await _UserService.GetAsync(id);
-
-		if (Users is null) {
-			return NotFound();
-		}
-
-		updatedUsers.Id = Users.Id;
-
-		await newEngineMain.HandleUpdateUser(updatedUsers);
+	public async Task<IActionResult> Update(string id, InvestmentVehicleInfoModel info) {
+	
+		await newEngineMain.DoHandleCreateInvestmentVehicle(info);
 
 		return NoContent();
 	}

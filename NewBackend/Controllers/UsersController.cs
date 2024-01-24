@@ -15,9 +15,9 @@ public class UsersController : ControllerBase {
 	private readonly UserService _UserService;
 	private static NewEngineMain newEngineMain;
 
-	public UsersController(UserService UserService) {
+	public UsersController(UserService UserService, InvestmentVehicleService investmentVehicleService) {
 		_UserService = UserService;
-		newEngineMain = new NewEngineMain(UserService);
+		newEngineMain = new NewEngineMain(UserService, investmentVehicleService);
 	}
 
 	[EnableCors]

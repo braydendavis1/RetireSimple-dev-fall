@@ -16,10 +16,13 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 		protected List<Financial<T>> items;
 
+		protected InvestmentVehicleService service;
 
-		public Manager() 
+
+		public Manager(InvestmentVehicleService service) 
 		{
 			this.items = new List<Financial<T>>();
+			this.service = service;
 
 		}
 
@@ -29,12 +32,19 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			Projection projection = new Projection(new List<double>(), 0);
 
 			foreach (Financial<T> f in this.items) {
-				projection = projection.Add(f.Calculate(years));
+				projection.Add(f.Calculate(years).Result);
+
+				//Projection _p = f.Calculate(years).Result;
+
+			
+
+				//tasks.Add(f.Calculate(years));
 			}
 
 			return projection;
 
 		}
+
 
 
 

@@ -1,4 +1,6 @@
-﻿using RetireSimple.NewEngine.New_Engine.Financials;
+﻿using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
+using RetireSimple.NewEngine.New_Engine.Database.Services;
+using RetireSimple.NewEngine.New_Engine.Financials;
 
 using System;
 using System.Collections.Generic;
@@ -7,17 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RetireSimple.NewEngine.New_Engine.Managers {
-	public class ExpenseManager : Manager {
-		public override bool Add(Financial f) {
-			if(f.category == FinCategories.EXPENSE) {
-				base.items.Add(f);
-				return true;
-			} else {
-				return false;
-			}
+	public class ExpenseManager : Manager<Info> {
+		public ExpenseManager(InvestmentVehicleService service) : base(service) {
 		}
-		public override bool DoDelete(int id) => throw new NotImplementedException();
-		public override Financial DoRead(int id) => throw new NotImplementedException();
-		public override bool DoUpdate(Financial f, int id) => throw new NotImplementedException();
 	}
 }

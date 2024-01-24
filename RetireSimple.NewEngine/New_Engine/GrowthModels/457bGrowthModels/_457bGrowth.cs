@@ -1,4 +1,5 @@
 ﻿using RetireSimple.Engine.New_Engine;
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.InvestmentVehicleInfos;
 
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace RetireSimple.NewEngine.New_Engine.GrowthModels._457bGrowthModels {
 	public class _457bGrowth: IGrowthModel {
 
-		private Projection DoGenerateProjection(double value, int years, _457bInfo info) {
+		private Projection DoGenerateProjection(double value, int years, _457bInfoModel info) {
 			List<double> values = new List<double>();
 
 			values.Add(value);
@@ -38,11 +39,11 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels._457bGrowthModels {
 		}
 
 
-		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfo info) {
-			return this.DoGenerateProjection(value, years, (_457bInfo)info);
+		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfoModel info) {
+			return this.DoGenerateProjection(value, years, (_457bInfoModel)info);
 
 		}
-		private double CalculateEmployerContributions(_457bInfo info, int i) {
+		private double CalculateEmployerContributions(_457bInfoModel info, int i) {
 
 			double contributions;
 
@@ -62,13 +63,13 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels._457bGrowthModels {
 
 		}
 
-		private double CalculateSalaryIncrease(_457bInfo info, int i) {
+		private double CalculateSalaryIncrease(_457bInfoModel info, int i) {
 
 			//base salary * (1 + salary increase rate) ^ i 
 			return info.salary * Math.Pow((1 + info.salaryIncrease), i);
 		}
 
-
+	
 	}
 }
 	

@@ -18,13 +18,13 @@ namespace RetireSimple.NewEngine.New_Engine {
 		private String userId;
 		private UserService userService;
 		
-		public NewEngineMain(UserService userService) {
+		public NewEngineMain(UserService userService, InvestmentVehicleService investmentVehicleService) {
 			//handle if there is not a user in the system
 
 			//handle create user
 			
 			//hard coded for testing right now
-			this.user = new User(userService, "61a6058e6c43f32854e51f51");
+			this.user = new User(userService, investmentVehicleService, "61a6058e6c43f32854e51f51");
 
 		}
 	
@@ -33,10 +33,24 @@ namespace RetireSimple.NewEngine.New_Engine {
 			await this.user.SetInfo(info);
 		}
 
-		public async Task<List<InvestmentVehicleInfoModel>> HandleReadInvestmentVehicles() {
+		public async Task<InvestmentVehicleInfoModel> DoHandleGetInvestmentVehicle(string id) {
 
-			return await this.user.GetInvestmentVehicles();
+			return await this.user.HandleGetInvestmentVehicle(id);
 		}
+
+		public async Task DoHandleCreateInvestmentVehicle(InvestmentVehicleInfoModel info) {
+			await this.user.HandleCreateInvestmentVehicle(info, "401k");
+		}
+
+		public async Task DoHandleUpdateInvestmentVehicle(string id, InvestmentVehicleInfoModel info) {
+			await this.user.HandleUpdateInvestmentVehicle(id, info);
+		}
+		public async Task DoHandleDeleteInvestmentVehicle(string id) {
+			await this.user.HandleDeleteInvestmentVehicle(id);
+		}
+
+
+
 
 		public async Task<UserInfoModel> HandleReadUser() {
 		
