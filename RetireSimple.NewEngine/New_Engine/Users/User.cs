@@ -1,4 +1,7 @@
-﻿using RetireSimple.Engine.New_Engine;
+﻿using Microsoft.Extensions.Options;
+
+using RetireSimple.Engine.New_Engine;
+using RetireSimple.NewEngine.New_Engine.Database;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
 using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles;
@@ -19,19 +22,15 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 
 		private ITax tax;
 
-		private UserInfo userInfo;
-
 		private Manager portfolioManager;
 
-		private UserService userService;
+		private Service<UserInfoModel> userService;
 
 		private string id;
 
 		public User(UserInfo userInfo, string id) {
 
 			this.id = id;
-		
-			this.userInfo = userInfo;
 
 			this.tax = new NullTax();
 
@@ -40,15 +39,13 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 
 		public User() {
 			this.id = "id here";
-			this.userInfo = new UserInfo(30, 65, 0, UserTaxStatus.SINGLE);
 			this.tax = new NullTax();
 			this.portfolioManager = new PortfolioManager();
 		}
 
-		public User(UserService userService, string id) {
-			this.userService = userService;
+		public User( string id) {
+			this.userService = new Service<UserInfoModel>("Users", new MongoService<UserInfoModel>());
 			this.id = id;
-			this.userInfo = new UserInfo(30, 65, 0, UserTaxStatus.SINGLE);
 			this.tax = new NullTax();
 			this.portfolioManager = new PortfolioManager();
 		}
@@ -59,40 +56,32 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			this.tax = tax;
 		}
 
-		public void UpdateInfo(UserInfo userInfo) {
-			this.userInfo = userInfo;
+		public async Task UpdateInfo(string id, UserInfoModel userInfo) {
+			await this.userService.HandleUpdateAsync(id, userInfo);
 		}
 
 		public async Task<UserInfoModel> GetInfo() {
-			return await this.userService.GetAsync(this.id);
+			return await this.userService.HandleGetAsync(this.id);
+		}
+
+		public async Task CreateInfo(UserInfoModel userInfo) {
+			await this.userService.HandleCreateAsync(userInfo);
 		}
 
 
-		public Projection GenerateProjections() {
+		public async Task<Projection> GenerateProjections() {
 
-			int years = this.userInfo.retirementAge - this.userInfo.age;
+			//int years = this.userInfo.retirementAge - this.userInfo.age;
+
+			UserInfoModel userInfo = await GetInfo();
+
+			int years = userInfo.RetirementAge - userInfo.Age;
 
 			return this.portfolioManager.Calculate(years);
 
 		}
 
-		public void saveToCSV(Projection proj, String test) {
-			//before your loop
-			var csv = new StringBuilder();
-
-			//in your loop
-			for(int i = 0; i < proj.yearly_projections.Count;i++) {
-				var x = (this.userInfo.age + i).ToString();
-				var y = proj.yearly_projections[i].ToString();
-				//Suggestion made by KyleMit
-				var newLine = x + "," + y;// string.Format("{x},{y}", x, y);
-				csv.AppendLine(newLine);
-			}
-
-			//after your loop
-			File.WriteAllText("..\\..\\..\\TestCSV\\" + test + ".csv", csv.ToString());
-		}
-
+		
 
 		public void AddInvestmentVehicle(InvestmentVehicle vehicle) {
 			this.portfolioManager.Add(vehicle);

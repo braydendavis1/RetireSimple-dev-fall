@@ -12,12 +12,12 @@ namespace UserstoreApi.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class UsersController : ControllerBase {
-	private readonly UserService _UserService;
+	//private readonly UserService _UserService;
 	private static NewEngineMain newEngineMain;
 
-	public UsersController(UserService UserService) {
-		_UserService = UserService;
-		newEngineMain = new NewEngineMain(UserService);
+	public UsersController() {
+		
+		newEngineMain = new NewEngineMain();
 	}
 
 	[EnableCors]
@@ -28,26 +28,18 @@ public class UsersController : ControllerBase {
 	//Initialization
 	[HttpPost]
 	public async Task<IActionResult> Post(UserInfoModel newUsers) {
-		await _UserService.CreateAsync(newUsers);
+		//await _UserService.CreateAsync(newUsers);
 
-		newEngineMain.HandleCreateUser(new UserInfo(newUsers.Age, newUsers.RetirementAge, newUsers.RetirementGoal, UserInfo.StringToStatus(newUsers.FilingStatus)));
+		newEngineMain.HandleCreateUser(newUsers);
 
 		return CreatedAtAction(nameof(Get), new { id = newUsers.Id }, newUsers);
 	}
 
 	[HttpPut]
 	public async Task<IActionResult> Update(string id, UserInfoModel updatedUsers) {
-		var Users = await _UserService.GetAsync(id);
+		//var Users = await _UserService.GetAsync(id);
 
-		if (Users is null) {
-			return NotFound();
-		}
-
-		updatedUsers.Id = Users.Id;
-
-		await _UserService.UpdateAsync(id, updatedUsers);
-
-		newEngineMain.HandleUpdateUser(new UserInfo(updatedUsers.Age, updatedUsers.RetirementAge, updatedUsers.RetirementGoal, UserInfo.StringToStatus(updatedUsers.FilingStatus)));
+		newEngineMain.HandleUpdateUser(id, updatedUsers);
 
 		return NoContent();
 	}

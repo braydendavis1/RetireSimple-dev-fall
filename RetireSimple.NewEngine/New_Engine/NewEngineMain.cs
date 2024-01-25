@@ -17,18 +17,18 @@ namespace RetireSimple.NewEngine.New_Engine {
 		private String userId;
 		private UserService userService;
 		
-		public NewEngineMain(UserService userService) {
+		public NewEngineMain() {
 			//handle if there is not a user in the system
 			
 			//hard coded for testing right now
-			this.user = new User(userService, "61a6058e6c43f32854e51f51");
+			this.user = new User("61a6058e6c43f32854e51f51");
 
 		}
 	
 
-		public Boolean HandleCreateUser(UserInfo info) {
-			this.user.UpdateInfo(info);
-			return true;
+		public async Task HandleCreateUser(UserInfoModel info) {
+			await this.user.CreateInfo(info);
+			
 		}
 
 		public async Task<UserInfoModel> HandleReadUser() {
@@ -36,9 +36,9 @@ namespace RetireSimple.NewEngine.New_Engine {
 			return await this.user.GetInfo();
 		}
 
-		public Boolean HandleUpdateUser(UserInfo info) {
-			this.user.UpdateInfo(info);
-			return true;
+		public async Task HandleUpdateUser(string id, UserInfoModel info) {
+			await this.user.UpdateInfo(id, info);
+			
 		}
 
 
