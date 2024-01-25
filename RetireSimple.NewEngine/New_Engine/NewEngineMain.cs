@@ -15,7 +15,7 @@ namespace RetireSimple.NewEngine.New_Engine {
 
 		private User user;
 		private String userId;
-		private UserService userService;
+
 		
 		public NewEngineMain() {
 			//handle if there is not a user in the system
