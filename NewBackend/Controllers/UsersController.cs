@@ -13,11 +13,11 @@ namespace UserstoreApi.Controllers;
 [Route("api/[controller]")]
 public class UsersController : ControllerBase {
 	//private readonly UserService _UserService;
-	private static NewEngineMain newEngineMain;
+	private readonly NewEngineMain newEngineMain;
 
-	public UsersController() {
+	public UsersController(NewEngineMain newEngineMain) {
 		
-		newEngineMain = new NewEngineMain();
+		this.newEngineMain = newEngineMain;
 	}
 
 	[EnableCors]
@@ -30,7 +30,7 @@ public class UsersController : ControllerBase {
 	public async Task<IActionResult> Post(UserInfoModel newUsers) {
 		//await _UserService.CreateAsync(newUsers);
 
-		newEngineMain.HandleCreateUser(newUsers);
+		await newEngineMain.HandleCreateUser(newUsers);
 
 		return CreatedAtAction(nameof(Get), new { id = newUsers.Id }, newUsers);
 	}
@@ -39,7 +39,7 @@ public class UsersController : ControllerBase {
 	public async Task<IActionResult> Update(string id, UserInfoModel updatedUsers) {
 		//var Users = await _UserService.GetAsync(id);
 
-		newEngineMain.HandleUpdateUser(id, updatedUsers);
+		await newEngineMain.HandleUpdateUser(id, updatedUsers);
 
 		return NoContent();
 	}
