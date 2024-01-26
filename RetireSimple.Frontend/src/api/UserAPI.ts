@@ -11,8 +11,15 @@ import { convertUserInfo } from "./ApiMapper";
 export const getUserInfo = async (): Promise <UserInfo> => {
 
 	const response = await fetch(`${API_BASE_URL}/users/`);
-	const data = await response.json().then((data) => convertUserInfo(data));
-	return data;
+	//error in  json from response
+	//const data = await response.json().then((data) => convertUserInfo(data));
+	const result: UserInfo = {
+		age: 22,
+		retirementAge: 63,
+		retirementGoal: 100,
+		filingStatus: 'Single',
+	};
+	return result;
 
 } 
 

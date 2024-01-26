@@ -149,7 +149,7 @@ export const convertUserInfo = (data: any): UserInfo => {
 		// 	});
 		// });
 	});
-
+	
 	return result;
 };
 

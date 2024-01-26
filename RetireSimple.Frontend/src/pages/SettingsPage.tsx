@@ -13,9 +13,10 @@ export function SettingsPage() {
 		if (userInfo === undefined) {
 			console.log("SETTINGS");
 			getUserInfo().then((data) => {
+				console.log(data);
 				setUserInfo(data);
 				
-				console.log(data);
+				
 			});
 		}
 	});
