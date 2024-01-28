@@ -1,7 +1,7 @@
 import {Box, Typography} from '@mui/material';
 import React from 'react';
 import EditableTable from '../components/EditableTable';
-import { getUserInfo } from '../api/UserAPI'
+import { getUserInfo, saveUserInfo } from '../api/UserAPI'
 import SettingsForm from '../components/SettingsComponent';
 import { UserInfo } from '../Interfaces';
   
@@ -15,6 +15,7 @@ export function SettingsPage() {
 			getUserInfo().then((data) => {
 				console.log(data);
 				setUserInfo(data);
+				//console.log(data);
 				
 				
 			});
@@ -23,15 +24,14 @@ export function SettingsPage() {
 
 	
 	const updateUserInfo = (data: UserInfo) => {
-
-		updateUserInfo(data);
+		saveUserInfo(data);
 	}
 
 
 	return (<div>
 		<h1>Account Settings</h1>
-		<Box sx={{padding: '2rem'}}>
-			<SettingsForm userInfo={userInfo}  />
+		<Box sx={{ padding: '2rem' }}>
+			<SettingsForm userInfo={userInfo} setUserInfo={(data: UserInfo) => updateUserInfo(data) } />
 		</Box>
 	</div>
 	);

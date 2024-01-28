@@ -10,6 +10,14 @@ import { convertUserInfo } from "./ApiMapper";
 
 export const getUserInfo = async (): Promise <UserInfo> => {
 
+	const response = await fetch(`https://localhost:7199/api/users`);
+	const data = await response.json().then((data) => {
+		console.log("This is the prinr! " + data)
+		return convertUserInfo(data)
+		
+	});
+	console.log(data)
+	return data
 	const response = await fetch(`${API_BASE_URL}/users/`);
 	//error in  json from response
 	//const data = await response.json().then((data) => convertUserInfo(data));
@@ -26,8 +34,10 @@ export const getUserInfo = async (): Promise <UserInfo> => {
 
 export const saveUserInfo = async (data: UserInfo) => {
 
-	const response = await fetch(`${API_BASE_URL}/users`, {
-		method: 'POST',
+	console.log(data)
+
+	const response = await fetch(`https://localhost:7199/api/users?id=${data.id}`, {
+		method: 'PUT',
 		body: JSON.stringify(data),
 		headers: {
 			Accept: 'application/json',

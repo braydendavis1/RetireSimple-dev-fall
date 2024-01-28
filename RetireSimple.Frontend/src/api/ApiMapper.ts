@@ -126,10 +126,11 @@ export const getFlatVehicleData = (vehicle: InvestmentVehicle) => {
 
 export const convertUserInfo = (data: any): UserInfo => {
 	const result: UserInfo = {
-		age: 22,
-		retirementAge: 63,
-		retirementGoal: 0,
-		filingStatus: '',
+		id: data.id,
+		age: data.age,
+		retirementAge: data.retirementAge,
+		retirementGoal: data.retirementGoal,
+		filingStatus: data.filingStatus,
 	};
 
 	Object.keys(data).forEach((analysis_key) => {

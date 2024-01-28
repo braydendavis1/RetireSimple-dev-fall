@@ -19,6 +19,7 @@ export interface InvestmentModel {
 }
 
 export interface UserInfo {
+	id: string
 	age: number;
 	retirementAge: number
 	retirementGoal: number
@@ -44,6 +45,18 @@ export interface FullModelData {
 }
 
 export interface InvestmentVehicle {
+	portfolioId: number;
+	investmentVehicleId: number;
+	investmentVehicleName: string;
+	investmentVehicleType: string;
+	investments: Investment[];
+	investmentVehicleModelId?: number;
+	investmentVehicleData: {[key: string]: string};
+	lastUpdated: string; //treat as a date later?
+	analysisOptionsOverrides: {[key: string]: string};
+}
+
+export interface Expense {
 	portfolioId: number;
 	investmentVehicleId: number;
 	investmentVehicleName: string;
