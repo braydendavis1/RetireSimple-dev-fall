@@ -8,7 +8,7 @@ import { deleteVehicle } from '../api/VehicleApi';
 export const VehicleComponent = (vehicle: InvestmentVehicle, callback: Function) => {
 //deleteInvestment
 
-	return <body style={{backgroundColor: '#DCDCDC', margin: '15px'}}>
+	return <body style={{backgroundColor: 'white', margin: '15px', outline: '5px solid black'}}>
 		<div style={{width: '900px', paddingLeft: '10px', paddingBottom: '10px', paddingRight: '0px'}}>
 			<span>
 				<h2> {vehicle.investmentVehicleName} 

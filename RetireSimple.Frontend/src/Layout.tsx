@@ -32,7 +32,7 @@ export const Layout = () => {
 	
 
 	// console.log("Portfolio in layout");
-	console.log("Portfolio:" + portfolio.portfolioModel.portfolioModelId);
+	// console.log("Portfolio:" + portfolio.portfolioModel.portfolioModelId);
 	console.log("Investments:" + investments);
 
 	const [presetData, setPresetData] = React.useState<ApiPresetData | undefined>(undefined);
