@@ -18,16 +18,16 @@ export const getUserInfo = async (): Promise <UserInfo> => {
 	});
 	console.log(data)
 	return data
-	const response = await fetch(`${API_BASE_URL}/users/`);
-	//error in  json from response
-	//const data = await response.json().then((data) => convertUserInfo(data));
-	const result: UserInfo = {
-		age: 22,
-		retirementAge: 63,
-		retirementGoal: 100,
-		filingStatus: 'Single',
-	};
-	return result;
+	// const response = await fetch(`${API_BASE_URL}/users/`);
+	// //error in  json from response
+	// //const data = await response.json().then((data) => convertUserInfo(data));
+	// const result: UserInfo = {
+	// 	age: 22,
+	// 	retirementAge: 63,
+	// 	retirementGoal: 100,
+	// 	filingStatus: 'Single',
+	// };
+	// return result;
 
 } 
 
