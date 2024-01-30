@@ -47,7 +47,7 @@ namespace RetireSimple.NewEngine.New_Engine {
 			await this.user.CreateInvestmentVehicle(vehicle, type);
 		}
 
-		public async Task<List<InvestmentVehicleInfoModel>> HandleGetInvestmentVehciles() {
+		public async Task<List<InvestmentVehicleInfoModel>> HandleGetInvestmentVehicles() {
 			return await this.user.GetInvestmentVehicles();
 		}
 

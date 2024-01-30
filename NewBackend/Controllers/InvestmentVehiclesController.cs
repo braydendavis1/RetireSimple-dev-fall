@@ -25,7 +25,7 @@ public class InvestmentVehiclesController : ControllerBase {
 	[EnableCors]
 	[HttpGet]
 	public async Task<List<InvestmentVehicleInfoModel>> Get() =>
-		 await newEngineMain.HandleGetInvestmentVehciles();
+		 await newEngineMain.HandleGetInvestmentVehicles();
 
 	//Initialization
 	[HttpPost]
