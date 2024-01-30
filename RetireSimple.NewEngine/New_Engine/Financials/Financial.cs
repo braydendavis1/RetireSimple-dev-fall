@@ -5,18 +5,18 @@ namespace RetireSimple.NewEngine.New_Engine.Financials {
 
 	public abstract class Financial {
 
-		private int id;
+		public readonly string id;
 
 		public readonly FinCategories category;
 
-		public Financial(int id, FinCategories category) {
+		public Financial(string id, FinCategories category) {
 			this.category = category;
 			this.id = id;
 
 		}
 
 
-		abstract public Projection Calculate(int years);
+		abstract public Task<Projection> Calculate(int years);
 	}
 
 }
