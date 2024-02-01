@@ -9,15 +9,17 @@ using System.Threading.Tasks;
 using RetireSimple.NewEngine.New_Engine.Financials;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles._401k;
+using RetireSimple.NewEngine.New_Engine.Database.Services;
 
 namespace RetireSimple.NewEngine.New_Engine.Managers {
 	public class PortfolioManager : Manager {
 
 
 		private List<InvestmentVehicle> investmentVehicles;
+		private Service<InvestmentVehicleInfoModel> service;
 
 		public PortfolioManager() {
-			
+			this.service = new Service<InvestmentVehicleInfoModel>("InvestmentVehicles", new MongoService<InvestmentVehicleInfoModel>());
 		}
 
 		public override bool Add(Financial f) 
@@ -49,35 +51,29 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 		public async Task<List<InvestmentVehicleInfoModel>> GetInvestmentVehicleInfoModels() {
 
+			return await this.service.HandleGetAsync();
+			
 
-			List<Task> tasks = new();
-			List<InvestmentVehicleInfoModel> models = new();
 
-			investmentVehicles.ForEach(x => tasks.Add(Task.Run(async () => models.Add( await x.GetInfo()))));
+		}
 
-			await Task.WhenAll(tasks);
+		public async Task<InvestmentVehicleInfoModel> GetInvestmentVehicleInfoModel(string id) {
 
-			return models;
-
+			return await this.service.HandleGetAsync(id);
 
 		}
 
 		public async Task CreateInvestmentVehicle(InvestmentVehicleInfoModel info, string type) {
 			if (type.Equals("401k")) {
-				_401k vehicle = new _401k("61a6058e6c43f32854e51f31");
+				_401k vehicle = new _401k(info.Id);
+				this.investmentVehicles.Add(vehicle);
 				await vehicle.SetInfo(info);
 			}
 
 		}
 
 		public async Task UpdateInvestmentVehicle(string id, InvestmentVehicleInfoModel info) {
-			for(int i = 0; i < this.investmentVehicles.Count; i++) {
-				InvestmentVehicle vehicle = this.investmentVehicles[i];
-
-				if (vehicle.id.Equals(id)) {
-					await vehicle.UpdateInfo(info);
-				}
-			}
+			await this.service.HandleUpdateAsync(id, info);
 
 		}
 	}

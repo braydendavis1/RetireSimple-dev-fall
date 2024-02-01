@@ -1,6 +1,5 @@
 ﻿using RetireSimple.Engine.New_Engine;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
-using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels.VehicleInfos;
 using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.InvestmentVehicleInfos;
 using RetireSimple.NewEngine.New_Engine.GrowthModels;
