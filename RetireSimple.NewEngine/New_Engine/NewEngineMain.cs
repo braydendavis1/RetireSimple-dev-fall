@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 using RetireSimple.NewEngine.New_Engine.Database.Services;
+using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.InvestmentVehicleInfos;
 using RetireSimple.NewEngine.New_Engine.Users;
 
 namespace RetireSimple.NewEngine.New_Engine {
@@ -49,6 +50,10 @@ namespace RetireSimple.NewEngine.New_Engine {
 
 		public async Task<List<InvestmentVehicleInfoModel>> HandleGetInvestmentVehicles() {
 			return await this.user.GetInvestmentVehicles();
+		}
+
+		public async Task<InvestmentVehicleInfoModel> HandleGetInvestmentVehicle(string id) {
+			return await this.user.GetInvestmentVehicle(id);
 		}
 
 		public async Task HandleUpdateInvestmentVehicle(string id, InvestmentVehicleInfoModel vehicle) {

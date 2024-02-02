@@ -106,7 +106,9 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			await this.portfolioManager.UpdateInvestmentVehicle(id, info);
 		}
 	
-
+		public async Task<InvestmentVehicleInfoModel> GetInvestmentVehicle(string id) {
+			return await this.portfolioManager.GetInvestmentVehicleInfoModel(id);
+		}
 
 
 

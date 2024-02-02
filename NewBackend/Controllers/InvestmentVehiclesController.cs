@@ -27,6 +27,13 @@ public class InvestmentVehiclesController : ControllerBase {
 	public async Task<List<InvestmentVehicleInfoModel>> Get() =>
 		 await newEngineMain.HandleGetInvestmentVehicles();
 
+	[EnableCors]
+	[HttpGet]
+	[Route("{id}")]
+	public async Task<InvestmentVehicleInfoModel> Get(string id) {
+		return await newEngineMain.HandleGetInvestmentVehicle(id);
+	}
+
 	//Initialization
 	[HttpPost]
 	public async Task<IActionResult> Post(InvestmentVehicleInfoModel vehicle, string Type) {
@@ -38,6 +45,7 @@ public class InvestmentVehiclesController : ControllerBase {
 
 		return CreatedAtAction(nameof(Get), new { id = vehicle.Id }, vehicle);
 	}
+
 
 
 	[HttpPut]
