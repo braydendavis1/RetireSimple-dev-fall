@@ -20,6 +20,7 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 		public PortfolioManager() {
 			this.service = new Service<InvestmentVehicleInfoModel>("InvestmentVehicles", new MongoService<InvestmentVehicleInfoModel>());
+			this.investmentVehicles = new List<InvestmentVehicle>();
 		}
 
 		public override bool Add(Financial f) 
@@ -75,6 +76,20 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 		public async Task UpdateInvestmentVehicle(string id, InvestmentVehicleInfoModel info) {
 			await this.service.HandleUpdateAsync(id, info);
 
+		}
+
+		public async Task DeleteInvestmentVehicleInfoModel(string id) {
+			int index = -1;
+			for(int i = 0; i <  this.investmentVehicles.Count; i++) {
+				if (this.investmentVehicles[i].Equals(id)) {
+					index = 0;
+				}
+			}
+			if(index != -1) {
+				this.investmentVehicles.RemoveAt(index);
+			}
+			
+			await this.service.HandleDeleteAsync(id);
 		}
 	}
 

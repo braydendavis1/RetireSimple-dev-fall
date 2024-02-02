@@ -58,5 +58,11 @@ public class InvestmentVehiclesController : ControllerBase {
 		return NoContent();
 	}
 
+	[HttpDelete]
+	public async Task<IActionResult> Delete(string id) {
+		await newEngineMain.HandleDeleteInvestmentVehicle(id);
+		return NoContent();
+	}
+
 	
 }

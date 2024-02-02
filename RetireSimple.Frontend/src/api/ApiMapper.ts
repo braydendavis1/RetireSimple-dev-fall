@@ -7,6 +7,8 @@ import {
 	InvestmentVehicleModel,
 	PortfolioModel,
 	UserInfo,
+	InvestmentVehicleInfo
+	
 } from '../Interfaces';
 
 //Flattens API Investment object for form use
@@ -153,6 +155,10 @@ export const convertUserInfo = (data: any): UserInfo => {
 	
 	return result;
 };
+
+export const convertInvestmentVehiclesInfo = (data : any): InvestmentVehicleInfo[] => {
+	
+}
 
 export const convertApiPresets = (data: any): ApiPresetData => {
 	const result: ApiPresetData = {};

@@ -4,7 +4,7 @@ import React from 'react';
 import {FormProvider, useForm, useFormState} from 'react-hook-form';
 import {FieldValues} from 'react-hook-form/dist/types';
 import {useFormAction, useLoaderData, useSubmit} from 'react-router-dom';
-import {ApiPresetData, Investment, InvestmentModel, InvestmentVehicle, Portfolio} from '../Interfaces';
+import {ApiPresetData, Investment, InvestmentModel, InvestmentVehicle, Portfolio, InvestmentVehicleInfo} from '../Interfaces';
 import {updateInvestment} from '../api/InvestmentApi';
 import {AddInvestmentDialog, AddVehicleDialog, ConfirmDeleteDialog} from '../components/DialogComponents';
 import {InvestmentModelGraph} from '../components/GraphComponents';
@@ -18,6 +18,7 @@ import { PresetContext } from '../Layout';
 import { InvestmentComponent } from '../components/InvestmentComponent';
 import { getAnalysisPresets } from '../api/ApiCommon';
 import { VehicleComponent } from '../components/VehicleComponent';
+
   
 export function VehiclesPage() { 
 

@@ -60,10 +60,8 @@ namespace RetireSimple.NewEngine.New_Engine {
 			await this.user.UpdateInvestmentVehicle(id, vehicle);
 		}
 
-		
-
-
-
-
+		public async Task HandleDeleteInvestmentVehicle(string id) {
+			await this.user.DeleleInvestmentVehicle(id);
+		}
 	}
 }

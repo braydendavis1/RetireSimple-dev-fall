@@ -110,9 +110,8 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			return await this.portfolioManager.GetInvestmentVehicleInfoModel(id);
 		}
 
-
-
-
-
+		public async Task DeleleInvestmentVehicle(string id) {
+			await this.portfolioManager.DeleteInvestmentVehicleInfoModel(id);
+		}
 	}
 }

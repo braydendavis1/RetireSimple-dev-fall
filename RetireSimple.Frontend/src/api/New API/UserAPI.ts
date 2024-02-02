@@ -1,6 +1,5 @@
-import { UserInfo } from "../Interfaces";
-import { API_BASE_URL } from "./ApiCommon";
-import { convertUserInfo } from "./ApiMapper";
+import { UserInfo } from "../../Interfaces";
+import { convertUserInfo } from "../ApiMapper";
 
 // export const getAnalysisPresets = async (): Promise<ApiPresetData> => {
 // 	const response = await fetch(`${API_BASE_URL}/Analysis/Presets`);

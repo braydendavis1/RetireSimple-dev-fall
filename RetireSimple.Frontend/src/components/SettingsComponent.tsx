@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getUserInfo } from '../api/UserAPI'
+import { getUserInfo } from '../api/New API/UserAPI'
 import { UserInfo } from '../Interfaces';
 import CurrencyInput from 'react-currency-input-field';
 

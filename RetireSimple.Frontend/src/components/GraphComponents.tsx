@@ -115,7 +115,7 @@ export const InvestmentModelGraph = (props: {investmentId: number}) => {
 	);
 };
 
-export const VehicleModelGraph = (props: {vehicleId: number}) => {
+export const VehicleModelGraph = (props: {vehicleId: string}) => {
 	const [modelData, setModelData] = React.useState<{base: any[]; taxed: any[]} | undefined>(
 		undefined,
 	);
@@ -129,25 +129,26 @@ export const VehicleModelGraph = (props: {vehicleId: number}) => {
 		}
 	}, [navigation.state]);
 
-	const getModelData = () => {
-		setLoading(true);
-		getVehicleModel(props.vehicleId)
-			.then((data: any) => {
-				setModelData(convertVehicleModelData(data));
-			})
-			.then(() => setLoading(false));
-		if(modelData) {
-			console.log(modelData.taxed);
+	// const getModelData = () => {
+	// 	setLoading(true);
+	// 	getVehicleModel(props.vehicleId)
+	// 		.then((data: any) => {
+	// 			setModelData(convertVehicleModelData(data));
+	// 		})
+	// 		.then(() => setLoading(false));
+	// 	if(modelData) {
+	// 		console.log(modelData.taxed);
 
-		}
-	};
+	// 	}
+	// };
 
 	return (
 		<div>
 			<Box>
 				{!loading && modelData === undefined && (
 					<Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-						<Button onClick={getModelData} disabled={modelData !== undefined}>
+						{/* <Button onClick={getModelData} disabled={modelData !== undefined}> */}
+						<Button onClick={() => {console.log("Get Model Data")}} disabled={modelData !== undefined}>
 							Get Model Data
 						</Button>
 					</Box>
