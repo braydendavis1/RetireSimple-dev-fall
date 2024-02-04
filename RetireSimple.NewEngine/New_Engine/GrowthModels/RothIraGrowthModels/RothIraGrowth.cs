@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RetireSimple.NewEngine.New_Engine.GrowthModels.RothIraGrowth {
 	public class RothIraGrowth : IGrowthModel {
-		public async Task<Projection> GenerateProjection(double value, int years, InvestmentVehicleInfoModel info) 
+		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfoModel info) 
 		{
 
 			return null;

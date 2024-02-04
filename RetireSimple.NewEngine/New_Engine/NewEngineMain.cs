@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
+using RetireSimple.Engine.New_Engine;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 using RetireSimple.NewEngine.New_Engine.Database.Services;
@@ -24,6 +25,7 @@ namespace RetireSimple.NewEngine.New_Engine {
 			
 			//hard coded for testing right now
 			this.user = new User("61a6058e6c43f32854e51f51");
+		
 
 		}
 	
@@ -62,6 +64,18 @@ namespace RetireSimple.NewEngine.New_Engine {
 
 		public async Task HandleDeleteInvestmentVehicle(string id) {
 			await this.user.DeleleInvestmentVehicle(id);
+		}
+
+		public async Task<ProjectionInfoModel> HandleGetPorfolioProjection(int years) {
+			ProjectionInfoModel projection = new ProjectionInfoModel();
+
+			projection.yearly_projections = await this.user.GetPortfolioProjection(years);
+
+			return projection;
+		}
+
+		public async Task<Projection> HandleGetVehicleProjection(string id, int years) {
+			return await this.user.GetVehicleProjection(id, years);
 		}
 	}
 }

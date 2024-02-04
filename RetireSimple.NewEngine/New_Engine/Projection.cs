@@ -14,7 +14,7 @@ namespace RetireSimple.Engine.New_Engine
 			current = 0;
 		}
 
-		public Projection Add(Projection other_proj) {
+		public  Projection Add(Projection other_proj) {
 			List<double> list = new List<double>();
 
 			int count;

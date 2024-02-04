@@ -78,7 +78,7 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 
 			int years = userInfo.RetirementAge - userInfo.Age;
 
-			return this.portfolioManager.Calculate(years);
+			return await this.portfolioManager.Calculate(years);
 
 		}
 
@@ -112,6 +112,14 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 
 		public async Task DeleleInvestmentVehicle(string id) {
 			await this.portfolioManager.DeleteInvestmentVehicleInfoModel(id);
+		}
+
+		public async Task<Projection> GetPortfolioProjection(int years) {
+			return await this.portfolioManager.Calculate(years);
+		}
+
+		public async Task<Projection> GetVehicleProjection(string id, int years) {
+			return await this.portfolioManager.GetVehicleProjection( id, years);
 		}
 	}
 }

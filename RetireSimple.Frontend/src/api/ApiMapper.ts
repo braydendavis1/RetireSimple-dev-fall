@@ -157,6 +157,25 @@ export const convertUserInfo = (data: any): UserInfo => {
 };
 
 export const convertInvestmentVehiclesInfo = (data : any): InvestmentVehicleInfo[] => {
+
+	let vehicles: InvestmentVehicleInfo[] = [];
+
+	data.forEach((vehicleInfo: any) => {
+		const vehicle: InvestmentVehicleInfo = {
+			id: vehicleInfo.id,
+			value: vehicleInfo.value,
+			contributions: vehicleInfo.contributions,
+			salary: vehicleInfo.salary,
+			salaryIncrease: vehicleInfo.salaryIncrease,
+			rate: vehicleInfo.rate,
+			employerMatch: vehicleInfo.employerMatch,
+			employerMatchCap: vehicleInfo.employerMatchCap,
+		};
+
+		vehicles.push(vehicle);
+	} )
+
+	return vehicles;
 	
 }
 

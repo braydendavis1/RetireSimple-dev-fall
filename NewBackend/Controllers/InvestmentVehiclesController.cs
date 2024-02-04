@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NewBackend.Services;
-using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
-using RetireSimple.NewEngine.New_Engine.Database.Services;
-
-using RetireSimple.NewEngine.New_Engine.Users;
 using RetireSimple.NewEngine.New_Engine;
 using Microsoft.AspNetCore.Cors;
 using MongoDB.Driver;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
+using RetireSimple.Engine.New_Engine;
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
 
 namespace UserstoreApi.Controllers;
 
@@ -34,10 +31,24 @@ public class InvestmentVehiclesController : ControllerBase {
 		return await newEngineMain.HandleGetInvestmentVehicle(id);
 	}
 
+	[EnableCors]
+	[HttpGet]
+	[Route("PortfolioProjection/{years}")]
+	public async Task<ProjectionInfoModel> GetPortfolioProjection(int years) {
+
+		return await newEngineMain.HandleGetPorfolioProjection(years);
+	}
+
+	[EnableCors]
+	[HttpGet]
+	[Route("Projection/{id}/{years}")]
+	public async Task<Projection> GetVehicleProjection(string id, int years) {
+		return await newEngineMain.HandleGetVehicleProjection(id, years);
+	}
+
 	//Initialization
 	[HttpPost]
 	public async Task<IActionResult> Post(InvestmentVehicleInfoModel vehicle, string Type) {
-		//await _UserService.CreateAsync(newUsers);
 
 		await newEngineMain.HandleCreateInvestmentVehicle(vehicle, Type);
 
@@ -63,6 +74,8 @@ public class InvestmentVehiclesController : ControllerBase {
 		await newEngineMain.HandleDeleteInvestmentVehicle(id);
 		return NoContent();
 	}
+
+
 
 	
 }

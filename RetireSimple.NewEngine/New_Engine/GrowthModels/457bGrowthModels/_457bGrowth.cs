@@ -39,7 +39,7 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels._457bGrowthModels {
 		}
 
 
-		public async Task<Projection> GenerateProjection(double value, int years, InvestmentVehicleInfoModel info) {
+		public  Projection GenerateProjection(double value, int years, InvestmentVehicleInfoModel info) {
 			//return this.DoGenerateProjection(value, years, (_457bInfo)info);
 			return null;
 		}

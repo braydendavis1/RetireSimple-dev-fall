@@ -17,7 +17,7 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels {
 		public FixedGrowth(double rate) {
 			this.rate = rate;
 		}
-		public async Task<Projection> GenerateProjection(double value, int years, InvestmentVehicleInfoModel info) {
+		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfoModel info) {
 			List<double> values = new List<double>();
 
 			values.Add(value);

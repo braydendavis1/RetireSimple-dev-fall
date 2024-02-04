@@ -10,7 +10,7 @@ namespace RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicl
 
 		public double Value { get; set; }
 
-		public string type { get; set; }
+		public string Type { get; set; }
 
 		//What percent of your salary do you plan on contributing yearly
 		public double? Contributions { get; set; }

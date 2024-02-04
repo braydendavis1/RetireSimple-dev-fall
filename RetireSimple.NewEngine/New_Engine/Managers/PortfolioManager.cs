@@ -10,6 +10,7 @@ using RetireSimple.NewEngine.New_Engine.Financials;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles._401k;
 using RetireSimple.NewEngine.New_Engine.Database.Services;
+using RetireSimple.Engine.New_Engine;
 
 namespace RetireSimple.NewEngine.New_Engine.Managers {
 	public class PortfolioManager : Manager {
@@ -17,11 +18,27 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 		private List<InvestmentVehicle> investmentVehicles;
 		private Service<InvestmentVehicleInfoModel> service;
+		
 
 		public PortfolioManager() {
 			this.service = new Service<InvestmentVehicleInfoModel>("InvestmentVehicles", new MongoService<InvestmentVehicleInfoModel>());
+
 			this.investmentVehicles = new List<InvestmentVehicle>();
+
+			LoadInvestmentVehicles();
+
 		}
+
+
+		public async void LoadInvestmentVehicles() {
+			List<InvestmentVehicleInfoModel> investmentVehiclesInfo = await this.service.HandleGetAsync();
+
+			investmentVehiclesInfo.ForEach(info => {
+				this.investmentVehicles.Add(InvestmentVehicleLoader.Load(info));
+			});
+
+
+		} 
 
 		public override bool Add(Financial f) 
 		{
@@ -90,6 +107,21 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			}
 			
 			await this.service.HandleDeleteAsync(id);
+		}
+
+		public async Task<Projection> GetVehicleProjection(string id, int years) {
+			int index = -1;
+			for (int i = 0; i < this.investmentVehicles.Count; i++) {
+				if (this.investmentVehicles[i].Equals(id)) {
+					index = 0;
+				}
+			}
+			if (index != -1) {
+				InvestmentVehicle vehicle = this.investmentVehicles[index];
+
+				return await vehicle.Calculate(years);
+			}
+			return null;
 		}
 	}
 

@@ -4,7 +4,7 @@ using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.Investment
 
 namespace RetireSimple.NewEngine.New_Engine.GrowthModels {
 	public interface IGrowthModel {
-		Task<Projection> GenerateProjection(double value, int years, InvestmentVehicleInfoModel info);
+		Projection GenerateProjection(double value, int years, InvestmentVehicleInfoModel info);
 
 	}
 }
