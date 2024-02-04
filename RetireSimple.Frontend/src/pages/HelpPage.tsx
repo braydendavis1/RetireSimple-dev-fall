@@ -15,6 +15,7 @@ import {ExpensesTable} from '../forms/ExpenseTable';
 import {useSnackbar} from 'notistack';
 import { Link } from 'react-router-dom'; 
 import { getTestData } from '../api/NewApiMapper';
+import SettingsNav from './SettingsNav';
   
 
 function doGetTestData(){
@@ -23,6 +24,7 @@ function doGetTestData(){
 
 export function HelpPage() { 
 	return (<div>
+		<SettingsNav />
 		<h1>Help</h1>
 		<Button onClick={doGetTestData}>
 			Test
