@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RetireSimple.NewEngine.New_Engine.Financials.Expenses {
 	public class MonthlyExpense : Expense {
-		public MonthlyExpense(int id, double amount, int start) : base( id, amount, start) {
+		public MonthlyExpense(string id, double amount, int start) : base( id, amount, start) {
 		}
 
 		public override Projection GenerateProjection(int years) 

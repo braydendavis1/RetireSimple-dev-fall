@@ -26,7 +26,7 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			Projection projection = new Projection(new List<double>(), 0);
 
 			foreach (Financial f in this.items) {
-				projection = projection.Add(f.Calculate(years));
+				//projection = projection.Add(f.Calculate(years));
 			}
 
 			return projection;

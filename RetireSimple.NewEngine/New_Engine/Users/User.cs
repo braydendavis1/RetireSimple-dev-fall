@@ -3,6 +3,7 @@
 using RetireSimple.Engine.New_Engine;
 using RetireSimple.NewEngine.New_Engine.Database;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles;
 using RetireSimple.NewEngine.New_Engine.Managers;
@@ -22,7 +23,7 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 
 		private ITax tax;
 
-		private Manager portfolioManager;
+		private PortfolioManager portfolioManager;
 
 		private Service<UserInfoModel> userService;
 
@@ -92,12 +93,25 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			return this.tax.CalculateTax(income);
 		
 		}
+
+		public async Task<List<InvestmentVehicleInfoModel>> GetInvestmentVehicles() {
+			return await this.portfolioManager.GetInvestmentVehicleInfoModels();
+		}
+
+		public async Task CreateInvestmentVehicle(InvestmentVehicleInfoModel info, string type) {
+			await this.portfolioManager.CreateInvestmentVehicle(info, type);
+		}
+
+		public async Task UpdateInvestmentVehicle(string id, InvestmentVehicleInfoModel info) {
+			await this.portfolioManager.UpdateInvestmentVehicle(id, info);
+		}
 	
+		public async Task<InvestmentVehicleInfoModel> GetInvestmentVehicle(string id) {
+			return await this.portfolioManager.GetInvestmentVehicleInfoModel(id);
+		}
 
-
-
-
-
-
+		public async Task DeleleInvestmentVehicle(string id) {
+			await this.portfolioManager.DeleteInvestmentVehicleInfoModel(id);
+		}
 	}
 }

@@ -26,6 +26,19 @@ export interface UserInfo {
 	filingStatus: string
 }
 
+export interface InvestmentVehicleInfo{
+	id: string
+	value: number
+	contributions: number | null
+	salary: number | null
+	salaryIncrease: number | null
+	rate: number | null
+	employerMatch: number | null
+	employerMatchCap: number | null
+
+}
+
+
 export interface Projection {
 	values: number[];
 }

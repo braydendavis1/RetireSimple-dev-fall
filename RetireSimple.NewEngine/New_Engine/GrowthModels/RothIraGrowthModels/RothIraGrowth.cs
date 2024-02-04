@@ -1,4 +1,5 @@
 ﻿using RetireSimple.Engine.New_Engine;
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.InvestmentVehicleInfos;
 
 using System;
@@ -9,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace RetireSimple.NewEngine.New_Engine.GrowthModels.RothIraGrowth {
 	public class RothIraGrowth : IGrowthModel {
-		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfo info) 
+		public async Task<Projection> GenerateProjection(double value, int years, InvestmentVehicleInfoModel info) 
 		{
 
-			return this.DoGenerateProjection(value, years, (RothIraInfo)info);
+			return null;
 
 		}
 

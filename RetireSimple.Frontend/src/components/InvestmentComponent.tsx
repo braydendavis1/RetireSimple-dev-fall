@@ -8,7 +8,7 @@ import { InvestmentModelGraph } from './GraphComponents';
 export const InvestmentComponent = (investment: Investment, openEditDialog: Function) => {
 //deleteInvestment
 
-	return <body style={{backgroundColor: '#DCDCDC', margin: '15px'}}>
+	return <body style={{backgroundColor: 'white', margin: '15px', outline: '5px solid black'}}>
 		<div style={{width: '900px', paddingLeft: '10px', paddingBottom: '10px', paddingRight: '0px'}}>
 			<span>
 				<h2> {investment.investmentName} 

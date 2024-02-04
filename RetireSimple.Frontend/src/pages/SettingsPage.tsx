@@ -1,7 +1,7 @@
 import {Box, Typography} from '@mui/material';
 import React from 'react';
 import EditableTable from '../components/EditableTable';
-import { getUserInfo, saveUserInfo } from '../api/UserAPI'
+import { getUserInfo, saveUserInfo } from '../api/New API/UserAPI'
 import SettingsForm from '../components/SettingsComponent';
 import SettingsNav from './SettingsNav';
 import { UserInfo } from '../Interfaces';
