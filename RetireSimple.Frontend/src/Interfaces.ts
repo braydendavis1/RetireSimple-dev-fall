@@ -28,6 +28,7 @@ export interface UserInfo {
 
 export interface InvestmentVehicleInfo{
 	id: string
+	name: string
 	value: number
 	contributions: number | null
 	salary: number | null

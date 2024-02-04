@@ -8,6 +8,8 @@ namespace RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicl
 	public class InvestmentVehicleInfoModel : Info {
 
 
+		public string Name { get; set; }
+
 		public double Value { get; set; }
 
 		public string Type { get; set; }
