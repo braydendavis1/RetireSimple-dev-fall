@@ -163,6 +163,7 @@ export const convertInvestmentVehiclesInfo = (data : any): InvestmentVehicleInfo
 	data.forEach((vehicleInfo: any) => {
 		const vehicle: InvestmentVehicleInfo = {
 			id: vehicleInfo.id,
+			name: vehicleInfo.name,
 			value: vehicleInfo.value,
 			contributions: vehicleInfo.contributions,
 			salary: vehicleInfo.salary,

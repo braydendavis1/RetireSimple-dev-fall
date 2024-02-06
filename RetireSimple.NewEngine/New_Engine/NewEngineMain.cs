@@ -25,8 +25,7 @@ namespace RetireSimple.NewEngine.New_Engine {
 			
 			//hard coded for testing right now
 			this.user = new User("61a6058e6c43f32854e51f51");
-		
-
+			
 		}
 	
 
@@ -69,7 +68,9 @@ namespace RetireSimple.NewEngine.New_Engine {
 		public async Task<ProjectionInfoModel> HandleGetPorfolioProjection(int years) {
 			ProjectionInfoModel projection = new ProjectionInfoModel();
 
-			projection.yearly_projections = await this.user.GetPortfolioProjection(years);
+			Projection temp = await this.user.GenerateProjections();
+
+			projection.yearly_projections = temp.yearly_projections;
 
 			return projection;
 		}
@@ -77,5 +78,10 @@ namespace RetireSimple.NewEngine.New_Engine {
 		public async Task<Projection> HandleGetVehicleProjection(string id, int years) {
 			return await this.user.GetVehicleProjection(id, years);
 		}
+
+		public async Task HandleLoadPortfolio() {
+			await this.user.LoadPortfolioManager();
+		}
+
 	}
 }

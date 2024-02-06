@@ -35,6 +35,7 @@ public class InvestmentVehiclesController : ControllerBase {
 	[HttpGet]
 	[Route("PortfolioProjection/{years}")]
 	public async Task<ProjectionInfoModel> GetPortfolioProjection(int years) {
+		await newEngineMain.HandleLoadPortfolio();
 
 		return await newEngineMain.HandleGetPorfolioProjection(years);
 	}
@@ -75,7 +76,7 @@ public class InvestmentVehiclesController : ControllerBase {
 		return NoContent();
 	}
 
-
+	
 
 	
 }

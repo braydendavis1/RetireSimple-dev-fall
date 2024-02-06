@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace RetireSimple.NewEngine.New_Engine.Database.InfoModels {
 	public class ProjectionInfoModel : Info {
 
-		public Projection yearly_projections { get; set; } 
+		public List<double> yearly_projections { get; set; } 
 
 	}
 }

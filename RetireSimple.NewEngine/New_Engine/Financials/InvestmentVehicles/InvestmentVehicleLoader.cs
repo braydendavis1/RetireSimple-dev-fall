@@ -15,7 +15,9 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 			if (info.Type.Equals("401k")) {
 				return new _401k._401k(info.Id);
 			} else {
-				return null;
+				//throw new Exception();
+				return new _401k._401k(info.Id);
+				//return null;
 			}
 		}
 	}

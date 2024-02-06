@@ -23,7 +23,7 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 
 		private ITax tax;
 
-		private PortfolioManager portfolioManager;
+		public PortfolioManager portfolioManager;
 
 		private Service<UserInfoModel> userService;
 
@@ -36,7 +36,10 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			this.tax = new NullTax();
 
 			this.portfolioManager = new PortfolioManager();
+			
 		}
+
+
 
 		public User() {
 			this.id = "id here";
@@ -49,6 +52,11 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			this.id = id;
 			this.tax = new NullTax();
 			this.portfolioManager = new PortfolioManager();
+
+		}
+
+		public async Task LoadPortfolioManager() {
+			await this.portfolioManager.LoadInvestmentVehicles();
 		}
 
 		
