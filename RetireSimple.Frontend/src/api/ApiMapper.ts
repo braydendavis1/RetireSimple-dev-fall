@@ -7,7 +7,7 @@ import {
 	InvestmentVehicleModel,
 	PortfolioModel,
 	UserInfo,
-	InvestmentVehicleInfo
+	InvestmentVehicleInfo,
 	
 } from '../Interfaces';
 
@@ -164,6 +164,32 @@ export const convertInvestmentVehiclesInfo = (data : any): InvestmentVehicleInfo
 		const vehicle: InvestmentVehicleInfo = {
 			id: vehicleInfo.id,
 			name: vehicleInfo.name,
+			value: vehicleInfo.value,
+			type: vehicleInfo.type,
+			contributions: vehicleInfo.contributions,
+			salary: vehicleInfo.salary,
+			salaryIncrease: vehicleInfo.salaryIncrease,
+			rate: vehicleInfo.rate,
+			employerMatch: vehicleInfo.employerMatch,
+			employerMatchCap: vehicleInfo.employerMatchCap,
+		};
+
+		vehicles.push(vehicle);
+	} )
+
+	return vehicles;
+	
+}
+
+export const convertInvestmentVehicleInfo = (data : any): InvestmentVehicleInfo[] => {
+
+	let vehicles: InvestmentVehicleInfo[] = [];
+
+	data.forEach((vehicleInfo: any) => {
+		const vehicle: InvestmentVehicleInfo = {
+			id: vehicleInfo.id,
+			name: vehicleInfo.name,
+			type: vehicleInfo.type,
 			value: vehicleInfo.value,
 			contributions: vehicleInfo.contributions,
 			salary: vehicleInfo.salary,

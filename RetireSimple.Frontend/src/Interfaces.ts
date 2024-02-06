@@ -30,6 +30,7 @@ export interface InvestmentVehicleInfo{
 	id: string
 	name: string
 	value: number
+	type: string
 	contributions: number | null
 	salary: number | null
 	salaryIncrease: number | null

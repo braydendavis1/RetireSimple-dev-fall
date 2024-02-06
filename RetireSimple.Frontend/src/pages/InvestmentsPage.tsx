@@ -19,7 +19,6 @@ export const InvestmentsPage = () => {
 	// const [invAddDialogOpen, setInvAddDialogOpen] = React.useState(false);
 	const portfolio = useLoaderData() as Portfolio;
 
-	//the portfolio is undefined here- can't figure this out
 	const {investments, investmentVehicles: vehicles} = portfolio;
 	console.log("INVESTMENTS ");
 	console.log(investments);
@@ -59,18 +58,9 @@ export const InvestmentsPage = () => {
 				Add Investment
 			</Typography>
 		</Button>
-		{/* {investments.map((investment: Investment) => (<h1> {investment.investmentName} </h1>))} */}
 		{investments.map((investment: Investment) => 
 			(InvestmentComponent(investment, () => {openEditDialog(investment)})))}
-		{/* <Button 
-			onClick={() => openAddInvDialog(-1)}
-
-		>
-			<Icon baseClassName='material-icons'>add_circle</Icon>
-			<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
-				Add Investment
-			</Typography>
-		</Button> */}
+		
 		<AddInvestmentDialog
 			open={invAddDialogOpen}
 			onClose={() => setInvAddDialogOpen(false)}
