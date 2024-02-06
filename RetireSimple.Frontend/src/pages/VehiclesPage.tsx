@@ -1,37 +1,25 @@
-import {yupResolver} from '@hookform/resolvers/yup';
-import {Box, Button, Divider, Icon, Tab, Tabs, Typography} from '@mui/material';
-import React from 'react';
-import {FormProvider, useForm, useFormState} from 'react-hook-form';
-import {FieldValues} from 'react-hook-form/dist/types';
-import {useFormAction, useLoaderData, useSubmit} from 'react-router-dom';
-import {ApiPresetData, Investment, InvestmentModel, InvestmentVehicle, Portfolio, InvestmentVehicleInfo} from '../Interfaces';
-import {updateInvestment} from '../api/InvestmentApi';
-import {AddInvestmentDialog, AddVehicleDialog, ConfirmDeleteDialog} from '../components/DialogComponents';
-import {InvestmentModelGraph} from '../components/GraphComponents';
-import {InvestmentFormDefaults, investmentFormSchema} from '../forms/FormSchema';
-import {InvestmentDataForm} from '../forms/InvestmentDataForm';
-import {convertDates} from '../api/ConvertUtils';
-import {ExpensesTable} from '../forms/ExpenseTable';
-import {useSnackbar} from 'notistack';
-import { Link } from 'react-router-dom'; 
+import {Button, Icon, Typography} from '@mui/material';
+import React, { useState } from 'react';
+import {ApiPresetData,InvestmentVehicleInfo} from '../Interfaces';
+import { AddVehicleDialog } from '../components/DialogComponents';
 import { PresetContext } from '../Layout';
-import { InvestmentComponent } from '../components/InvestmentComponent';
 import { getAnalysisPresets } from '../api/ApiCommon';
 import { VehicleComponent } from '../components/VehicleComponent';
+
+import { getInvestmentVehicles } from '../api/New API/InvestmentVehicleApi';
+import { deleteInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
+import { convertInvestmentVehiclesInfo } from '../api/ApiMapper';
+import { useNavigate } from 'react-router-dom';
 
   
 export function VehiclesPage() { 
 
-	const portfolio = useLoaderData() as Portfolio;
-
-	//the portfolio is undefined here- can't figure this out
-	const {investments, investmentVehicles: vehicles} = portfolio;
+	const [vehicleList, setVehicleList] = useState<InvestmentVehicleInfo[]>([]);
 	
 	const [presetData, setPresetData] = React.useState<ApiPresetData | undefined>(undefined);
 
-	const [invAddDialogOpen, setInvAddDialogOpen] = React.useState(false);
 	const [vehicleAddDialogOpen, setVehicleAddDialogOpen] = React.useState(false);
-	const [vehicleAddInvTarget, setVehicleAddInvTarget] = React.useState<number>(-1); //by default, adds as individual investment
+	const navigate = useNavigate();
 
 	React.useEffect(() => {
 		if (presetData === undefined) {
@@ -39,17 +27,17 @@ export function VehiclesPage() {
 				setPresetData(data);
 			});
 		}
+		getInvestmentVehicles().then((data) => {
+			console.log("VEHICLES")
+			console.log(data);
+			setVehicleList(convertInvestmentVehiclesInfo(data));
+		});
 	}, [presetData]);
 	
-
-	//const [investments] = React.useState<any[]>([]);
-	//const [investments] = [1, 2, 3];
-	
-
-	const openAddInvDialog = (vehicleId: number) => {
-		setVehicleAddInvTarget(vehicleId);
-		setInvAddDialogOpen(true);
+	const navigatePage = (id: string) => {
+		navigate(`/VehiclesPage/${id}`);
 	};
+
 
 	const openEditDialog = () => {
 		console.log("PRESS Vehicle FROM FUNC");
@@ -57,16 +45,19 @@ export function VehiclesPage() {
 	};
 
 
-	return <div><PresetContext.Provider value={presetData}><h2>Vehicles</h2>
-		{/* {investments.map((investment: Investment) => (<h1> {investment.investmentName} </h1>))} */}
-		{vehicles.map((vehicle: InvestmentVehicle) => 
-			(VehicleComponent(vehicle, () => {openEditDialog()})))}
+	return <div><PresetContext.Provider value={presetData}>
+		<h2>Vehicles</h2>
 		<Button onClick={() => setVehicleAddDialogOpen(true)}>
 			<Icon baseClassName='material-icons'>add_circle</Icon>
 			<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
 				Add Vehicle
 			</Typography>
 		</Button>
+		
+		{vehicleList.map((vehicle: InvestmentVehicleInfo) => 
+			(VehicleComponent(vehicle, () => {openEditDialog()}, () => {navigatePage(vehicle.id)})))
+		}
+		
 		<AddVehicleDialog
 			open={vehicleAddDialogOpen}
 			onClose={() => setVehicleAddDialogOpen(false)}

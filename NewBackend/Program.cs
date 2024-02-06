@@ -24,10 +24,13 @@ builder.Services.AddCors(options => {
 					  policy => {
 						  policy
 						  .WithOrigins("http://127.0.0.1:3000")
+						  .WithOrigins("http://localhost:3000")
 						  .WithMethods("GET", "POST", "PUT")
 						  .AllowAnyHeader();
 					  });
 });
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,6 +38,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {

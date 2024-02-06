@@ -24,6 +24,7 @@ import { HelpPage } from './pages/HelpPage';
 import { ExpensesPage } from './pages/ExpensesPage';
 import { EngineInfoPage } from './pages/EngineInfoPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { getInvestmentVehicle } from './api/New API/InvestmentVehicleApi';
 
 /************************
  * Lazy Loaded Components
@@ -163,6 +164,16 @@ const router = createBrowserRouter(
 				loader={async () => await getPortfolio()}
 				element={
 					<VehiclesPage />
+				}
+			/>
+			<Route
+				path='VehiclesPage/:id'
+				loader={async ({params}) => await getInvestmentVehicle(params.id ?? '')}
+				
+				element={
+					<SuspenseRoute>
+						<VehicleView />
+					</SuspenseRoute>
 				}
 			/>
 			<Route

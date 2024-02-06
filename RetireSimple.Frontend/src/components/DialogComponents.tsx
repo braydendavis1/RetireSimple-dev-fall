@@ -15,7 +15,8 @@ import {
 	FormTextField,
 } from './InputComponents';
 import {enqueueSnackbar, useSnackbar} from 'notistack';
-import { Investment } from '../Interfaces';
+import { Investment, InvestmentVehicleInfo } from '../Interfaces';
+import { createInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
 
 export interface AddInvestmentDialogProps {
 	open: boolean;
@@ -166,23 +167,43 @@ export const AddVehicleDialog = (props: AddVehicleDialogProps) => {
 	const {enqueueSnackbar} = useSnackbar();
 
 	const handleVehicleAdd = (data: FieldValues) => {
-		const requestData: {[key: string]: string} = {};
+		// const requestData: {[key: string]: string} = {};
 
-		Object.entries(data)
-			.map(([key, value]) => [key, value.toString()])
-			.forEach(([key, value]) => (requestData[key] = value));
+		// Object.entries(data)
+		// 	.map(([key, value]) => [key, value.toString()])
+		// 	.forEach(([key, value]) => (requestData[key] = value));
 
-		convertDates(requestData);
+		// convertDates(requestData);
+		
+		//think its here
+		const vehicle: InvestmentVehicleInfo = {
+			id: "",
+			name: data.investmentVehicleName,
+			value: data.cashHoldings,
+			contributions: 0,
+			salary: 0,
+			salaryIncrease: 0,
+			rate: 0,
+			type: "401k",
+			employerMatch: 0,
+			employerMatchCap: 0,
+		};
+		console.log(vehicle);
+		// createInvestmentVehicle(vehicle, "401k");
+		createInvestmentVehicle(vehicle, '401k').then ( () => {
+			props.onClose();
+		},
 
-		addVehicle(requestData)
-			.then(() => {
-				enqueueSnackbar('Vehicle added successfully.', {variant: 'success'});
-				props.onClose();
-				submit(null, {method: 'post', action: addAction});
-			})
-			.catch((error) => {
-				enqueueSnackbar(`Failed to add vehicle: ${error.message}`, {variant: 'error'});
-			});
+		);
+		// addVehicle(requestData)
+		// 	.then(() => {
+		// 		enqueueSnackbar('Vehicle added successfully.', {variant: 'success'});
+		// 		props.onClose();
+		// 		submit(null, {method: 'post', action: addAction});
+		// 	})
+		// 	.catch((error) => {
+		// 		enqueueSnackbar(`Failed to add vehicle: ${error.message}`, {variant: 'error'});
+		// 	});
 	};
 
 	return (

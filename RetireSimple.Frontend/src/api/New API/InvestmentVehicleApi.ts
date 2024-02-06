@@ -6,11 +6,18 @@ import { API_BASE_URL } from "../ApiCommon";
 
 
 export const getInvestmentVehicles = async () : Promise<InvestmentVehicleInfo[]> => {
-	const response = await fetch(`https://localhost:7199/api/investmentVehicles`);
+	const response = await fetch(`https://localhost:7199/api/investmentVehicles`, {
+		method: 'GET',
+		// headers: {
+		// 	Accept: 'application/json',
+		// 	'Content-Type': 'application/json; charset=utf-8',
+		// },
+	});
+	console.log(response);
 	const data = await response.json().then((data) => {
-		console.log(data)
+		
 		return data;
-	})
+	});
 
 	return data
 }
@@ -21,6 +28,7 @@ export const getInvestmentVehicle = async (id : String) : Promise<InvestmentVehi
 }
 
 export const createInvestmentVehicle = async(data : InvestmentVehicleInfo, type : string) => {
+	console.log("adding in api");
 	const response = await fetch(`https://localhost:7199/api/investmentVehicles?Type=${type}`,{
 		method: 'POST',
 		body: JSON.stringify(data),
