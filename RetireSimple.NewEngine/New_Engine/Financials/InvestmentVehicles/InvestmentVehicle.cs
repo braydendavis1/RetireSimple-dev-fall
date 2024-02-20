@@ -26,10 +26,6 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 
 		protected Service<InvestmentVehicleInfoModel> service;
 
-		
-
-		
-
 		public InvestmentVehicle(string id, FinCategories category, IGrowthModel growthModel) : base(id, FinCategories.INVESTMENT_VEHICLE)
 		{
 			this.growthModel = growthModel;

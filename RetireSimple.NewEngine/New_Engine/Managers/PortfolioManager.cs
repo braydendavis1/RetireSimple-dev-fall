@@ -16,7 +16,7 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 	public class PortfolioManager : Manager {
 
 
-		private List<InvestmentVehicle> investmentVehicles;
+		public List<InvestmentVehicle> investmentVehicles;
 		private Service<InvestmentVehicleInfoModel> service;
 		
 
@@ -25,20 +25,24 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 			this.investmentVehicles = new List<InvestmentVehicle>();
 
-			LoadInvestmentVehicles();
+			
 
 		}
 
 
-		public async void LoadInvestmentVehicles() {
+		public async Task LoadInvestmentVehicles() {
 			List<InvestmentVehicleInfoModel> investmentVehiclesInfo = await this.service.HandleGetAsync();
+			if(investmentVehiclesInfo.Count <= 0) {
+				Console.WriteLine("MEH");
+				throw new Exception("EMPTY");
+			}
+	
+			for(int i = 0; i < investmentVehiclesInfo.Count; i++) {
+				this.investmentVehicles.Add(InvestmentVehicleLoader.Load(investmentVehiclesInfo[i]));
+			}
 
-			investmentVehiclesInfo.ForEach(info => {
-				this.investmentVehicles.Add(InvestmentVehicleLoader.Load(info));
-			});
 
-
-		} 
+		}
 
 		public override bool Add(Financial f) 
 		{
