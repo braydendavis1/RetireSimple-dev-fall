@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "bson": "^6.3.0",
+    "cors": "^2.8.5",
     "react-currency-input-field": "^3.6.14"
   }
 }

@@ -363,22 +363,22 @@ export const vehicleFormSchema = object().shape({
 	//========================================
 	// Analysis Related Fields
 	//========================================
-	analysis_analysisLength: number()
-		.defined('Required')
-		.positive('Must be Positive')
-		.required('Required'),
-	analysis_shortTermCapitalGainsTax: number()
-		.defined('Required')
-		.required('Required')
-		.test('is-decimal', decimalErrorString, (value) =>
-			isNaN(value) ? false : decimalValidation(2, value),
-		),
-	analysis_longTermCapitalGainsTax: number()
-		.defined('Required')
-		.required('Required')
-		.test('is-decimal', decimalErrorString, (value) =>
-			isNaN(value) ? false : decimalValidation(2, value),
-		),
+	// analysis_analysisLength: number()
+	// 	.defined('Required')
+	// 	.positive('Must be Positive')
+	// 	.required('Required'),
+	// analysis_shortTermCapitalGainsTax: number()
+	// 	.defined('Required')
+	// 	.required('Required')
+	// 	.test('is-decimal', decimalErrorString, (value) =>
+	// 		isNaN(value) ? false : decimalValidation(2, value),
+	// 	),
+	// analysis_longTermCapitalGainsTax: number()
+	// 	.defined('Required')
+	// 	.required('Required')
+	// 	.test('is-decimal', decimalErrorString, (value) =>
+	// 		isNaN(value) ? false : decimalValidation(2, value),
+	// 	),
 
 	//========================================
 	// 401k Specific Fields

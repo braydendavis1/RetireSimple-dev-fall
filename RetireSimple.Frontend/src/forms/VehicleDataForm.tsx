@@ -27,18 +27,14 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 
 	const {errors} = formContext.formState;
 
-	//==============================================
-	//Field definitions (To reduce indent depth)
-	//==============================================
-
 	const vehicleNameField = (
 		<FormTextField
 			name='investmentVehicleName'
 			label='Name'
 			control={formContext.control}
 			errorField={errors.investmentVehicleName}
-			tooltip='The name of this investment vehicle. Usually a personally identifiable name.'
-		/>
+			tooltip='The name of this investment vehicle. Usually a personally identifiable name.' 
+			defaultValue={props.defaultValues ? props.defaultValues.name : ''}		/>
 	);
 
 	const vehicleTypeField = (
@@ -66,39 +62,37 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 			label='Cash Holdings'
 			control={formContext.control}
 			errorField={errors.cashHoldings}
-			tooltip='The amount of cash in the vehicle that is not invested in a security.'
-		/>
+			tooltip='The amount of cash in the vehicle that is not invested in a security.' 
+			defaultValue={props.defaultValues ? props.defaultValues.value : ''}		/>
 	);
 
-	const analysisLengthField = (
-		<FormTextFieldMonthUnits
-			name='analysis_analysisLength'
-			label='Analysis Length'
-			control={formContext.control}
-			errorField={errors.analysis_analysisLength}
-			tooltip='The number of months starting from today to run the analysis for.'
-		/>
-	);
+	// const analysisLengthField = (
+	// 	<FormTextFieldMonthUnits
+	// 		name='analysis_analysisLength'
+	// 		label='Analysis Length'
+	// 		control={formContext.control}
+	// 		errorField={errors.analysis_analysisLength}
+	// 		tooltip='The number of months starting from today to run the analysis for.' 
+	// 		defaultValue={"Not Used"}		/>
+	// );
 
-	const shortTermCapitalGainsField = (
-		<FormTextFieldPercent
-			name='analysis_shortTermCapitalGainsTax'
-			label='Capital Gains Tax (Short Term)'
-			control={formContext.control}
-			errorField={errors.analysis_shortTermCapitalGainsTax}
-			tooltip='The tax rate applied to short term capital gains.'
-		/>
-	);
+	// const shortTermCapitalGainsField = (
+	// 	<FormTextFieldPercent
+	// 		name='analysis_shortTermCapitalGainsTax'
+	// 		label='Capital Gains Tax (Short Term)'
+	// 		control={formContext.control}
+	// 		errorField={errors.analysis_shortTermCapitalGainsTax}
+	// 		tooltip='The tax rate applied to short term capital gains.' defaultValue={"Not Used"}		/>
+	// );
 
-	const longTermCapitalGainsField = (
-		<FormTextFieldPercent
-			name='analysis_longTermCapitalGainsTax'
-			label='Capital Gains Tax (Long Term)'
-			control={formContext.control}
-			errorField={errors.analysis_longTermCapitalGainsTax}
-			tooltip='The tax rate applied to long term capital gains.'
-		/>
-	);
+	// const longTermCapitalGainsField = (
+	// 	<FormTextFieldPercent
+	// 		name='analysis_longTermCapitalGainsTax'
+	// 		label='Capital Gains Tax (Long Term)'
+	// 		control={formContext.control}
+	// 		errorField={errors.analysis_longTermCapitalGainsTax}
+	// 		tooltip='The tax rate applied to long term capital gains.' defaultValue={"Not Used"}		/>
+	// );
 
 	const analysisSubform = React.useMemo(() => {
 		switch (investmentVehicleType) {
@@ -114,8 +108,8 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 							label='User Contribution'
 							control={formContext.control}
 							errorField={errors.analysis_userContributionFixed}
-							tooltip='The amount of money that you contribute to this vehicle each month.'
-						/>
+							tooltip='The amount of money that you contribute to this vehicle each month.' 
+							defaultValue={props.defaultValues ? props.defaultValues.contributions : ''}						/>
 					</Grid>
 				);
 		}
@@ -139,7 +133,7 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 					<Grid item xs={12}>
 						<Typography variant='subtitle2'>Analysis Configuration</Typography>
 					</Grid>
-					<Grid item xs={4}>
+					{/* <Grid item xs={4}>
 						{analysisLengthField}
 					</Grid>
 					<Grid item xs={4}>
@@ -147,7 +141,7 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 					</Grid>
 					<Grid item xs={4}>
 						{longTermCapitalGainsField}
-					</Grid>
+					</Grid> */}
 
 					{analysisSubform}
 				</Grid>

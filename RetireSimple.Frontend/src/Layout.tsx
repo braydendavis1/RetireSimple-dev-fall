@@ -29,12 +29,6 @@ export const Layout = () => {
 	const portfolio = useLoaderData() as Portfolio;
 	const {investments, investmentVehicles: vehicles} = portfolio;
 
-	
-
-	// console.log("Portfolio in layout");
-	// console.log("Portfolio:" + portfolio.portfolioModel.portfolioModelId);
-	console.log("Investments:" + investments);
-
 	const [presetData, setPresetData] = React.useState<ApiPresetData | undefined>(undefined);
 	const [invAddDialogOpen, setInvAddDialogOpen] = React.useState(false);
 	const [vehicleAddDialogOpen, setVehicleAddDialogOpen] = React.useState(false);
@@ -224,7 +218,7 @@ export const Layout = () => {
 						<Outlet />
 					</Box>
 				</Box>
-				<AddInvestmentDialog
+				{/* <AddInvestmentDialog
 					open={invAddDialogOpen}
 					onClose={() => setInvAddDialogOpen(false)}
 					vehicleTarget={vehicleAddInvTarget}
@@ -232,9 +226,9 @@ export const Layout = () => {
 				<AddVehicleDialog
 					open={vehicleAddDialogOpen}
 					onClose={() => setVehicleAddDialogOpen(false)}
-				/>
-				<AboutDialog open={aboutOpen} onClose={() => setAboutOpen(false)} />
-				<HelpDialog open={helpOpen} onClose={() => setHelpOpen(false)} />
+				/> */}
+				{/* <AboutDialog open={aboutOpen} onClose={() => setAboutOpen(false)} />
+				<HelpDialog open={helpOpen} onClose={() => setHelpOpen(false)} /> */}
 			</PresetContext.Provider>
 		</div>
 	);

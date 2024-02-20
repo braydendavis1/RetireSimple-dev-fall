@@ -9,6 +9,8 @@ import {VehicleModelGraph} from '../components/GraphComponents';
 import {VehicleFormDefaults, vehicleFormSchema} from '../forms/FormSchema';
 import {VehicleDataForm} from '../forms/VehicleDataForm';
 import {useSnackbar} from 'notistack';
+import { useNavigate } from 'react-router-dom';
+import { deleteInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
 
 export const VehicleView = () => {
 	const [showDelete, setShowDelete] = React.useState(false);
@@ -48,23 +50,30 @@ export const VehicleView = () => {
 			});
 	});
 
+	const handleDelete = (id: string) => {
+		
+		// eslint-disable-next-line no-restricted-globals
+		deleteInvestmentVehicle(vehicleData.id).then(() => {history.back();});
+	};
+
 	return (
-		<Box sx={{display: 'flex', flexDirection: 'column'}}>
-			<Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
-				<Typography variant='h6' component='div' sx={{flexGrow: 1, marginBottom: '1rem'}}>
+		<><Box sx={{ display: 'flex', flexDirection: 'column' }}>
+			<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
+				<Typography variant='h6' component='div' sx={{ flexGrow: 1, marginBottom: '1rem' }}>
 					Vehicle Details: {vehicleData.investmentVehicleName}
 				</Typography>
 				<FormProvider {...formContext}>
 					<VehicleDataForm defaultValues={vehicleData} disableTypeSelect={true}>
-						<Divider sx={{paddingY: '5px'}} />
+						<Divider sx={{ paddingY: '5px' }} />
 						<Box
 							sx={{
 								display: 'flex',
 								flexDirection: 'row',
 								justifyContent: 'flex-end',
 							}}>
-							<Button onClick={() => reset(vehicleData)}>Reset</Button>
-							<Button color='error' onClick={() => setShowDelete(true)}>
+							<Button color='error' onClick={() => 
+								handleDelete(vehicleData.id)}>
+
 								Delete
 							</Button>
 							<Button onClick={handleUpdate} disabled={!isDirty}>
@@ -73,17 +82,15 @@ export const VehicleView = () => {
 						</Box>
 					</VehicleDataForm>
 				</FormProvider>
-			</Box>
-			<Box sx={{width: '100%', height: '100%'}}>
+			</Box><Box sx={{ width: '100%', height: '100%' }}>
 				<VehicleModelGraph vehicleId={vehicleData.investmentVehicleId} />
-			</Box>
-			<ConfirmDeleteDialog
+			</Box><ConfirmDeleteDialog
 				open={showDelete}
 				onClose={() => setShowDelete(false)}
-				onConfirm={() => submit(null, {action: deleteAction, method: 'delete'})}
+				onConfirm={() => submit(null, { action: deleteAction, method: 'delete' })}
 				deleteTargetType='vehicle'
-				deleteTarget={vehicleData.investmentVehicleName}
-			/>
+				deleteTarget={vehicleData.investmentVehicleName} />
 		</Box>
+		</>
 	);
 };

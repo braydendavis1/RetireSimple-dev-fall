@@ -25,7 +25,7 @@ builder.Services.AddCors(options => {
 						  policy
 						  .WithOrigins("http://127.0.0.1:3000")
 						  .WithOrigins("http://localhost:3000")
-						  .WithMethods("GET", "POST", "PUT")
+						  .WithMethods("GET", "POST", "PUT", "DELETE")
 						  .AllowAnyHeader();
 					  });
 });
@@ -46,8 +46,11 @@ if (app.Environment.IsDevelopment()) {
 	app.UseSwaggerUI();
 }
 
+
+
 app.UseHttpsRedirection();
 app.UseCors(MyAllowSpecificOrigins);
+
 
 app.UseAuthorization();
 

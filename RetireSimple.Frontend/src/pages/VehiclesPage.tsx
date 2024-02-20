@@ -27,20 +27,23 @@ export function VehiclesPage() {
 				setPresetData(data);
 			});
 		}
-		getInvestmentVehicles().then((data) => {
-			console.log("VEHICLES")
-			console.log(data);
-			setVehicleList(convertInvestmentVehiclesInfo(data));
-		});
+		loadVehicles();
 	}, [presetData]);
 	
+
+	const loadVehicles = () => {
+		getInvestmentVehicles().then((data) => {
+			setVehicleList(convertInvestmentVehiclesInfo(data));
+		});
+	};
+
+
 	const navigatePage = (id: string) => {
 		navigate(`/VehiclesPage/${id}`);
 	};
 
 
 	const openEditDialog = () => {
-		console.log("PRESS Vehicle FROM FUNC");
 		//setEdit(true);
 	};
 
@@ -49,16 +52,20 @@ export function VehiclesPage() {
 		<h2>Vehicles</h2>
 		<Button onClick={() => setVehicleAddDialogOpen(true)}>
 			<Icon baseClassName='material-icons'>add_circle</Icon>
-			<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
+			<Typography component='div' sx={{marginLeft: '10px'}}>
 				Add Vehicle
 			</Typography>
 		</Button>
 		
 		{vehicleList.map((vehicle: InvestmentVehicleInfo) => 
-			(VehicleComponent(vehicle, () => {openEditDialog()}, () => {navigatePage(vehicle.id)})))
+			(VehicleComponent(vehicle, 
+				() => {navigatePage(vehicle.id)},
+				() => {loadVehicles()},
+			)))
 		}
 		
 		<AddVehicleDialog
+			loadVehicles={loadVehicles}
 			open={vehicleAddDialogOpen}
 			onClose={() => setVehicleAddDialogOpen(false)}
 		/>

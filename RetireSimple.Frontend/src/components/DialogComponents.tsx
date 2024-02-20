@@ -31,6 +31,7 @@ export interface EditInvestmentDialogProps {
 }
 
 export interface AddVehicleDialogProps {
+	loadVehicles: Function;
 	open: boolean;
 	onClose: () => void;
 }
@@ -161,21 +162,7 @@ export const AddVehicleDialog = (props: AddVehicleDialogProps) => {
 		resolver: yupResolver(vehicleFormSchema),
 	});
 
-	const submit = useSubmit();
-	const addAction = useFormAction('/addVehicle');
-
-	const {enqueueSnackbar} = useSnackbar();
-
 	const handleVehicleAdd = (data: FieldValues) => {
-		// const requestData: {[key: string]: string} = {};
-
-		// Object.entries(data)
-		// 	.map(([key, value]) => [key, value.toString()])
-		// 	.forEach(([key, value]) => (requestData[key] = value));
-
-		// convertDates(requestData);
-		
-		//think its here
 		const vehicle: InvestmentVehicleInfo = {
 			id: "",
 			name: data.investmentVehicleName,
@@ -188,22 +175,12 @@ export const AddVehicleDialog = (props: AddVehicleDialogProps) => {
 			employerMatch: 0,
 			employerMatchCap: 0,
 		};
-		console.log(vehicle);
-		// createInvestmentVehicle(vehicle, "401k");
 		createInvestmentVehicle(vehicle, '401k').then ( () => {
 			props.onClose();
+			props.loadVehicles();
 		},
-
 		);
-		// addVehicle(requestData)
-		// 	.then(() => {
-		// 		enqueueSnackbar('Vehicle added successfully.', {variant: 'success'});
-		// 		props.onClose();
-		// 		submit(null, {method: 'post', action: addAction});
-		// 	})
-		// 	.catch((error) => {
-		// 		enqueueSnackbar(`Failed to add vehicle: ${error.message}`, {variant: 'error'});
-		// 	});
+		
 	};
 
 	return (

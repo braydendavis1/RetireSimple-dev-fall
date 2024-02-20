@@ -10,34 +10,16 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 export const VehicleComponent = 
-(vehicle: InvestmentVehicleInfo, callback: Function, navigate: Function) => {
-	// const navigate = useNavigate();
-
-	// const handleNavigate = () => {
-	// 	console.log('navigate');
-	// 	navigate(`/VehiclesPage/${vehicle.id}`); // Navigate to the specified path
-	// };
+(vehicle: InvestmentVehicleInfo, 
+	navigate: Function, 
+	loadVehicles: Function) => {
 
 	return <body 
 		onClick={() => navigate()}
 		style={{backgroundColor: 'white', margin: '15px', outline: '5px solid black'}}>
 		<div style={{width: '900px', paddingLeft: '10px', paddingBottom: '10px', paddingRight: '0px'}}>
 			<span>
-				<h2> {vehicle.name} 
-				
-					<Button style={{float: 'right', minWidth: '40'}} onClick={(e) => { e.stopPropagation(); deleteInvestmentVehicle(vehicle.id); }}>
-						<Icon style={{color: 'black'}} baseClassName='material-icons'>delete_circle</Icon>
-						<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
-							{/* Delete Vehicle */}
-						</Typography>
-					</Button>
-					<Button style={{float: 'right', minWidth: '40'}} onClick={(e) => { e.stopPropagation(); callback(); }}>
-						<Icon style={{color: 'black'}} baseClassName='material-icons'>edit_circle</Icon>
-						<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
-							{/* Delete Vehicle */}
-						</Typography>
-					</Button>
-					
+				<h2> {vehicle.name} 	
 				</h2>				
 			</span>
 			<h3> Current Value: ${vehicle.value} </h3>
