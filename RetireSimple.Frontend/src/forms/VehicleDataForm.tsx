@@ -45,11 +45,11 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 			errorField={errors.investmentVehicleType}
 			defaultOption='Vehicle401k'
 			options={[
-				{value: 'Vehicle401k', label: '401k'},
-				{value: 'VehicleIRA', label: 'IRA'},
-				{value: 'VehicleRothIRA', label: 'Roth IRA'},
-				{value: 'Vehicle403b', label: '403b'},
-				{value: 'Vehicle457', label: '457'},
+				{value: 'Vehicle401k', label: '401k', tooltip: ''},
+				{value: 'VehicleIRA', label: 'IRA', tooltip: ''},
+				{value: 'VehicleRothIRA', label: 'Roth IRA', tooltip: ''},
+				{value: 'Vehicle403b', label: '403b', tooltip: ''},
+				{value: 'Vehicle457', label: '457', tooltip: ''},
 			]}
 			disable={props.disableTypeSelect ?? false}
 			tooltip='The type of vehicle this is. This does alter how we determine the tax-applied model.'
