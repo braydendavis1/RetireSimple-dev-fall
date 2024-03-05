@@ -26,20 +26,19 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			this.investmentVehicles = new List<InvestmentVehicle>();
 
 			
-
 		}
-
 
 		public async Task LoadInvestmentVehicles() {
 			List<InvestmentVehicleInfoModel> investmentVehiclesInfo = await this.service.HandleGetAsync();
 			if(investmentVehiclesInfo.Count <= 0) {
-				Console.WriteLine("MEH");
-				throw new Exception("EMPTY");
+
+				for (int i = 0; i < investmentVehiclesInfo.Count; i++) {
+					this.investmentVehicles.Add(InvestmentVehicleLoader.Load(investmentVehiclesInfo[i]));
+				}
 			}
+
+		
 	
-			for(int i = 0; i < investmentVehiclesInfo.Count; i++) {
-				this.investmentVehicles.Add(InvestmentVehicleLoader.Load(investmentVehiclesInfo[i]));
-			}
 
 
 		}
@@ -117,13 +116,10 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			int index = -1;
 			for (int i = 0; i < this.investmentVehicles.Count; i++) {
 				if (this.investmentVehicles[i].Equals(id)) {
-					index = 0;
+					InvestmentVehicle vehicle = this.investmentVehicles[i];
+					
+					return await vehicle.Calculate(years);
 				}
-			}
-			if (index != -1) {
-				InvestmentVehicle vehicle = this.investmentVehicles[index];
-
-				return await vehicle.Calculate(years);
 			}
 			return null;
 		}

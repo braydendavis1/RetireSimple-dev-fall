@@ -40,13 +40,13 @@ namespace RetireSimple.NewTests {
 
 			ProjectionInfoModel info = new ProjectionInfoModel();
 
-			Projection projection = await user.GenerateProjections();
+			Projection projection = await user.GetVehicleProjection("61a6058e6c43f32854e51f57", 100);
 		
 			info.yearly_projections = projection.yearly_projections;
 
-			Console.WriteLine(info.yearly_projections);
+			Console.WriteLine(info.yearly_projections.Count);
 
-			Assert.AreEqual(2, info.yearly_projections.Count);
+			Assert.AreEqual(2, info.yearly_projections[34]);
 
 		}
 

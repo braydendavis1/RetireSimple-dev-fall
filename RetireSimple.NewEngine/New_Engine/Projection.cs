@@ -24,8 +24,6 @@ namespace RetireSimple.Engine.New_Engine
 
 			} else {
 				count = other_proj.yearly_projections.Count + other_proj.start;
-
-
 			}
 
 			for (int i = 0; i < count; i++) {
