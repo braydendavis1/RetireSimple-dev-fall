@@ -1,7 +1,7 @@
 import React from 'react';
 import {getInvestmentModel} from '../api/InvestmentApi';
 import {convertInvestmentModelData, convertVehicleModelData} from '../api/ApiMapper';
-import {InvestmentModel, InvestmentVehicleModel} from '../Interfaces';
+import {InvestmentModel, InvestmentVehicleModel, ProjectionInfo} from '../Interfaces';
 import {useNavigation} from 'react-router-dom';
 import {
 	Box,
@@ -26,6 +26,7 @@ import {
 	YAxis,
 } from 'recharts';
 import {getVehicleModel} from '../api/VehicleApi';
+import { getInvestmentVehicleProjection } from '../api/New API/InvestmentVehicleApi';
 
 const strokeColors = [
 	'#8884d8',
@@ -131,9 +132,10 @@ export const VehicleModelGraph = (props: {vehicleId: string}) => {
 
 	const getModelData = () => {
 		setLoading(true);
-		getVehicleModel(props.vehicleId)
-			.then((data: InvestmentVehicleModel) => {
-				setModelData(data.avgModelData);
+		console.log(props.vehicleId);
+		getInvestmentVehicleProjection(props.vehicleId, 50)
+			.then((data: ProjectionInfo) => {
+				setModelData(data.yearly_projection);
 				//setModelData(convertVehicleModelData(data));
 			})
 			.then(() => setLoading(false));
