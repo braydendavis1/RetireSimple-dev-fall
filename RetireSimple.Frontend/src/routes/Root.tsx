@@ -17,7 +17,6 @@ export const Root = () => {
 	React.useEffect(() => {
 		if (navigation.state === 'loading') {
 			setHasData(false);
-			
 		}
 		getAggregateModel()
 			.then((res) => {
