@@ -235,8 +235,8 @@ export const ConfirmDeleteDialog = (props: ConfirmDeleteDialogProps) => {
 interface AddExpenseDialogProps {
 	show: boolean;
 	onClose: () => void;
-	investmentId: number;
-	setNeedsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+	// investmentId: number;
+	//setNeedsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AddExpenseDialog = (props: AddExpenseDialogProps) => {
@@ -250,21 +250,26 @@ export const AddExpenseDialog = (props: AddExpenseDialogProps) => {
 	});
 
 	const submitExpense = (data: any) => {
-		const expenseData = {
-			sourceInvestmentId: props.investmentId,
-			...data,
-		};
 
-		addExpense(expenseData)
-			.then(() => {
-				enqueueSnackbar('Expense added', {variant: 'success'});
-				props.setNeedsUpdate(true);
-				props.onClose();
-			})
-			.catch((error) => {
-				enqueueSnackbar(`Error adding expense: ${error.message}`, {variant: 'error'});
-				console.log(error);
-			});
+		//new logic here
+
+
+
+		// const expenseData = {
+		// 	sourceInvestmentId: props.investmentId,
+		// 	...data,
+		// };
+
+		// addExpense(expenseData)
+		// 	.then(() => {
+		// 		enqueueSnackbar('Expense added', {variant: 'success'});
+		// 		props.setNeedsUpdate(true);
+		// 		props.onClose();
+		// 	})
+		// 	.catch((error) => {
+		// 		enqueueSnackbar(`Error adding expense: ${error.message}`, {variant: 'error'});
+		// 		console.log(error);
+		// 	});
 	};
 
 	const amountField = (

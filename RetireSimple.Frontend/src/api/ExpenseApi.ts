@@ -7,7 +7,7 @@ export const getExpenses = async (): Promise<Expense[]> => {
 	return await response.json();
 };
 
-export const getExpense = async (id: number): Promise<Expense> => {
+export const getExpense = async (id: string): Promise<Expense> => {
 	const response = await fetch(`${API_BASE_URL}/Expense/${id}`);
 	return await response.json();
 };

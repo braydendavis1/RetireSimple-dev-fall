@@ -8,6 +8,7 @@ import {
 	PortfolioModel,
 	UserInfo,
 	InvestmentVehicleInfo,
+	Expense,
 	
 } from '../Interfaces';
 
@@ -66,25 +67,25 @@ export const convertPortfolioModelData = (model: PortfolioModel) => {
 
 export const convertVehicleModelData = (model: InvestmentVehicleModel) => {
 	const result = [];
-	const taxedResult = [];
+	// const taxedResult = [];
 
 	for (let i = 0; i < model.avgModelData.length; i++) {
 		result.push({
 			year: i,
 			avg: +model.avgModelData[i].toFixed(2),
-			min: +model.minModelData[i].toFixed(2),
-			max: +model.maxModelData[i].toFixed(2),
+			min: +model.avgModelData[i].toFixed(2),
+			max: +model.avgModelData[i].toFixed(2),
 		});
-		taxedResult.push({
-			year: i,
-			avg: +model.taxDeductedAvgModelData[i].toFixed(2),
-			min: +model.taxDeductedMinModelData[i].toFixed(2),
-			max: +model.taxDeductedMaxModelData[i].toFixed(2),
-		});
+		// taxedResult.push({
+		// 	year: i,
+		// 	avg: +model.taxDeductedAvgModelData[i].toFixed(2),
+		// 	// min: +model.taxDeductedMinModelData[i].toFixed(2),
+		// 	// max: +model.taxDeductedMaxModelData[i].toFixed(2),
+		// });
 	}
 	return {
 		base: result,
-		taxed: taxedResult,
+		taxed: [],
 	};
 };
 
@@ -227,3 +228,24 @@ export const convertApiPresets = (data: any): ApiPresetData => {
 
 	return result;
 };
+
+
+export const convertExpenseInfo = (data : any): Expense[] => {
+
+	let expenses: Expense[] = [];
+
+	data.forEach((expenseInfo: any) => {
+		const expense: Expense = {
+			id: expenseInfo.id,
+			expenseName: expenseInfo.name,
+			expenseAmount: expenseInfo.amount,
+			expenseFrequency: "monthly",
+			lastUpdated: "",
+		};
+
+		expenses.push(expense);
+	} )
+
+	return expenses;
+	
+}

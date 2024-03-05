@@ -48,7 +48,7 @@ export const addInvestmentToVehicle = async (vehicleId: number, investmentId: nu
 	});
 };
 
-export const getVehicleModel = async (id: number): Promise<InvestmentVehicleModel> => {
+export const getVehicleModel = async (id: string): Promise<InvestmentVehicleModel> => {
 	const response = await fetch(`${API_BASE_URL}/Analysis/Vehicle/${id}`, {
 		method: 'POST',
 		headers: {

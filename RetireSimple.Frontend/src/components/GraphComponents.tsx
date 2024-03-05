@@ -1,7 +1,7 @@
 import React from 'react';
 import {getInvestmentModel} from '../api/InvestmentApi';
 import {convertInvestmentModelData, convertVehicleModelData} from '../api/ApiMapper';
-import {InvestmentModel} from '../Interfaces';
+import {InvestmentModel, InvestmentVehicleModel} from '../Interfaces';
 import {useNavigation} from 'react-router-dom';
 import {
 	Box,
@@ -116,11 +116,9 @@ export const InvestmentModelGraph = (props: {investmentId: number}) => {
 };
 
 export const VehicleModelGraph = (props: {vehicleId: string}) => {
-	const [modelData, setModelData] = React.useState<{base: any[]; taxed: any[]} | undefined>(
-		undefined,
-	);
-	const [showTaxedModel, setShowTaxedModel] = React.useState<boolean>(false);
+	const [modelData, setModelData] = React.useState<any[] | undefined>(undefined);
 	const [loading, setLoading] = React.useState<boolean>(false);
+
 	const navigation = useNavigation();
 
 	React.useEffect(() => {
@@ -129,60 +127,83 @@ export const VehicleModelGraph = (props: {vehicleId: string}) => {
 		}
 	}, [navigation.state]);
 
-	// const getModelData = () => {
-	// 	setLoading(true);
-	// 	getVehicleModel(props.vehicleId)
-	// 		.then((data: any) => {
-	// 			setModelData(convertVehicleModelData(data));
-	// 		})
-	// 		.then(() => setLoading(false));
-	// 	if(modelData) {
-	// 		console.log(modelData.taxed);
+	
 
-	// 	}
-	// };
+	const getModelData = () => {
+		setLoading(true);
+		getVehicleModel(props.vehicleId)
+			.then((data: InvestmentVehicleModel) => {
+				setModelData(data.avgModelData);
+				//setModelData(convertVehicleModelData(data));
+			})
+			.then(() => setLoading(false));
+		
+	};
+
+	if(!loading && modelData === undefined) {
+		getModelData();
+	}	
 
 	return (
 		<div>
-			<Box>
-				{!loading && modelData === undefined && (
-					<Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-						{/* <Button onClick={getModelData} disabled={modelData !== undefined}> */}
-						<Button onClick={() => {console.log("Get Model Data")}} disabled={modelData !== undefined}>
-							Get Model Data
-						</Button>
-					</Box>
-				)}
-				{loading && loadIndicator}
-				<FormGroup>
-					<FormControlLabel
-						control={
-							<Switch
-								checked={showTaxedModel}
-								onChange={() => setShowTaxedModel(!showTaxedModel)}
-							/>
-						}
-						label='Show Tax-Applied Model'
-					/>
-				</FormGroup>
-			</Box>
-			{modelData ? (
-				showTaxedModel ? (
-					<>
-						<Typography variant='h6'>Tax-Applied Model</Typography>
-						<MinMaxAvgGraph modelData={modelData.taxed} />
-					</>
-				) : (
-					<>
-						<Typography variant='h6'>Base Model</Typography>
-						<MinMaxAvgGraph modelData={modelData.base} />
-					</>
-				)
-			) : (
-				<div></div>
-			)}
+			{loading && loadIndicator}
+			{modelData ? <MinMaxAvgGraph modelData={modelData} /> : <div></div>}
 		</div>
 	);
+	// const [modelData, setModelData] = React.useState<{base: any[]; taxed: any[]} | undefined>(
+	// 	undefined,
+	// );
+	// const [showTaxedModel, setShowTaxedModel] = React.useState<boolean>(false);
+	// const [loading, setLoading] = React.useState<boolean>(false);
+	// const navigation = useNavigation();
+
+	// React.useEffect(() => {
+	// 	if (navigation.state === 'loading') {
+	// 		setModelData(undefined);
+	// 	}
+	// }, [navigation.state]);
+
+	// return (
+	// 	<div>
+	// 		<Box>
+	// 			{!loading && modelData === undefined && (
+	// 				<Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+	// 					{/* <Button onClick={getModelData} disabled={modelData !== undefined}> */}
+	// 					<Button onClick={() => {console.log("Get Model Data")}} disabled={modelData !== undefined}>
+	// 						Get Model Data
+	// 					</Button>
+	// 				</Box>
+	// 			)}
+	// 			{loading && loadIndicator}
+	// 			<FormGroup>
+	// 				<FormControlLabel
+	// 					control={
+	// 						<Switch
+	// 							checked={showTaxedModel}
+	// 							onChange={() => setShowTaxedModel(!showTaxedModel)}
+	// 						/>
+	// 					}
+	// 					label='Show Tax-Applied Model'
+	// 				/>
+	// 			</FormGroup>
+	// 		</Box>
+	// 		{modelData ? (
+	// 			showTaxedModel ? (
+	// 				<>
+	// 					<Typography variant='h6'>Tax-Applied Model</Typography>
+	// 					<MinMaxAvgGraph modelData={modelData.taxed} />
+	// 				</>
+	// 			) : (
+	// 				<>
+	// 					<Typography variant='h6'>Base Model</Typography>
+	// 					<MinMaxAvgGraph modelData={modelData.base} />
+	// 				</>
+	// 			)
+	// 		) : (
+	// 			<div></div>
+	// 		)}
+	// 	</div>
+	// );
 };
 
 export const PortfolioBreakdownGraph = (props: {modelData: any[], height: number}) => {

@@ -72,15 +72,11 @@ export interface InvestmentVehicle {
 }
 
 export interface Expense {
-	portfolioId: number;
-	investmentVehicleId: number;
-	investmentVehicleName: string;
-	investmentVehicleType: string;
-	investments: Investment[];
-	investmentVehicleModelId?: number;
-	investmentVehicleData: {[key: string]: string};
+	id: string;
+	expenseName: string;
+	expenseAmount: number;
+	expenseFrequency: string;
 	lastUpdated: string; //treat as a date later?
-	analysisOptionsOverrides: {[key: string]: string};
 }
 
 export interface Portfolio {

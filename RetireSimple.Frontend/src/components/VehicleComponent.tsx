@@ -2,7 +2,7 @@ import { style  } from '@mui/system';
 import {Box, Button, Divider, Tab, Tabs, Typography, Icon} from '@mui/material';
 
 import {InvestmentVehicle, InvestmentVehicleInfo} from '../Interfaces';
-import { VehicleModelGraph } from './GraphComponents';
+import { InvestmentModelGraph, VehicleModelGraph } from './GraphComponents';
 import { deleteVehicle } from '../api/VehicleApi';
 import { getInvestmentVehicles } from '../api/New API/InvestmentVehicleApi';
 import { deleteInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
@@ -24,7 +24,9 @@ export const VehicleComponent =
 			</span>
 			<h3> Current Value: ${vehicle.value} </h3>
 			<h3> Projected Value: NYI </h3>
-			
+			<div style={{flex: '50%', width: '50px'}}>
+				<VehicleModelGraph vehicleId={vehicle.id} />
+			</div>
 		</div>
 	</body>
 }

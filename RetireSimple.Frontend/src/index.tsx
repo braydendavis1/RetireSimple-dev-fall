@@ -25,6 +25,8 @@ import { ExpensesPage } from './pages/ExpensesPage';
 import { EngineInfoPage } from './pages/EngineInfoPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { getInvestmentVehicle } from './api/New API/InvestmentVehicleApi';
+import { getExpense } from './api/ExpenseApi';
+import { ExpenseView } from './routes/ExpensesView';
 
 /************************
  * Lazy Loaded Components
@@ -180,6 +182,16 @@ const router = createBrowserRouter(
 				path='ExpensesPage/'
 				element={
 					<ExpensesPage />
+				}
+			/>
+			<Route
+				path='ExpensesPage/:id'
+				loader={async ({params}) => await getExpense(params.id ?? '')}
+				
+				element={
+					<SuspenseRoute>
+						<ExpenseView />
+					</SuspenseRoute>
 				}
 			/>
 			<Route
