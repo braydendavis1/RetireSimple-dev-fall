@@ -2,7 +2,7 @@ import { InvestmentVehicleInfo, ProjectionInfo } from "../../Interfaces";
 import { API_BASE_URL } from "../ApiCommon";
 
 export const getInvestmentVehicles = async () : Promise<InvestmentVehicleInfo[]> => {
-	const response = await fetch(`https://localhost:7199/api/investmentVehicles`, {
+	const response = await fetch(`https://localhost:7199/api/InvestmentVehicles`, {
 		method: 'GET',
 	});
 	const data = await response.json().then((data) => {
@@ -12,12 +12,12 @@ export const getInvestmentVehicles = async () : Promise<InvestmentVehicleInfo[]>
 }
 
 export const getInvestmentVehicle = async (id : String) : Promise<InvestmentVehicleInfo> => {
-	const response = await fetch(`https://localhost:7199/api/investmentVehicles/${id}`)
+	const response = await fetch(`https://localhost:7199/api/InvestmentVehicles/${id}`)
 	return await response.json()
 }
 
 export const createInvestmentVehicle = async(data : InvestmentVehicleInfo, type : string) => {
-	const response = await fetch(`https://localhost:7199/api/investmentVehicles?Type=${type}`,{
+	const response = await fetch(`https://localhost:7199/api/InvestmentVehicles?Type=${type}`,{
 		method: 'POST',
 		body: JSON.stringify(data),
 		headers: {
@@ -28,7 +28,7 @@ export const createInvestmentVehicle = async(data : InvestmentVehicleInfo, type 
 }
 
 export const updateInvestmentVehicle = async(data : InvestmentVehicleInfo, id : string) => {
-	const response = await fetch(`https://localhost:7199/api/investmentVehicle?Id=${id}`, {
+	const response = await fetch(`https://localhost:7199/api/InvestmentVehicle?Id=${id}`, {
 		method: 'PUT',
 		body: JSON.stringify(data),
 		headers: {

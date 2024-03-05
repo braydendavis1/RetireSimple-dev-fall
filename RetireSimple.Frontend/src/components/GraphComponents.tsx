@@ -126,25 +126,34 @@ export const VehicleModelGraph = (props: {vehicleId: string}) => {
 		if (navigation.state === 'loading') {
 			setModelData(undefined);
 		}
-	}, [navigation.state]);
-
-	
-
-	const getModelData = () => {
 		setLoading(true);
 		console.log(props.vehicleId);
 		getInvestmentVehicleProjection(props.vehicleId, 50)
 			.then((data: ProjectionInfo) => {
 				setModelData(data.yearly_projection);
+				console.log(data.yearly_projection);
 				//setModelData(convertVehicleModelData(data));
 			})
 			.then(() => setLoading(false));
-		
-	};
+	}, [navigation.state, props.vehicleId]);
 
-	if(!loading && modelData === undefined) {
-		getModelData();
-	}	
+	
+
+	// const getModelData = () => {
+	// 	setLoading(true);
+	// 	console.log(props.vehicleId);
+	// 	getInvestmentVehicleProjection(props.vehicleId, 50)
+	// 		.then((data: ProjectionInfo) => {
+	// 			setModelData(data.yearly_projection);
+	// 			//setModelData(convertVehicleModelData(data));
+	// 		})
+	// 		.then(() => setLoading(false));
+		
+	// };
+
+	// if(!loading && modelData === undefined) {
+	// 	getModelData();
+	// }	
 
 	return (
 		<div>
