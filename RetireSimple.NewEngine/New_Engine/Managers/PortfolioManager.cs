@@ -30,15 +30,13 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 		public async Task LoadInvestmentVehicles() {
 			List<InvestmentVehicleInfoModel> investmentVehiclesInfo = await this.service.HandleGetAsync();
-			if(investmentVehiclesInfo.Count <= 0) {
-
-				for (int i = 0; i < investmentVehiclesInfo.Count; i++) {
-					this.investmentVehicles.Add(InvestmentVehicleLoader.Load(investmentVehiclesInfo[i]));
-				}
+	
+			for (int i = 0; i < investmentVehiclesInfo.Count; i++) {
+				this.investmentVehicles.Add(InvestmentVehicleLoader.Load(investmentVehiclesInfo[i]));
 			}
 
-		
-	
+
+
 
 
 		}

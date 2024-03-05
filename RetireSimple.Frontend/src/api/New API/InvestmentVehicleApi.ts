@@ -53,7 +53,7 @@ export const deleteInvestmentVehicle = async(id : string) => {
 
 export const getInvestmentVehicleProjection = 
 async (id : string, years : number) : Promise<ProjectionInfo> => {
-	const response = await fetch(`http://localhost:7199/api/InvestmentVehicles/Projection/${id}/${years}`, {
+	const response = await fetch(`https://localhost:7199/api/InvestmentVehicles/Projection/${id}/${years}`, {
 		method: 'GET',
 	});
 	return await response.json();
