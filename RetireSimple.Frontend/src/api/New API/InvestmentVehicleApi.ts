@@ -1,9 +1,5 @@
-import { InvestmentVehicleInfo } from "../../Interfaces";
+import { InvestmentVehicleInfo, ProjectionInfo } from "../../Interfaces";
 import { API_BASE_URL } from "../ApiCommon";
-
-
-
-
 
 export const getInvestmentVehicles = async () : Promise<InvestmentVehicleInfo[]> => {
 	const response = await fetch(`https://localhost:7199/api/investmentVehicles`, {
@@ -53,4 +49,13 @@ export const deleteInvestmentVehicle = async(id : string) => {
 			'Access-Control-Allow-Methods': 'GET, HEAD, POST, PUT, DELETE, OPTIONS',
 		},
 	});
+}
+
+export const getInvestmentVehicleProjection = 
+async (id : string, years : number) : Promise<ProjectionInfo> => {
+	const response = await fetch(`http://localhost:7199/api/InvestmentVehicles/${id}/${years}`, {
+		method: 'GET',
+	});
+	return await response.json();
+
 }
