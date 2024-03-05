@@ -43,7 +43,8 @@ public class InvestmentVehiclesController : ControllerBase {
 	[EnableCors]
 	[HttpGet]
 	[Route("Projection/{id}/{years}")]
-	public async Task<Projection> GetVehicleProjection(string id, int years) {
+	public async Task<ProjectionInfoModel> GetVehicleProjection(string id, int years) {
+		await newEngineMain.HandleLoadPortfolio();
 		return await newEngineMain.HandleGetVehicleProjection(id, years);
 	}
 

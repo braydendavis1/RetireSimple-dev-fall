@@ -30,27 +30,34 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 		{
 			this.growthModel = growthModel;
 			this.investments = new List<Investment>();
-
+			this.service = new Service<InvestmentVehicleInfoModel>("InvestmentVehicles", new MongoService<InvestmentVehicleInfoModel>());
+			
 		}
 
 		public async Task UpdateInfo(InvestmentVehicleInfoModel info) {
 
-			await service.HandleUpdateAsync(this.id, info);
+			await this.service.HandleUpdateAsync(base.id, info);
 
+		}
+
+		public bool Equals(string id) {
+			return base.id == id;
 		}
 
 		public async Task SetInfo(InvestmentVehicleInfoModel info) {
 
-			await service.HandleCreateAsync(info);
+			await this.service.HandleCreateAsync(info);
 		}
 
 		public async Task<InvestmentVehicleInfoModel> GetInfo() {
-			return await service.HandleGetAsync(this.id);
+			return await this.service.HandleGetAsync(base.id);
 		}
 
 		public async override Task<Projection> Calculate(int years) 
 		{
-			InvestmentVehicleInfoModel info = await service.HandleGetAsync(this.id);
+			InvestmentVehicleInfoModel info = await this.service.HandleGetAsync(this.id);
+
+			Console.WriteLine("Testing IV");
 
 			return this.growthModel.GenerateProjection(info.Value, years, info);
 		}

@@ -40,6 +40,11 @@ export interface InvestmentVehicleInfo{
 
 }
 
+export interface ProjectionInfo{
+	id: string | null
+	yearly_projection: number[]
+}
+
 
 export interface Projection {
 	values: number[];
