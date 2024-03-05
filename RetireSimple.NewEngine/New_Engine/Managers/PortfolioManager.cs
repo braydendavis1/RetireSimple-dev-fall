@@ -34,11 +34,6 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			for (int i = 0; i < investmentVehiclesInfo.Count; i++) {
 				this.investmentVehicles.Add(InvestmentVehicleLoader.Load(investmentVehiclesInfo[i]));
 			}
-
-
-
-
-
 		}
 
 		public override bool Add(Financial f) 
