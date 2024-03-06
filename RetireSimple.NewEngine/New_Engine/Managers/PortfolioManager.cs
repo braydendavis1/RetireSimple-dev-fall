@@ -13,7 +13,7 @@ using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.Engine.New_Engine;
 
 namespace RetireSimple.NewEngine.New_Engine.Managers {
-	public class PortfolioManager : Manager {
+	public class PortfolioManager  {
 
 
 		public List<InvestmentVehicle> investmentVehicles;
