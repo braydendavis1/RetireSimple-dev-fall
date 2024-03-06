@@ -116,7 +116,19 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			}
 			return null;
 		}
+
+		public async Task<Projection> CacluatePortfolioPorjection(int years) {
+			//await this.LoadInvestmentVehicles();
+			Projection projection = new Projection(new List<double>(), 0);
+			for (int i = 0; i < this.investmentVehicles.Count; i++) {
+				projection = projection.Add(await this.investmentVehicles[i].Calculate(years));
+				Console.WriteLine(this.investmentVehicles[i].id);
+			}
+			return projection;
+		}
 	}
+
+	
 
 
 }

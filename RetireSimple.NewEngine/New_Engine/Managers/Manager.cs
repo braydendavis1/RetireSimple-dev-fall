@@ -27,6 +27,7 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 			foreach (Financial f in this.items) {
 				//projection = projection.Add(f.Calculate(years));
+				Console.WriteLine("This is a test");
 				projection = projection.Add(await f.Calculate(years));
 			}
 

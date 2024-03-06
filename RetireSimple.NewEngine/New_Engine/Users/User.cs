@@ -123,7 +123,7 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 		}
 
 		public async Task<Projection> GetPortfolioProjection(int years) {
-			return await this.portfolioManager.Calculate(years);
+			return await this.portfolioManager.CacluatePortfolioPorjection(years);
 		}
 
 		public async Task<Projection> GetVehicleProjection(string id, int years) {
