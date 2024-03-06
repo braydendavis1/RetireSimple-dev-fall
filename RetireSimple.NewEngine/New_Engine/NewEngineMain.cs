@@ -65,20 +65,20 @@ namespace RetireSimple.NewEngine.New_Engine {
 			await this.user.DeleleInvestmentVehicle(id);
 		}
 
-		public async Task<ProjectionInfoModel> HandleGetPorfolioProjection(int years) {
+		public async Task<ProjectionInfoModel> HandleGetPorfolioProjection() {
 			ProjectionInfoModel projection = new ProjectionInfoModel();
 
-			Projection temp = await this.user.GetPortfolioProjection(years);
+			Projection temp = await this.user.GetPortfolioProjection();
 
 			projection.yearly_projections = temp.yearly_projections;
 
 			return projection;
 		}
 
-		public async Task<ProjectionInfoModel> HandleGetVehicleProjection(string id, int years) {
+		public async Task<ProjectionInfoModel> HandleGetVehicleProjection(string id) {
 			ProjectionInfoModel projection = new ProjectionInfoModel();
 
-			Projection temp = await this.user.GetVehicleProjection(id, years);
+			Projection temp = await this.user.GetVehicleProjection(id);
 
 			projection.yearly_projections = temp.yearly_projections;
 

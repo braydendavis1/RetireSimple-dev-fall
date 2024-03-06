@@ -76,25 +76,8 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 		public async Task CreateInfo(UserInfoModel userInfo) {
 			await this.userService.HandleCreateAsync(userInfo);
 		}
-
-
-		public async Task<Projection> GenerateProjections() {
-
-			//int years = this.userInfo.retirementAge - this.userInfo.age;
-
-			UserInfoModel userInfo = await GetInfo();
-
-			int years = userInfo.RetirementAge - userInfo.Age;
-
-			return await this.portfolioManager.Calculate(years);
-
-		}
-
 		
 
-		public void AddInvestmentVehicle(InvestmentVehicle vehicle) {
-			this.portfolioManager.Add(vehicle);
-		}
 
 		public double ApplyTax(double income) {
 
@@ -122,11 +105,18 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			await this.portfolioManager.DeleteInvestmentVehicleInfoModel(id);
 		}
 
-		public async Task<Projection> GetPortfolioProjection(int years) {
-			return await this.portfolioManager.Calculate(years);
+		public async Task<Projection> GetPortfolioProjection() {
+			UserInfoModel userInfo = await GetInfo();
+
+			int years = userInfo.RetirementAge - userInfo.Age;
+
+			return await this.portfolioManager.CacluatePortfolioPorjection(years);
 		}
 
-		public async Task<Projection> GetVehicleProjection(string id, int years) {
+		public async Task<Projection> GetVehicleProjection(string id) {
+
+			UserInfoModel userInfo = await GetInfo();
+			int years = userInfo.RetirementAge - userInfo.Age;
 			return await this.portfolioManager.GetVehicleProjection(id, years);
 		}
 	}

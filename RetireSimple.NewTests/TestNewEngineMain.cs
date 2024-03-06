@@ -23,7 +23,7 @@ namespace RetireSimple.NewTests {
 
 			await newEngineMain.HandleLoadPortfolio();
 
-			ProjectionInfoModel projectionInfoModel = await newEngineMain.HandleGetPorfolioProjection(10);
+			ProjectionInfoModel projectionInfoModel = await newEngineMain.HandleGetPorfolioProjection();
 
 			Console.WriteLine(projectionInfoModel.yearly_projections);
 
@@ -40,8 +40,26 @@ namespace RetireSimple.NewTests {
 
 			ProjectionInfoModel info = new ProjectionInfoModel();
 
-			Projection projection = await user.GetVehicleProjection("61a6058e6c43f32854e51f57", 100);
+			Projection projection = await user.GetVehicleProjection("61a6058e6c43f32854e51f57");
 		
+			info.yearly_projections = projection.yearly_projections;
+
+			Console.WriteLine(info.yearly_projections.Count);
+
+			Assert.AreEqual(2, info.yearly_projections[34]);
+
+		}
+
+		[TestMethod]
+		public async Task TestUser2Async() {
+			User user = new User("61a6058e6c43f32854e51f51");
+
+			await user.portfolioManager.LoadInvestmentVehicles();
+
+			ProjectionInfoModel info = new ProjectionInfoModel();
+
+			Projection projection = await user.GetPortfolioProjection();
+
 			info.yearly_projections = projection.yearly_projections;
 
 			Console.WriteLine(info.yearly_projections.Count);

@@ -13,7 +13,7 @@ using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.Engine.New_Engine;
 
 namespace RetireSimple.NewEngine.New_Engine.Managers {
-	public class PortfolioManager : Manager {
+	public class PortfolioManager  {
 
 
 		public List<InvestmentVehicle> investmentVehicles;
@@ -34,11 +34,6 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			for (int i = 0; i < investmentVehiclesInfo.Count; i++) {
 				this.investmentVehicles.Add(InvestmentVehicleLoader.Load(investmentVehiclesInfo[i]));
 			}
-
-
-
-
-
 		}
 
 		public override bool Add(Financial f) 
@@ -121,7 +116,19 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			}
 			return null;
 		}
+
+		public async Task<Projection> CacluatePortfolioPorjection(int years) {
+			//await this.LoadInvestmentVehicles();
+			Projection projection = new Projection(new List<double>(), 0);
+			for (int i = 0; i < this.investmentVehicles.Count; i++) {
+				projection = projection.Add(await this.investmentVehicles[i].Calculate(years));
+				Console.WriteLine(this.investmentVehicles[i].id);
+			}
+			return projection;
+		}
 	}
+
+	
 
 
 }

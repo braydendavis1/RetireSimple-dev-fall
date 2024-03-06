@@ -19,17 +19,16 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 	public abstract class InvestmentVehicle : Financial{
 
 		private IGrowthModel growthModel;
-
-		private List<Investment> investments;
+		
 
 		private InvestmentVehicleInfoModel info;
 
 		protected Service<InvestmentVehicleInfoModel> service;
 
+
 		public InvestmentVehicle(string id, FinCategories category, IGrowthModel growthModel) : base(id, FinCategories.INVESTMENT_VEHICLE)
 		{
 			this.growthModel = growthModel;
-			this.investments = new List<Investment>();
 			this.service = new Service<InvestmentVehicleInfoModel>("InvestmentVehicles", new MongoService<InvestmentVehicleInfoModel>());
 			
 		}
@@ -43,6 +42,19 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 		public bool Equals(string id) {
 			return base.id == id;
 		}
+		/*
+		public List<Investment> GetInvestments() {
+			//return this.investments;
+		}
+
+		public void AddInvestment(Investment investment) {
+			//this.investments.Add(investment);
+		}
+
+		public void UpdateInvestment(string id, Investment investment) {
+
+		}
+		*/
 
 		public async Task SetInfo(InvestmentVehicleInfoModel info) {
 
