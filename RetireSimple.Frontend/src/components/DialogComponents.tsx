@@ -163,18 +163,22 @@ export const AddVehicleDialog = (props: AddVehicleDialogProps) => {
 	});
 
 	const handleVehicleAdd = (data: FieldValues) => {
+		console.log("vehicle data");
+		console.log(data);
 		const vehicle: InvestmentVehicleInfo = {
 			id: "",
 			name: data.investmentVehicleName,
 			value: data.cashHoldings,
-			contributions: 0,
-			salary: 0,
+			contributions: data.analysis_userContributionPercentage,
+			salary: data.analysis_salary,
 			salaryIncrease: 0,
-			rate: 0,
-			type: "401k",
-			employerMatch: 0,
-			employerMatchCap: 0,
+			rate: data.analysis_rate,
+			type: data.investmentVehicleType,
+			employerMatch: data.analysis_employerMatchPercentage,
+			employerMatchCap: data.analysis_employerMatchCap,
+			projection: null,
 		};
+		console.log(vehicle);
 		createInvestmentVehicle(vehicle, '401k').then ( () => {
 			props.onClose();
 			props.loadVehicles();

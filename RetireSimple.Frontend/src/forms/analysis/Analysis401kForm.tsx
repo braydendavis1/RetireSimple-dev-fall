@@ -73,14 +73,37 @@ export const Analysis401kForm = () => {
 			label='Employer Match'
 			control={formContext.control}
 			errorField={errors.analysis_employerMatchPercentage}
-			tooltip={
-				<>
-					<Typography variant='inherit'>
-						The percentage of the employee contribution that the employer will match.
-					</Typography>
-				</>
-			}
-		/>
+			tooltip={<>
+				<Typography variant='inherit'>
+					The percentage of the employee contribution that the employer will match.
+				</Typography>
+			</>} defaultValue={''}		/>
+	);
+
+	const employerMatchCap = (
+		<FormTextFieldPercent
+			name='analysis_employerMatchCap'
+			label='Employer Match Cap'
+			control={formContext.control}
+			errorField={errors.analysis_employerMatchCap}
+			tooltip={<>
+				<Typography variant='inherit'>
+					The max employee contribution that the employer will match.
+				</Typography>
+			</>} defaultValue={''}		/>
+	);
+
+	const rate = (
+		<FormTextFieldPercent
+			name='analysis_rate'
+			label='Rate'
+			control={formContext.control}
+			errorField={errors.analysis_rate}
+			tooltip={<>
+				<Typography variant='inherit'>
+					The rate you expect the vehicle to grow.
+				</Typography>
+			</>} defaultValue={''}		/>
 	);
 
 	const userContributionTypeField = (
@@ -141,14 +164,19 @@ export const Analysis401kForm = () => {
 	return (
 		<>
 			<Grid item xs={6} sm={4}>
+				{rate}
+			</Grid>
+			<Grid item xs={6} sm={4}>
 				{salaryField}
 			</Grid>
 			<Grid item xs={6} sm={4}>
 				{payFrequencyField}
 			</Grid>
-			<Grid item xs={0} sm={4} />
 			<Grid item xs={6} sm={4}>
 				{employerMatchField}
+			</Grid>
+			<Grid item xs={6} sm={4}>
+				{employerMatchCap}
 			</Grid>
 			<Grid item xs={6} sm={4}>
 				{userContributionTypeField}

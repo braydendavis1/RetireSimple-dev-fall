@@ -1,12 +1,12 @@
 import {Button, Icon, Typography} from '@mui/material';
 import React, { useState } from 'react';
-import {ApiPresetData,InvestmentVehicleInfo} from '../Interfaces';
+import {ApiPresetData,InvestmentVehicleInfo, ProjectionInfo} from '../Interfaces';
 import { AddVehicleDialog } from '../components/DialogComponents';
 import { PresetContext } from '../Layout';
 import { getAnalysisPresets } from '../api/ApiCommon';
 import { VehicleComponent } from '../components/VehicleComponent';
 
-import { getInvestmentVehicles } from '../api/New API/InvestmentVehicleApi';
+import { getInvestmentVehicleProjection, getInvestmentVehicles } from '../api/New API/InvestmentVehicleApi';
 import { deleteInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
 import { convertInvestmentVehiclesInfo } from '../api/ApiMapper';
 import { useNavigate } from 'react-router-dom';
@@ -58,10 +58,13 @@ export function VehiclesPage() {
 		</Button>
 		
 		{vehicleList.map((vehicle: InvestmentVehicleInfo) => 
-			(VehicleComponent(vehicle, 
+			(VehicleComponent(
+				vehicle, 
 				() => {navigatePage(vehicle.id)},
 				() => {loadVehicles()},
-			)))
+			)
+					
+			))
 		}
 		
 		<AddVehicleDialog
