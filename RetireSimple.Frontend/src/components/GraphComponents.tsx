@@ -49,8 +49,6 @@ const loadIndicator = (
 );
 
 export const MinMaxAvgGraph = (props: {modelData: any[]}) => {
-	console.log("in graph");
-	console.log(props.modelData);
 	return (
 		<ResponsiveContainer width={300} height={200}>
 			<LineChart data={props.modelData}>
@@ -66,7 +64,7 @@ export const MinMaxAvgGraph = (props: {modelData: any[]}) => {
 				</YAxis>
 				<CartesianGrid strokeDasharray='3 3' />
 				<Tooltip />
-				<Legend />
+				{/* <Legend /> */}
 				<Line type='monotone' dataKey='avg' stroke='#8884d8' />
 				{/* <Line type='monotone' dataKey='avg' stroke='#82ca9d' />
 				<Line type='monotone' dataKey='max' stroke='#ff0000' /> */}
@@ -255,7 +253,7 @@ export const PortfolioBreakdownGraph = (props: {modelData: any[], height: number
 			<ResponsiveContainer width='100%' minHeight={props.height} minWidth={1200}>
 				<AreaChart data={props.modelData}>
 					<XAxis dataKey='month'>
-						<Label value='Months' offset={-5} position={'bottom'} />
+						<Label value='Years' offset={-5} position={'bottom'} />
 					</XAxis>
 					<YAxis
 						tickCount={10}
@@ -281,7 +279,7 @@ export const PortfolioAggregateGraph = (props: {modelData: any[], height: number
 			<ResponsiveContainer width='100%'  minHeight={props.height} minWidth={1200}>
 				<LineChart data={props.modelData}>
 					<XAxis dataKey='year'>
-						<Label value='Months' offset={-5} position={'bottom'} />
+						<Label value='Year' offset={-5} position={'bottom'} />
 					</XAxis>
 					<YAxis
 						tickCount={10}
@@ -292,10 +290,8 @@ export const PortfolioAggregateGraph = (props: {modelData: any[], height: number
 					</YAxis>
 					<CartesianGrid strokeDasharray='5 5' />
 					<Tooltip />
-					<Legend />
-					<Line type='monotone' dataKey='min' stroke='#8884d8' />
-					<Line type='monotone' dataKey='avg' stroke='#82ca9d' />
-					<Line type='monotone' dataKey='max' stroke='#ff0000' />
+					{/* <Legend /> shows "avg", etc on bottom */ }
+					<Line type='monotone' dataKey='avg' stroke='#82ca9d' isAnimationActive />
 				</LineChart>
 			</ResponsiveContainer>
 		</Box>

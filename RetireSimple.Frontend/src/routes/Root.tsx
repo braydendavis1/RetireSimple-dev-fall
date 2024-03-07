@@ -3,72 +3,99 @@ import React from 'react';
 import {useNavigation} from 'react-router-dom';
 import {getAggregateModel} from '../api/InvestmentApi';
 import {PortfolioAggregateGraph, PortfolioBreakdownGraph} from '../components/GraphComponents';
-import {convertPortfolioModelData, createAggregateStackData} from '../api/ApiMapper';
+import {convertPortfolioModelData, convertVehicleModelData, createAggregateStackData} from '../api/ApiMapper';
+import { getPortfolioProjection } from '../api/New API/InvestmentVehicleApi';
+import { ProjectionInfo } from '../Interfaces';
 export const Root = () => {
 	const [hasData, setHasData] = React.useState<boolean>(false);
 	const [portfolioData, setPortfolioData] = React.useState<any[]>([]);
 	const [breakdownData, setBreakdownData] = React.useState<any[]>([]);
-	const [loadIndicator, setLoadIndicator] = React.useState<boolean>(true);
+	const [loadIndicator, setLoadIndicator] = React.useState<boolean>(false);
 	const [noInvestments, setNoInvestments] = React.useState<boolean>(false);
 	const navigation = useNavigation();
 
 	
 
 	React.useEffect(() => {
-		if (navigation.state === 'loading') {
-			setHasData(false);
-		}
-		getAggregateModel()
-			.then((res) => {
-				setPortfolioData(convertPortfolioModelData(res.portfolioModel));
-				console.log(res.portfolioModel.portfolioModelId)
-				if(res.portfolioModel.portfolioModelId === -1) {
-					setNoInvestments(true);
-					setHasData(false);
-					setLoadIndicator(false);
-				} else{
-					setBreakdownData(createAggregateStackData(res.investmentModels));
-					setHasData(true);
-				}
-			})
-			.then(() => setLoadIndicator(false));
+		getModelData();
+		// if (navigation.state === 'loading') {
+		// 	setHasData(false);
+		// }
+		// getAggregateModel()
+		// 	.then((res) => {
+		// 		setPortfolioData(convertPortfolioModelData(res.portfolioModel));
+		// 		console.log(res.portfolioModel.portfolioModelId)
+		// 		if(res.portfolioModel.portfolioModelId === -1) {
+		// 			setNoInvestments(true);
+		// 			setHasData(false);
+		// 			setLoadIndicator(false);
+		// 		} else{
+		// 			setBreakdownData(createAggregateStackData(res.investmentModels));
+		// 			setHasData(true);
+		// 		}
+		// 	})
+		// 	.then(() => setLoadIndicator(false));
 	}, [navigation.state]);
 
-	
+	const getModelData = () => {
+		setLoadIndicator(true);
+		
+		getPortfolioProjection()
+			.then((data: ProjectionInfo) => {
+				setPortfolioData(convertVehicleModelData(data.yearly_projections));
+				console.log("portfolioData:");
+				console.log(portfolioData);
+				//setModelData(convertVehicleModelData(data));
+			})
+			.then(() => {
+				setLoadIndicator(false);
+				setHasData(true);
+			},
+			);
+		
+	};
+
 
 	return (
-		
-		<Box sx={{display: 'flex', flexDirection: 'column'}}>
-			<Box
-				sx={{
-					display: 'flex',
-					width: '95%',
-					height: '50%',
-					marginX: 'auto',
-					flexDirection: 'column',
-					objectFit: 'contain',
-				}}>
-
-				{loadIndicator && (
-					<Box sx={{display: 'flex', alignItems: 'center'}}>
-						<CircularProgress />
-						<Typography variant='button' sx={{marginLeft: '0.25rem'}}>
-							Generating Full Portfolio Model, this may take a minute...
-						</Typography>
-					</Box>
-				)}
-				{hasData && (
-					<Box>
-						<PortfolioAggregateGraph modelData={portfolioData} height={350} />
-						<PortfolioBreakdownGraph modelData={breakdownData} height={350} />
-					</Box>
-				)}
-				{noInvestments && (
-					<Box>
-						<h1>No Investment Data</h1>
-					</Box>
-				)}
+		<div style={{display: 'flex', justifyContent: 'center' }}>
+			<Box sx={{
+				display: 'flex', justifyContent: 'center', 
+			
+			}}>
+				<Box
+					sx={{
+						display: 'flex',
+						width: '95%',
+						height: '50%',
+						marginX: 'auto',
+						flexDirection: 'column',
+						objectFit: 'contain',
+					}}>
+				
+					{loadIndicator && (
+						<Box sx={{display: 'flex', alignItems: 'center'}}>
+							<CircularProgress />
+							<Typography variant='button' sx={{marginLeft: '0.25rem'}}>
+								Generating Full Portfolio Model, this may take a minute...
+							</Typography>
+						</Box>
+					)}
+					{hasData && (
+						<Box>
+							<PortfolioAggregateGraph modelData={portfolioData} height={350} />
+							{/* <PortfolioBreakdownGraph modelData={breakdownData} height={350} /> */}
+						</Box>
+					)}
+					{noInvestments && (
+						<Box>
+							<h1>No Investment Data</h1>
+						</Box>
+					)}
+					{/* <Button style={{ width: '200px' }} onClick={getModelData}>
+						Get Model Data
+					</Button> */}
+				</Box>
 			</Box>
-		</Box>
+		</div>
 	);
 };
