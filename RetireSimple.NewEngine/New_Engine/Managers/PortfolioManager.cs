@@ -36,38 +36,10 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			}
 		}
 
-		public override bool Add(Financial f) 
-		{
-			if(f.category == FinCategories.INVESTMENT_VEHICLE) {
-				base.items.Add(f);
-				return true;
-			} 
-			else { 
-				return false; 
-			}
-
-
-		}
-
-		public override bool DoDelete(int id) {
-			base.items.RemoveAt(id);
-			return true;
-		}
-		public override Financial DoRead(int id) {
-
-			return base.items[id];
-		}
-		public override bool DoUpdate(Financial f, int id) {
-			base.items[id] = f;
-			return true;
-		}
-
 
 		public async Task<List<InvestmentVehicleInfoModel>> GetInvestmentVehicleInfoModels() {
 
 			return await this.service.HandleGetAsync();
-			
-
 
 		}
 

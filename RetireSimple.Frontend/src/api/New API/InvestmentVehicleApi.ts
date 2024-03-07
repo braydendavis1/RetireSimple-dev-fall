@@ -59,3 +59,10 @@ async (id : string, years : number) : Promise<ProjectionInfo> => {
 	return await response.json();
 
 }
+	
+export const getPortfolioProjection = async () : Promise<ProjectionInfo> => {
+	const response = await fetch(`https://localhost:7199/api/InvestmentVehicles/PortfolioProjection/${years}`, {
+		method: 'GET',
+	});
+	return await response.json();
+}
