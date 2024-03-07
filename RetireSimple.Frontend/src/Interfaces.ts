@@ -37,12 +37,12 @@ export interface InvestmentVehicleInfo{
 	rate: number | null
 	employerMatch: number | null
 	employerMatchCap: number | null
-
+	projection: number | null
 }
 
 export interface ProjectionInfo{
 	id: string | null
-	yearly_projection: number[]
+	yearly_projections: number[]
 }
 
 

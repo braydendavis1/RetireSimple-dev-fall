@@ -49,11 +49,13 @@ const loadIndicator = (
 );
 
 export const MinMaxAvgGraph = (props: {modelData: any[]}) => {
+	console.log("in graph");
+	console.log(props.modelData);
 	return (
 		<ResponsiveContainer width={300} height={200}>
 			<LineChart data={props.modelData}>
 				<XAxis dataKey='year'>
-					<Label value='Months' offset={-5} position={'bottom'} />
+					<Label value='Years' offset={-5} position={'bottom'} />
 				</XAxis>
 				<YAxis
 					tickCount={10}
@@ -65,9 +67,9 @@ export const MinMaxAvgGraph = (props: {modelData: any[]}) => {
 				<CartesianGrid strokeDasharray='3 3' />
 				<Tooltip />
 				<Legend />
-				<Line type='monotone' dataKey='min' stroke='#8884d8' />
-				<Line type='monotone' dataKey='avg' stroke='#82ca9d' />
-				<Line type='monotone' dataKey='max' stroke='#ff0000' />
+				<Line type='monotone' dataKey='avg' stroke='#8884d8' />
+				{/* <Line type='monotone' dataKey='avg' stroke='#82ca9d' />
+				<Line type='monotone' dataKey='max' stroke='#ff0000' /> */}
 			</LineChart>
 		</ResponsiveContainer>
 	);
@@ -127,29 +129,32 @@ export const VehicleModelGraph = (props: {vehicleId: string}) => {
 			setModelData(undefined);
 		}
 		setLoading(true);
-		console.log(props.vehicleId);
-		getInvestmentVehicleProjection(props.vehicleId, 50)
-			.then((data: ProjectionInfo) => {
-				setModelData(data.yearly_projection);
-				console.log(data.yearly_projection);
-				//setModelData(convertVehicleModelData(data));
-			})
-			.then(() => setLoading(false));
-	}, [navigation.state, props.vehicleId]);
+		// console.log(props.vehicleId);
+		// getInvestmentVehicleProjection(props.vehicleId, 50)
+		// 	.then((data: ProjectionInfo) => {
+		// 		setModelData(data.yearly_projections);
+		// 		console.log(data.yearly_projections);
+		// 		console.log(modelData);
+		// 		//setModelData(convertVehicleModelData(data));
+		// 	})
+		// 	.then(() => setLoading(false));
+	}, [modelData, navigation.state, props.vehicleId]);
 
 	
 
-	// const getModelData = () => {
-	// 	setLoading(true);
-	// 	console.log(props.vehicleId);
-	// 	getInvestmentVehicleProjection(props.vehicleId, 50)
-	// 		.then((data: ProjectionInfo) => {
-	// 			setModelData(data.yearly_projection);
-	// 			//setModelData(convertVehicleModelData(data));
-	// 		})
-	// 		.then(() => setLoading(false));
+	const getModelData = () => {
+		setLoading(true);
+		console.log(props.vehicleId);
+		getInvestmentVehicleProjection(props.vehicleId, 50)
+			.then((data: ProjectionInfo) => {
+				setModelData(convertVehicleModelData(data.yearly_projections));
+				console.log(data.yearly_projections);
+				console.log(modelData);
+				//setModelData(convertVehicleModelData(data));
+			})
+			.then(() => setLoading(false));
 		
-	// };
+	};
 
 	// if(!loading && modelData === undefined) {
 	// 	getModelData();
@@ -157,7 +162,10 @@ export const VehicleModelGraph = (props: {vehicleId: string}) => {
 
 	return (
 		<div>
-			{loading && loadIndicator}
+			{/* {loading && loadIndicator} */}
+			<Button onClick={getModelData} disabled={modelData !== undefined}>
+				Get Model Data
+			</Button>
 			{modelData ? <MinMaxAvgGraph modelData={modelData} /> : <div></div>}
 		</div>
 	);

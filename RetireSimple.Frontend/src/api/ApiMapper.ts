@@ -1,3 +1,4 @@
+import React from 'react';
 import {
 	ApiFormData,
 	ApiPresetData,
@@ -9,8 +10,10 @@ import {
 	UserInfo,
 	InvestmentVehicleInfo,
 	Expense,
+	ProjectionInfo,
 	
 } from '../Interfaces';
+import { getInvestmentVehicleProjection } from './New API/InvestmentVehicleApi';
 
 //Flattens API Investment object for form use
 export const flattenApiInvestment = (investment: Investment): ApiFormData => {
@@ -65,16 +68,14 @@ export const convertPortfolioModelData = (model: PortfolioModel) => {
 	return result;
 };
 
-export const convertVehicleModelData = (model: InvestmentVehicleModel) => {
+export const convertVehicleModelData = (model: number[]) => {
 	const result = [];
 	// const taxedResult = [];
 
-	for (let i = 0; i < model.avgModelData.length; i++) {
+	for (let i = 0; i < model.length; i++) {
 		result.push({
 			year: i,
-			avg: +model.avgModelData[i].toFixed(2),
-			min: +model.avgModelData[i].toFixed(2),
-			max: +model.avgModelData[i].toFixed(2),
+			avg: +model[i].toFixed(2),
 		});
 		// taxedResult.push({
 		// 	year: i,
@@ -83,10 +84,7 @@ export const convertVehicleModelData = (model: InvestmentVehicleModel) => {
 		// 	// max: +model.taxDeductedMaxModelData[i].toFixed(2),
 		// });
 	}
-	return {
-		base: result,
-		taxed: [],
-	};
+	return result;
 };
 
 export const createAggregateStackData = (investmentModels: {[key: string]: InvestmentModel}) => {
@@ -160,8 +158,9 @@ export const convertUserInfo = (data: any): UserInfo => {
 export const convertInvestmentVehiclesInfo = (data : any): InvestmentVehicleInfo[] => {
 
 	let vehicles: InvestmentVehicleInfo[] = [];
-
-	data.forEach((vehicleInfo: any) => {
+	
+	data.forEach(async (vehicleInfo: any) => {
+		
 		const vehicle: InvestmentVehicleInfo = {
 			id: vehicleInfo.id,
 			name: vehicleInfo.name,
@@ -173,6 +172,7 @@ export const convertInvestmentVehiclesInfo = (data : any): InvestmentVehicleInfo
 			rate: vehicleInfo.rate,
 			employerMatch: vehicleInfo.employerMatch,
 			employerMatchCap: vehicleInfo.employerMatchCap,
+			projection: null,
 		};
 
 		vehicles.push(vehicle);
@@ -186,7 +186,7 @@ export const convertInvestmentVehicleInfo = (data : any): InvestmentVehicleInfo[
 
 	let vehicles: InvestmentVehicleInfo[] = [];
 
-	data.forEach((vehicleInfo: any) => {
+	data.forEach(async (vehicleInfo: any) => {
 		const vehicle: InvestmentVehicleInfo = {
 			id: vehicleInfo.id,
 			name: vehicleInfo.name,
@@ -198,6 +198,7 @@ export const convertInvestmentVehicleInfo = (data : any): InvestmentVehicleInfo[
 			rate: vehicleInfo.rate,
 			employerMatch: vehicleInfo.employerMatch,
 			employerMatchCap: vehicleInfo.employerMatchCap,
+			projection: null,
 		};
 
 		vehicles.push(vehicle);
