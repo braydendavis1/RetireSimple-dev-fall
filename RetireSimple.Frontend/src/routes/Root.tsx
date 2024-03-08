@@ -3,7 +3,7 @@ import React from 'react';
 import {useNavigation} from 'react-router-dom';
 import {getAggregateModel} from '../api/InvestmentApi';
 import {PortfolioAggregateGraph, PortfolioBreakdownGraph} from '../components/GraphComponents';
-import {convertPortfolioModelData, convertVehicleModelData, createAggregateStackData} from '../api/ApiMapper';
+import {convertPortfolioModelData, convertProjectionData, createAggregateStackData} from '../api/ApiMapper';
 import { getPortfolioProjection } from '../api/New API/InvestmentVehicleApi';
 import { ProjectionInfo } from '../Interfaces';
 export const Root = () => {
@@ -18,23 +18,7 @@ export const Root = () => {
 
 	React.useEffect(() => {
 		getModelData();
-		// if (navigation.state === 'loading') {
-		// 	setHasData(false);
-		// }
-		// getAggregateModel()
-		// 	.then((res) => {
-		// 		setPortfolioData(convertPortfolioModelData(res.portfolioModel));
-		// 		console.log(res.portfolioModel.portfolioModelId)
-		// 		if(res.portfolioModel.portfolioModelId === -1) {
-		// 			setNoInvestments(true);
-		// 			setHasData(false);
-		// 			setLoadIndicator(false);
-		// 		} else{
-		// 			setBreakdownData(createAggregateStackData(res.investmentModels));
-		// 			setHasData(true);
-		// 		}
-		// 	})
-		// 	.then(() => setLoadIndicator(false));
+
 	}, [navigation.state]);
 
 	const getModelData = () => {
@@ -42,26 +26,20 @@ export const Root = () => {
 		
 		getPortfolioProjection()
 			.then((data: ProjectionInfo) => {
-				setPortfolioData(convertVehicleModelData(data.yearly_projections));
+				setPortfolioData(convertProjectionData(data.yearly_projections));
 				console.log("portfolioData:");
 				console.log(portfolioData);
-				//setModelData(convertVehicleModelData(data));
 			})
 			.then(() => {
 				setLoadIndicator(false);
 				setHasData(true);
 			},
 			);
-		
 	};
-
 
 	return (
 		<div style={{display: 'flex', justifyContent: 'center' }}>
-			<Box sx={{
-				display: 'flex', justifyContent: 'center', 
-			
-			}}>
+			<Box sx={{ display: 'flex', justifyContent: 'center' }}>
 				<Box
 					sx={{
 						display: 'flex',

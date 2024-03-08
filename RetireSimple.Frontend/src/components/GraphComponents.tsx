@@ -1,7 +1,6 @@
 import React from 'react';
-import {getInvestmentModel} from '../api/InvestmentApi';
-import {convertInvestmentModelData, convertVehicleModelData} from '../api/ApiMapper';
-import {InvestmentModel, InvestmentVehicleModel, ProjectionInfo} from '../Interfaces';
+import {convertProjectionData} from '../api/ApiMapper';
+import {ProjectionInfo} from '../Interfaces';
 import {useNavigation} from 'react-router-dom';
 import {
 	Box,
@@ -25,8 +24,8 @@ import {
 	XAxis,
 	YAxis,
 } from 'recharts';
-import {getVehicleModel} from '../api/VehicleApi';
 import { getInvestmentVehicleProjection } from '../api/New API/InvestmentVehicleApi';
+import { getInvestmentProjection } from '../api/New API/InvestmentApi';
 
 const strokeColors = [
 	'#8884d8',
@@ -66,14 +65,12 @@ export const MinMaxAvgGraph = (props: {modelData: any[]}) => {
 				<Tooltip />
 				{/* <Legend /> */}
 				<Line type='monotone' dataKey='avg' stroke='#8884d8' />
-				{/* <Line type='monotone' dataKey='avg' stroke='#82ca9d' />
-				<Line type='monotone' dataKey='max' stroke='#ff0000' /> */}
 			</LineChart>
 		</ResponsiveContainer>
 	);
 };
 
-export const InvestmentModelGraph = (props: {investmentId: number}) => {
+export const InvestmentModelGraph = (props: {investmentId: string}) => {
 	const [modelData, setModelData] = React.useState<any[] | undefined>(undefined);
 	const [loading, setLoading] = React.useState<boolean>(false);
 
@@ -85,31 +82,28 @@ export const InvestmentModelGraph = (props: {investmentId: number}) => {
 		}
 	}, [navigation.state]);
 
-	
-
 	const getModelData = () => {
 		setLoading(true);
-		getInvestmentModel(props.investmentId)
-			.then((data: InvestmentModel) => {
-				setModelData(convertInvestmentModelData(data));
+		getInvestmentProjection(props.investmentId)
+			.then((data: ProjectionInfo) => {
+				setModelData(convertProjectionData(data.yearly_projections));
+				console.log("loading investment projection")
 			})
 			.then(() => setLoading(false));
 	};
 
-	if(!loading && modelData === undefined) {
-		getModelData();
-	}	
-
 	return (
-		<div>
-						
-			{/* {!loading && modelData === undefined && (
+		<div>		
+			{!loading && modelData === undefined && (
 				<Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
 					<Button onClick={getModelData} disabled={modelData !== undefined}>
 						Get Model Data
 					</Button>
 				</Box>
-			)} */}
+			)}
+			{/* <Button onClick={getModelData} disabled={modelData !== undefined}>
+				Get Model Data
+			</Button> */}
 			{loading && loadIndicator}
 			{modelData ? <MinMaxAvgGraph modelData={modelData} /> : <div></div>}
 		</div>
@@ -127,100 +121,28 @@ export const VehicleModelGraph = (props: {vehicleId: string}) => {
 			setModelData(undefined);
 		}
 		setLoading(true);
-		// console.log(props.vehicleId);
-		// getInvestmentVehicleProjection(props.vehicleId, 50)
-		// 	.then((data: ProjectionInfo) => {
-		// 		setModelData(data.yearly_projections);
-		// 		console.log(data.yearly_projections);
-		// 		console.log(modelData);
-		// 		//setModelData(convertVehicleModelData(data));
-		// 	})
-		// 	.then(() => setLoading(false));
 	}, [modelData, navigation.state, props.vehicleId]);
-
-	
 
 	const getModelData = () => {
 		setLoading(true);
 		console.log(props.vehicleId);
 		getInvestmentVehicleProjection(props.vehicleId, 50)
 			.then((data: ProjectionInfo) => {
-				setModelData(convertVehicleModelData(data.yearly_projections));
+				setModelData(convertProjectionData(data.yearly_projections));
 				console.log(data.yearly_projections);
 				console.log(modelData);
-				//setModelData(convertVehicleModelData(data));
 			})
 			.then(() => setLoading(false));
-		
 	};
-
-	// if(!loading && modelData === undefined) {
-	// 	getModelData();
-	// }	
 
 	return (
 		<div>
-			{/* {loading && loadIndicator} */}
 			<Button onClick={getModelData} disabled={modelData !== undefined}>
 				Get Model Data
 			</Button>
 			{modelData ? <MinMaxAvgGraph modelData={modelData} /> : <div></div>}
 		</div>
 	);
-	// const [modelData, setModelData] = React.useState<{base: any[]; taxed: any[]} | undefined>(
-	// 	undefined,
-	// );
-	// const [showTaxedModel, setShowTaxedModel] = React.useState<boolean>(false);
-	// const [loading, setLoading] = React.useState<boolean>(false);
-	// const navigation = useNavigation();
-
-	// React.useEffect(() => {
-	// 	if (navigation.state === 'loading') {
-	// 		setModelData(undefined);
-	// 	}
-	// }, [navigation.state]);
-
-	// return (
-	// 	<div>
-	// 		<Box>
-	// 			{!loading && modelData === undefined && (
-	// 				<Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-	// 					{/* <Button onClick={getModelData} disabled={modelData !== undefined}> */}
-	// 					<Button onClick={() => {console.log("Get Model Data")}} disabled={modelData !== undefined}>
-	// 						Get Model Data
-	// 					</Button>
-	// 				</Box>
-	// 			)}
-	// 			{loading && loadIndicator}
-	// 			<FormGroup>
-	// 				<FormControlLabel
-	// 					control={
-	// 						<Switch
-	// 							checked={showTaxedModel}
-	// 							onChange={() => setShowTaxedModel(!showTaxedModel)}
-	// 						/>
-	// 					}
-	// 					label='Show Tax-Applied Model'
-	// 				/>
-	// 			</FormGroup>
-	// 		</Box>
-	// 		{modelData ? (
-	// 			showTaxedModel ? (
-	// 				<>
-	// 					<Typography variant='h6'>Tax-Applied Model</Typography>
-	// 					<MinMaxAvgGraph modelData={modelData.taxed} />
-	// 				</>
-	// 			) : (
-	// 				<>
-	// 					<Typography variant='h6'>Base Model</Typography>
-	// 					<MinMaxAvgGraph modelData={modelData.base} />
-	// 				</>
-	// 			)
-	// 		) : (
-	// 			<div></div>
-	// 		)}
-	// 	</div>
-	// );
 };
 
 export const PortfolioBreakdownGraph = (props: {modelData: any[], height: number}) => {

@@ -19,6 +19,7 @@ import { Investment, InvestmentVehicleInfo } from '../Interfaces';
 import { createInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
 
 export interface AddInvestmentDialogProps {
+	loadInvestments: () => void;
 	open: boolean;
 	onClose: () => void;
 	vehicleTarget: number;

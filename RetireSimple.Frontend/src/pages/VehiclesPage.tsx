@@ -43,11 +43,6 @@ export function VehiclesPage() {
 	};
 
 
-	const openEditDialog = () => {
-		//setEdit(true);
-	};
-
-
 	return <div><PresetContext.Provider value={presetData}>
 		<h2>Vehicles</h2>
 		<Button onClick={() => setVehicleAddDialogOpen(true)}>

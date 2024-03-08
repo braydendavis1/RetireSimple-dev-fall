@@ -1,10 +1,12 @@
-import { InvestmentModel, ProjectionInfo } from "../../Interfaces";
+import { Investment, InvestmentModel, ProjectionInfo } from "../../Interfaces";
 
-export const getInvestments = async () : Promise<InvestmentModel[]> => {
+export const getInvestments = async () : Promise<Investment[]> => {
 	const response = await fetch(`https://localhost:7199/api/Investments`, {
 		method: 'GET',
 	});
 	const data = await response.json().then((data) => {
+		//TODO convert into investment[]
+		console.log("convert to investments");
 		return data;
 	});
 	return data
@@ -51,7 +53,7 @@ export const deleteInvestment = async(id : string) => {
 }
 
 export const getInvestmentProjection = 
-async (id : string, years : number) : Promise<ProjectionInfo> => {
+async (id : string) : Promise<ProjectionInfo> => {
 	//remove years??
 	const response = await fetch(`https://localhost:7199/api/Investments/Projection/${id}`, {
 		method: 'GET',

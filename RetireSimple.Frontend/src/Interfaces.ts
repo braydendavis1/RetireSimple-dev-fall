@@ -1,5 +1,5 @@
 export interface Investment {
-	investmentId: number;
+	investmentId: string;
 	investmentName: string;
 	investmentType: string;
 	analysisType: string;
@@ -7,6 +7,8 @@ export interface Investment {
 	portfolioId: number;
 	investmentData: {[key: string]: string};
 	analysisOptionsOverrides: {[key: string]: string};
+	projection: number | null
+	value: number
 }
 
 export interface InvestmentModel {
