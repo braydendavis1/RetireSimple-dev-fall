@@ -68,7 +68,7 @@ export const convertPortfolioModelData = (model: PortfolioModel) => {
 	return result;
 };
 
-export const convertVehicleModelData = (model: number[]) => {
+export const convertProjectionData = (model: number[]) => {
 	const result = [];
 	// const taxedResult = [];
 
@@ -181,6 +181,7 @@ export const convertInvestmentVehiclesInfo = (data : any): InvestmentVehicleInfo
 	return vehicles;
 	
 }
+
 
 export const convertInvestmentVehicleInfo = (data : any): InvestmentVehicleInfo[] => {
 

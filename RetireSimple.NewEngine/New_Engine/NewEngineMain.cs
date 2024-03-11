@@ -61,7 +61,7 @@ namespace RetireSimple.NewEngine.New_Engine {
 		}
 
 		public async Task HandleDeleteInvestmentVehicle(string id) {
-			await this.user.DeleleInvestmentVehicle(id);
+			await this.user.DeleteInvestmentVehicle(id);
 		}
 
 		public async Task<ProjectionInfoModel> HandleGetPorfolioProjection() {
@@ -82,6 +82,26 @@ namespace RetireSimple.NewEngine.New_Engine {
 			projection.yearly_projections = temp.yearly_projections;
 
 			return projection;
+
+		}
+
+		public async Task HandleCreateExpense(ExpenseInfoModel info, string type) {
+			await this.user.CreateExpense(info, type);
+
+		}
+
+		public async Task<List<ExpenseInfoModel>> HandleReadAllExpenses() {
+
+			return await this.user.GetAllExpenses();
+		}
+
+		public async Task<ExpenseInfoModel> HandleReadExpense(string id) {
+
+			return await this.user.GetExpense(id);
+		}
+
+		public async Task HandleUpdateExpense(string id, ExpenseInfoModel info) {
+			await this.user.UpdateExpense(id, info);
 
 		}
 

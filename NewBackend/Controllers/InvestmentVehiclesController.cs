@@ -36,7 +36,11 @@ public class InvestmentVehiclesController : ControllerBase {
 	[Route("PortfolioProjection/{years}")]
 	public async Task<ProjectionInfoModel> GetPortfolioProjection(int years) {
 		await newEngineMain.HandleLoadPortfolio();
+<<<<<<< HEAD
 
+=======
+		//removed years 
+>>>>>>> bc01dbfd5a6c93c427cf37f41226182c925666c3
 		return await newEngineMain.HandleGetPorfolioProjection();
 	}
 
@@ -45,6 +49,10 @@ public class InvestmentVehiclesController : ControllerBase {
 	[Route("Projection/{id}/{years}")]
 	public async Task<ProjectionInfoModel> GetVehicleProjection(string id, int years) {
 		await newEngineMain.HandleLoadPortfolio();
+<<<<<<< HEAD
+=======
+		//removed years 
+>>>>>>> bc01dbfd5a6c93c427cf37f41226182c925666c3
 		return await newEngineMain.HandleGetVehicleProjection(id);
 	}
 

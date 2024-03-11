@@ -24,6 +24,7 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 		private ITax tax;
 
 		public PortfolioManager portfolioManager;
+		public ExpenseManager expenseManager;
 
 		private Service<UserInfoModel> userService;
 
@@ -36,7 +37,7 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			this.tax = new NullTax();
 
 			this.portfolioManager = new PortfolioManager();
-			
+			this.expenseManager = new ExpenseManager();
 		}
 
 
@@ -45,6 +46,8 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			this.id = "id here";
 			this.tax = new NullTax();
 			this.portfolioManager = new PortfolioManager();
+			this.expenseManager = new ExpenseManager();
+
 		}
 
 		public User( string id) {
@@ -52,6 +55,8 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			this.id = id;
 			this.tax = new NullTax();
 			this.portfolioManager = new PortfolioManager();
+			this.expenseManager = new ExpenseManager();
+
 
 		}
 
@@ -101,7 +106,7 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			return await this.portfolioManager.GetInvestmentVehicleInfoModel(id);
 		}
 
-		public async Task DeleleInvestmentVehicle(string id) {
+		public async Task DeleteInvestmentVehicle(string id) {
 			await this.portfolioManager.DeleteInvestmentVehicleInfoModel(id);
 		}
 
@@ -118,6 +123,26 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			UserInfoModel userInfo = await GetInfo();
 			int years = userInfo.RetirementAge - userInfo.Age;
 			return await this.portfolioManager.GetVehicleProjection(id, years);
+		}
+
+		public async Task CreateExpense(ExpenseInfoModel info, string type) {
+			await this.expenseManager.CreateExpense(info, type);
+		}
+
+		public async Task UpdateExpense(string id, ExpenseInfoModel info) {
+			await this.expenseManager.UpdateExpense(id, info);
+		}
+
+		public async Task<ExpenseInfoModel> GetExpense(string id) {
+			return await this.expenseManager.GetExpenseInfoModel(id);
+		}
+
+		public async Task<List<ExpenseInfoModel>> GetAllExpenses() {
+			return await this.expenseManager.GetExpenseInfoModels();
+		}
+
+		public async Task DeleteExpense(string id) {
+			await this.expenseManager.DeleteExpenseInfoModel(id);
 		}
 	}
 }

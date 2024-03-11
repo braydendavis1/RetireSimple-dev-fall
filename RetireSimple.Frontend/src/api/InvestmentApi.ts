@@ -18,7 +18,7 @@ export const getInvestments = async (): Promise<Investment[]> => {
 	return await response.json();
 };
 
-export const getInvestment = async (id: number): Promise<Investment> => {
+export const getInvestment = async (id: string): Promise<Investment> => {
 	const response = await fetch(`${API_BASE_URL}/Investment/${id}`);
 	return await response.json();
 };
@@ -37,13 +37,13 @@ export const addInvestment = async (data: any): Promise<string> => {
 	return response.text();
 };
 
-export const deleteInvestment = async (id: number) => {
+export const deleteInvestment = async (id: string) => {
 	await fetch(`${API_BASE_URL}/Investment/${id}`, {
 		method: 'DELETE',
 	});
 };
 
-export const updateInvestment = async (id: number, data: any) => {
+export const updateInvestment = async (id: string, data: any) => {
 	convertToDecimal(data);
 	await fetch(`${API_BASE_URL}/Investment/${id}`, {
 		method: 'POST',

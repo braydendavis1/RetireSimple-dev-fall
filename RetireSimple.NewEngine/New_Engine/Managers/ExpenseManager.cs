@@ -1,4 +1,8 @@
-﻿using RetireSimple.NewEngine.New_Engine.Financials;
+﻿using RetireSimple.Engine.New_Engine;
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
+using RetireSimple.NewEngine.New_Engine.Database.Services;
+using RetireSimple.NewEngine.New_Engine.Financials;
+using RetireSimple.NewEngine.New_Engine.Financials.Expenses;
 
 using System;
 using System.Collections.Generic;
@@ -7,7 +11,100 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RetireSimple.NewEngine.New_Engine.Managers {
-	public class ExpenseManager  {
-	
+	public class ExpenseManager {
+
+		public List<Expense> expenses;
+
+		private Service<ExpenseInfoModel> service;
+
+		public ExpenseManager() {
+			this.service = new Service<ExpenseInfoModel>("Expenses", new MongoService<ExpenseInfoModel>());
+
+			this.expenses = new List<Expense>();
+		}
+
+
+		//internal Task CreateExpense(ExpenseInfoModel info, string type) => throw new NotImplementedException();
+		//internal Task DeleteExpenseInfoModel(string id) => throw new NotImplementedException();
+		//internal Task<List<ExpenseInfoModel>> GetAllExpensesInfoModel() => throw new NotImplementedException();
+		//internal Task<ExpenseInfoModel> GetExpenseInfoModel(string id) => throw new NotImplementedException();
+		//internal Task UpdateExpense(string id, ExpenseInfoModel info) => throw new NotImplementedException();
+
+		public async Task LoadExpenses() {
+			List<ExpenseInfoModel> ExpensesInfo = await this.service.HandleGetAsync();
+
+			for (int i = 0; i < ExpensesInfo.Count; i++) {
+				this.expenses.Add(ExpenseLoader.Load(ExpensesInfo[i]));
+			}
+		}
+
+
+		public async Task<List<ExpenseInfoModel>> GetExpenseInfoModels() {
+
+			return await this.service.HandleGetAsync();
+
+		}
+
+		public async Task<ExpenseInfoModel> GetExpenseInfoModel(string id) {
+
+			return await this.service.HandleGetAsync(id);
+
+		}
+
+		public async Task CreateExpense(ExpenseInfoModel info, string type) {
+			Expense expense;
+			if (type.Equals("Monthly")) {
+				expense = new MonthlyExpense(info.Id, info.Amount, info.Start);
+
+			} else {
+				expense = new OneTimeExpense(info.Id, info.Amount, info.Start);
+
+			}
+			this.expenses.Add(expense);
+			//await expense.setInfo(info);
+			
+
+		}
+
+		public async Task UpdateExpense(string id, ExpenseInfoModel info) {
+			await this.service.HandleUpdateAsync(id, info);
+
+		}
+
+		public async Task DeleteExpenseInfoModel(string id) {
+			int index = -1;
+			for (int i = 0; i < this.expenses.Count; i++) {
+				if (this.expenses[i].Equals(id)) {
+					index = 0;
+				}
+			}
+			if (index != -1) {
+				this.expenses.RemoveAt(index);
+			}
+
+			await this.service.HandleDeleteAsync(id);
+		}
+
+		public async Task<Projection> GetVehicleProjection(string id, int years) {
+			int index = -1;
+			for (int i = 0; i < this.expenses.Count; i++) {
+				if (this.expenses[i].Equals(id)) {
+					Expense vehicle = this.expenses[i];
+
+					return await vehicle.Calculate(years);
+				}
+			}
+			return null;
+		}
+
+		public async Task<Projection> CacluatePortfolioPorjection(int years) {
+			//await this.LoadExpenses();
+			Projection projection = new Projection(new List<double>(), 0);
+			for (int i = 0; i < this.expenses.Count; i++) {
+				projection = projection.Add(await this.expenses[i].Calculate(years));
+				Console.WriteLine(this.expenses[i].id);
+			}
+			return projection;
+		}
 	}
 }
