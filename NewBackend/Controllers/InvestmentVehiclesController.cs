@@ -37,7 +37,7 @@ public class InvestmentVehiclesController : ControllerBase {
 	public async Task<ProjectionInfoModel> GetPortfolioProjection(int years) {
 		await newEngineMain.HandleLoadPortfolio();
 
-		return await newEngineMain.HandleGetPorfolioProjection(years);
+		return await newEngineMain.HandleGetPorfolioProjection();
 	}
 
 	[EnableCors]
@@ -45,7 +45,7 @@ public class InvestmentVehiclesController : ControllerBase {
 	[Route("Projection/{id}/{years}")]
 	public async Task<ProjectionInfoModel> GetVehicleProjection(string id, int years) {
 		await newEngineMain.HandleLoadPortfolio();
-		return await newEngineMain.HandleGetVehicleProjection(id, years);
+		return await newEngineMain.HandleGetVehicleProjection(id);
 	}
 
 	//Initialization
