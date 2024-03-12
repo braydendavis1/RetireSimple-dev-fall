@@ -14,10 +14,10 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.Expenses {
 
 		public static Expense Load(ExpenseInfoModel info) {
 			if (info.Type.Equals("Monthly")) {
-				return new MonthlyExpense(info.Id, info.Amount, info.Start);
+				return new MonthlyExpense(info.Id, info.Amount, info.Start, info.Name, info.End);
 
 			} else {
-				return new OneTimeExpense(info.Id, info.Amount, info.Start);
+				return new OneTimeExpense(info.Id, info.Amount, info.Start, info.Name);
 
 			}
 		}

@@ -88,8 +88,10 @@ export interface InvestmentVehicle {
 
 export interface Expense {
 	id: string;
+	name: string;
 	amount: number;
 	start: number;
+	end: number;
 	type: string; //treat as a date later?
 }
 

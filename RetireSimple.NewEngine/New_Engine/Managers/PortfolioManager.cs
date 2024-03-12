@@ -11,6 +11,7 @@ using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInf
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles._401k;
 using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.Engine.New_Engine;
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
 
 namespace RetireSimple.NewEngine.New_Engine.Managers {
 	public class PortfolioManager  {
@@ -98,6 +99,12 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			}
 			return projection;
 		}
+
+		internal Task CreateInvestment(InvestmentInfoModel info, string type) => throw new NotImplementedException();
+		internal Task UpdateInvestment(string id, InvestmentInfoModel info) => throw new NotImplementedException();
+		internal Task<InvestmentInfoModel> GetInvestment(string id) => throw new NotImplementedException();
+		internal Task<List<InvestmentInfoModel>> GetAllInvestments() => throw new NotImplementedException();
+		internal Task DeleteInvestment(string id) => throw new NotImplementedException();
 	}
 
 	

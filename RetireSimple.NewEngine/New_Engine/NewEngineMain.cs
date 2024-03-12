@@ -85,8 +85,8 @@ namespace RetireSimple.NewEngine.New_Engine {
 
 		}
 
-		public async Task HandleCreateExpense(ExpenseInfoModel info, string type) {
-			await this.user.CreateExpense(info, type);
+		public async Task HandleCreateExpense(ExpenseInfoModel info) {
+			await this.user.CreateExpense(info);
 
 		}
 
@@ -102,6 +102,26 @@ namespace RetireSimple.NewEngine.New_Engine {
 
 		public async Task HandleUpdateExpense(string id, ExpenseInfoModel info) {
 			await this.user.UpdateExpense(id, info);
+
+		}
+
+		public async Task HandleCreateInvestment(InvestmentInfoModel info, string type) {
+			await this.user.CreateInvestment(info, type);
+
+		}
+
+		public async Task<List<InvestmentInfoModel>> HandleReadAllInvestments() {
+
+			return await this.user.GetAllInvestments();
+		}
+
+		public async Task<InvestmentInfoModel> HandleReadInvestment(string id) {
+
+			return await this.user.GetInvestment(id);
+		}
+
+		public async Task HandleUpdateInvestment(string id, InvestmentInfoModel info) {
+			await this.user.UpdateInvestment(id, info);
 
 		}
 

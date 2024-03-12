@@ -35,10 +35,10 @@ public class ExpensesController : ControllerBase {
 
 	//Initialization
 	[HttpPost]
-	public async Task<IActionResult> Post(ExpenseInfoModel newExpenses, string type) {
+	public async Task<IActionResult> Post(ExpenseInfoModel newExpenses) {
 		//await _ExpenseService.CreateAsync(newExpenses);
 
-		await newEngineMain.HandleCreateExpense(newExpenses, type);
+		await newEngineMain.HandleCreateExpense(newExpenses);
 
 		return CreatedAtAction(nameof(Get), new { id = newExpenses.Id }, newExpenses);
 	}

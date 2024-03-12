@@ -9,6 +9,8 @@ namespace RetireSimple.NewEngine.New_Engine.Database.InfoModels {
 		public int Start { get; set; }
 		public double Amount { get; set; }
 		public string Type { get; set; }
+		public int End { get; set; }
+		public string Name { get; set; }
 
 	}
 }

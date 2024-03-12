@@ -12,14 +12,16 @@ using System.Threading.Tasks;
 namespace RetireSimple.NewEngine.New_Engine.Financials.Expenses {
 	public abstract class Expense : Financial {
 
+		public string name;
 		public double amount;
 		public int start;
 
 		private Service<ExpenseInfoModel> Service;
-		public Expense(string id, double amount, int start) : base(id, FinCategories.EXPENSE) {
+		public Expense(string id, double amount, int start, string name) : base(id, FinCategories.EXPENSE) {
 
 			this.amount = amount;
 			this.start = start;
+			this.name = name;
 			this.Service = new Service<ExpenseInfoModel>("Expenses", new MongoService<ExpenseInfoModel>());
 
 		}

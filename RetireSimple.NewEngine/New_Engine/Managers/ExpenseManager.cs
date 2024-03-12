@@ -51,13 +51,13 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 		}
 
-		public async Task CreateExpense(ExpenseInfoModel info, string type) {
+		public async Task CreateExpense(ExpenseInfoModel info) {
 			Expense expense;
-			if (type.Equals("Monthly")) {
-				expense = new MonthlyExpense(info.Id, info.Amount, info.Start);
+			if (info.Type.ToLower().Equals("monthly")) {
+				expense = new MonthlyExpense(info.Id, info.Amount, info.Start, info.Name, info.End);
 
 			} else {
-				expense = new OneTimeExpense(info.Id, info.Amount, info.Start);
+				expense = new OneTimeExpense(info.Id, info.Amount, info.Start, info.Name);
 
 			}
 			this.expenses.Add(expense);

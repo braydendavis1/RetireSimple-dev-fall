@@ -125,8 +125,8 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			return await this.portfolioManager.GetVehicleProjection(id, years);
 		}
 
-		public async Task CreateExpense(ExpenseInfoModel info, string type) {
-			await this.expenseManager.CreateExpense(info, type);
+		public async Task CreateExpense(ExpenseInfoModel info) {
+			await this.expenseManager.CreateExpense(info);
 		}
 
 		public async Task UpdateExpense(string id, ExpenseInfoModel info) {
@@ -143,6 +143,26 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 
 		public async Task DeleteExpense(string id) {
 			await this.expenseManager.DeleteExpenseInfoModel(id);
+		}
+
+		public async Task CreateInvestment(InvestmentInfoModel info, string type) {
+			await this.portfolioManager.CreateInvestment(info, type);
+		}
+
+		public async Task UpdateInvestment(string id, InvestmentInfoModel info) {
+			await this.portfolioManager.UpdateInvestment(id, info);
+		}
+
+		public async Task<InvestmentInfoModel> GetInvestment(string id) {
+			return await this.portfolioManager.GetInvestment(id);
+		}
+
+		public async Task<List<InvestmentInfoModel>> GetAllInvestments() {
+			return await this.portfolioManager.GetAllInvestments();
+		}
+
+		public async Task DeleteInvestment(string id) {
+			await this.portfolioManager.DeleteInvestment(id);
 		}
 	}
 }

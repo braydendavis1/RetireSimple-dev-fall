@@ -18,7 +18,6 @@ import {enqueueSnackbar, useSnackbar} from 'notistack';
 import { Expense, Investment, InvestmentVehicleInfo } from '../Interfaces';
 import { createInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
 import { createExpense } from '../api/New API/ExpenseApi';
-import { Int32 } from 'bson';
 
 export interface AddInvestmentDialogProps {
 	loadInvestments: () => void;
@@ -272,8 +271,10 @@ export const AddExpenseDialog = (props: AddExpenseDialogProps) => {
 
 		const expense: Expense = {
 			id: "",
+			name: "APL",
 			amount: 10,
-			start: 100,
+			start: 65,
+			end: 95,
 			type: data.expenseType, 
 		}
 		console.log(expense);
