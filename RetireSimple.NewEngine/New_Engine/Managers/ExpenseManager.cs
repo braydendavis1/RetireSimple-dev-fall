@@ -61,7 +61,8 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 			}
 			this.expenses.Add(expense);
-			//await expense.setInfo(info);
+			//Console.WriteLine(info.Id);
+			await expense.SetInfo(info);
 			
 
 		}
