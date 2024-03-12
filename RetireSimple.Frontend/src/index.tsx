@@ -141,8 +141,7 @@ const router = createBrowserRouter(
 			path='/'
 			element={<Layout />}
 			errorElement={<ErrorPage />}
-			id='root'
-			loader={async () => await getPortfolio()}>
+			id='root'>
 			<Route
 				path='/'
 				element={
@@ -154,7 +153,7 @@ const router = createBrowserRouter(
 			
 			<Route
 				path='InvestmentPage/'
-				loader={async () => await getPortfolio()}
+				
 				element={
 					<InvestmentsPage />
 				}
@@ -171,7 +170,7 @@ const router = createBrowserRouter(
 			/>
 			<Route
 				path='VehiclesPage/'
-				loader={async () => await getPortfolio()}
+				
 				element={
 					<VehiclesPage />
 				}

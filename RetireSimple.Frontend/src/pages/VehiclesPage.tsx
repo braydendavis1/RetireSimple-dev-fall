@@ -22,11 +22,11 @@ export function VehiclesPage() {
 	const navigate = useNavigate();
 
 	React.useEffect(() => {
-		if (presetData === undefined) {
-			getAnalysisPresets().then((data) => {
-				setPresetData(data);
-			});
-		}
+		// if (presetData === undefined) {
+		// 	getAnalysisPresets().then((data) => {
+		// 		setPresetData(data);
+		// 	});
+		// }
 		loadVehicles();
 	}, [presetData]);
 	
