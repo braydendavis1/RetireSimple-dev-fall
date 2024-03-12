@@ -17,11 +17,11 @@ export const InvestmentsPage = () => {
 	const [investmentList, setInvestmentList] = useState<Investment[]>([]);
 
 	React.useEffect(() => {
-		if (presetData === undefined) {
-			getAnalysisPresets().then((data) => {
-				setPresetData(data);
-			});
-		}
+		// if (presetData === undefined) {
+		// 	getAnalysisPresets().then((data) => {
+		// 		setPresetData(data);
+		// 	});
+		// }
 		loadInvestments();
 	}, [presetData]);
 

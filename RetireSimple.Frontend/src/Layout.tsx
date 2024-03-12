@@ -26,8 +26,8 @@ import logo from '../../logo.png';
 export const PresetContext = React.createContext<ApiPresetData | undefined>(undefined);
 
 export const Layout = () => {
-	const portfolio = useLoaderData() as Portfolio;
-	const {investments, investmentVehicles: vehicles} = portfolio;
+	// const portfolio = useLoaderData() as Portfolio;
+	// const {investments, investmentVehicles: vehicles} = portfolio;
 
 	const [presetData, setPresetData] = React.useState<ApiPresetData | undefined>(undefined);
 	const [invAddDialogOpen, setInvAddDialogOpen] = React.useState(false);
@@ -37,11 +37,11 @@ export const Layout = () => {
 	const [helpOpen, setHelpOpen] = React.useState(false);
 
 	React.useEffect(() => {
-		if (presetData === undefined) {
-			getAnalysisPresets().then((data) => {
-				setPresetData(data);
-			});
-		}
+		// if (presetData === undefined) {
+		// 	getAnalysisPresets().then((data) => {
+		// 		setPresetData(data);
+		// 	});
+		// }
 	}, [presetData]);
 
 	const openAddInvDialog = (vehicleId: number) => {
