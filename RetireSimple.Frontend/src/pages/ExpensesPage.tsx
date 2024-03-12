@@ -57,6 +57,7 @@ export function ExpensesPage() {
 		
 		<AddExpenseDialog
 			show={expenseAddDialogOpen}
+			loadExpenses={loadExpenses}
 			onClose={() => setExpenseAddDialogOpen(false)} 
 		/>
 	</PresetContext.Provider>
