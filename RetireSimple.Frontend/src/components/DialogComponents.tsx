@@ -15,8 +15,10 @@ import {
 	FormTextField,
 } from './InputComponents';
 import {enqueueSnackbar, useSnackbar} from 'notistack';
-import { Investment, InvestmentVehicleInfo } from '../Interfaces';
+import { Expense, Investment, InvestmentVehicleInfo } from '../Interfaces';
 import { createInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
+import { createExpense } from '../api/New API/ExpenseApi';
+import { Int32 } from 'bson';
 
 export interface AddInvestmentDialogProps {
 	loadInvestments: () => void;
@@ -34,6 +36,12 @@ export interface EditInvestmentDialogProps {
 export interface AddVehicleDialogProps {
 	loadVehicles: Function;
 	open: boolean;
+	onClose: () => void;
+}
+
+export interface AddExpenseDialogProps {
+	loadExpenses: Function;
+	show: boolean;
 	onClose: () => void;
 }
 
@@ -237,12 +245,7 @@ export const ConfirmDeleteDialog = (props: ConfirmDeleteDialogProps) => {
 	);
 };
 
-interface AddExpenseDialogProps {
-	show: boolean;
-	onClose: () => void;
-	// investmentId: number;
-	//setNeedsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
-}
+
 
 export const AddExpenseDialog = (props: AddExpenseDialogProps) => {
 	const formContext = useForm({
@@ -253,6 +256,55 @@ export const AddExpenseDialog = (props: AddExpenseDialogProps) => {
 		name: 'expenseType',
 		defaultValue: 'OneTime',
 	});
+
+
+
+	const handleExpenseAdd = (data: FieldValues) => {
+		console.log("add expense ");
+		//console.log(data);
+		// const expense: Expense = {
+		// 	id: "",
+		// 	expenseName: data.expenseName,
+		// 	expenseAmount: data.expenseAmount,
+		// 	expenseFrequency: data.expenseFrequency,
+		// 	lastUpdated: "", 
+		// }
+
+		const expense: Expense = {
+			id: "",
+			amount: 10,
+			start: 100,
+			type: data.expenseType, 
+		}
+		console.log(expense);
+		createExpense(expense, data.expenseType).then ( () => {
+			props.onClose();
+			props.loadExpenses();
+			console.log("Added expense");
+		},
+		);
+		
+		// const vehicle: InvestmentVehicleInfo = {
+		// 	id: "",
+		// 	name: data.investmentVehicleName,
+		// 	value: data.cashHoldings,
+		// 	contributions: data.analysis_userContributionPercentage,
+		// 	salary: data.analysis_salary,
+		// 	salaryIncrease: 0,
+		// 	rate: data.analysis_rate,
+		// 	type: data.investmentVehicleType,
+		// 	employerMatch: data.analysis_employerMatchPercentage,
+		// 	employerMatchCap: data.analysis_employerMatchCap,
+		// 	projection: null,
+		// };
+		// console.log(vehicle);
+		// createInvestmentVehicle(vehicle, '401k').then ( () => {
+		// 	props.onClose();
+		// 	props.loadVehicles();
+		// },
+		// );
+		
+	};
 
 	const submitExpense = (data: any) => {
 
@@ -293,7 +345,7 @@ export const AddExpenseDialog = (props: AddExpenseDialogProps) => {
 			label='Expense Type'
 			options={[
 				{value: 'OneTime', label: 'One Time', tooltip: 'OneTime'},
-				{value: 'Recurring', label: 'Recurring', tooltip: 'Recurring'},
+				{value: 'Monthly', label: 'Monthly', tooltip: 'Monthly'},
 			]}
 			defaultOption='OneTime'
 			errorField={undefined}
@@ -373,7 +425,7 @@ export const AddExpenseDialog = (props: AddExpenseDialogProps) => {
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={props.onClose}>Cancel</Button>
-				<Button onClick={formContext.handleSubmit(submitExpense)}>Add</Button>
+				<Button onClick={formContext.handleSubmit(handleExpenseAdd)}>Add</Button>
 			</DialogActions>
 		</Dialog>
 	);

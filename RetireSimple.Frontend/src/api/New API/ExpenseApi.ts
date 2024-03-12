@@ -16,14 +16,16 @@ export const getExpense = async (id : String) : Promise<Expense> => {
 }
 
 export const createExpense = async(data : Expense, type : string) => {
-	const response = await fetch(`https://localhost:7199/api/Expenses`,{
+	console.log(data);
+	console.log(type);
+	const response = await fetch(`https://localhost:7199/api/Expenses?type=${type}`,{
 		method: 'POST',
 		body: JSON.stringify(data),
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json; charset=utf-8',
 		},
-	});
+	}).catch(err => console.log(err));
 }
 
 export const updateExpense = async(data : Expense, id : string) => {
