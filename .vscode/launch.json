@@ -1,7 +1,6 @@
 {
 	"version": "0.2.0",
-	"configurations": [
-	
+	"configurations": [	
 		{
 			"name": "Start Frontend",
 			"command": "pnpm start",
@@ -33,6 +32,18 @@
 			"env": {
 				"ASPNETCORE_ENVIRONMENT": "Development"
 			},
+		}, 
+		{
+			"name": "Start New Backend",
+			"type": "coreclr",
+			"request": "launch",
+			"program": "${workspaceFolder}/NewBackend/bin/Debug/net6.0/RetireSimple.NewBackend.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/NewBackend",
+			"stopAtEntry": false,
+			"env":{
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			},
 		}
 	],
 	"compounds": [
@@ -41,6 +52,7 @@
 			"configurations": [
 				"Start Frontend",
 				"Start Backend (No Build)",
+				"Start New Backend"
 			],
 			"preLaunchTask": "build"
 		},
