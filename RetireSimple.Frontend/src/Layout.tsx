@@ -14,12 +14,7 @@ import {
 import React from 'react';
 import {Link, Outlet, useLoaderData} from 'react-router-dom';
 import {ApiPresetData, Investment, Portfolio} from './Interfaces';
-import {AddInvestmentDialog, AddVehicleDialog} from './components/DialogComponents';
-import {SidebarInvestment, VehicleListItem} from './components/SidebarComponents';
 
-import {getAnalysisPresets} from './api/ApiCommon';
-import {AboutDialog} from './components/AboutDialog';
-import {HelpDialog} from './components/HelpDialog';
 
 import logo from '../../logo.png';
 

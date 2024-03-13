@@ -1,13 +1,16 @@
 import {yupResolver} from '@hookform/resolvers/yup';
-import {Box, Button, Divider, Typography} from '@mui/material';
+import {Box, Button, DialogActions, Divider, Typography} from '@mui/material';
 import React from 'react';
 import {FieldValues, FormProvider, useForm, useFormState} from 'react-hook-form';
 import {useFormAction, useLoaderData, useSubmit} from 'react-router-dom';
-import {ConfirmDeleteDialog} from '../components/DialogComponents';
+import {ConfirmDeleteDialog, ConfirmDeleteExpense} from '../components/DialogComponents';
 import {VehicleModelGraph} from '../components/GraphComponents';
 import {VehicleFormDefaults, vehicleFormSchema} from '../forms/FormSchema';
 import {VehicleDataForm} from '../forms/VehicleDataForm';
 import {useSnackbar} from 'notistack';
+import { ExpenseDataForm } from '../forms/ExpenseDataForm';
+import { createExpense, updateExpense } from '../api/New API/ExpenseApi';
+import { Expense } from '../Interfaces';
 
 export const ExpenseView = () => {
 	const [showDelete, setShowDelete] = React.useState(false);
@@ -15,10 +18,14 @@ export const ExpenseView = () => {
 	const submit = useSubmit();
 	const deleteAction = useFormAction('delete');
 	const updateAction = useFormAction('update');
+	// const formContext = useForm({
+	// 	shouldUnregister: true,
+	// 	resolver: yupResolver(vehicleFormSchema),
+	// 	defaultValues: expenseData ?? VehicleFormDefaults,
+	// });
+
 	const formContext = useForm({
 		shouldUnregister: true,
-		resolver: yupResolver(vehicleFormSchema),
-		defaultValues: expenseData ?? VehicleFormDefaults,
 	});
 
 	const {reset, control, handleSubmit} = formContext;
@@ -29,7 +36,24 @@ export const ExpenseView = () => {
 		reset(expenseData, {keepErrors: true});
 	}, [reset, expenseData]);
 
-	const handleUpdate = handleSubmit((data: FieldValues) => {
+	const handleUpdate = (data: FieldValues) => {
+		console.log("updating");
+		const expense: Expense = {
+			id: "",
+			name: data.name,
+			amount: data.amount,
+			start: data.start,
+			end: data.end,
+			type: data.expenseType,
+		}
+		updateExpense(expense, expenseData.id).then ( () => {
+			// props.onClose();
+			// Go back to expenses page after submitting????
+			// props.loadExpenses();
+			console.log("Edited expense");
+		},
+		);
+
 		// const requestData: {[key: string]: string} = {};
 		// Object.entries(dirtyFields).forEach(([key, value]) => {
 		// 	if (value === true) {
@@ -45,43 +69,40 @@ export const ExpenseView = () => {
 		// 	.catch((error) => {
 		// 		enqueueSnackbar(`Failed to update vehicle: ${error.message}`, {variant: 'error'});
 		// 	});
-	});
+	};
+
+	const temp = () => {
+		console.log("clicked")
+	};
 
 	return (
 		<Box sx={{display: 'flex', flexDirection: 'column'}}>
 			<Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
 				<Typography variant='h6' component='div' sx={{flexGrow: 1, marginBottom: '1rem'}}>
-					Vehicle Details: {expenseData.investmentVehicleName}
+					Expense Details: {expenseData.name}
 				</Typography>
 				<FormProvider {...formContext}>
-					<VehicleDataForm defaultValues={expenseData} disableTypeSelect={true}>
-						<Divider sx={{paddingY: '5px'}} />
-						<Box
-							sx={{
-								display: 'flex',
-								flexDirection: 'row',
-								justifyContent: 'flex-end',
-							}}>
-							<Button onClick={() => reset(expenseData)}>Reset</Button>
+					<ExpenseDataForm defaultValues={expenseData} disableTypeSelect={true}>
+						<DialogActions>
 							<Button color='error' onClick={() => setShowDelete(true)}>
 								Delete
 							</Button>
-							<Button onClick={handleUpdate} disabled={!isDirty}>
+							<Button onClick={() => formContext.handleSubmit(handleUpdate)}>
 								Update
 							</Button>
-						</Box>
-					</VehicleDataForm>
+						</DialogActions>
+						
+					</ExpenseDataForm>
 				</FormProvider>
 			</Box>
-			<Box sx={{width: '100%', height: '100%'}}>
+			{/* <Box sx={{width: '100%', height: '100%'}}>
 				<VehicleModelGraph vehicleId={expenseData.investmentVehicleId} />
-			</Box>
-			<ConfirmDeleteDialog
+			</Box> */}
+			<ConfirmDeleteExpense
 				open={showDelete}
 				onClose={() => setShowDelete(false)}
 				onConfirm={() => submit(null, {action: deleteAction, method: 'delete'})}
-				deleteTargetType='vehicle'
-				deleteTarget={expenseData.investmentVehicleName}
+				expenseId={expenseData.id}
 			/>
 		</Box>
 	);
