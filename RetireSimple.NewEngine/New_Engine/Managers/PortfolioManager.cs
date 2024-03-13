@@ -57,6 +57,7 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 				await vehicle.SetInfo(info);
 			}
 
+
 		}
 
 		public async Task UpdateInvestmentVehicle(string id, InvestmentVehicleInfoModel info) {

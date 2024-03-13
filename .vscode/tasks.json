@@ -1,17 +1,28 @@
 {
 	"version": "2.0.0",
 	"tasks": [
+		// {
+		// 	"label": "build",
+		// 	"command": "dotnet",
+		// 	"type": "process",
+		// 	"args": [
+		// 		"build",
+		// 		"${workspaceFolder}/RetireSimple.Backend/RetireSimple.Backend.csproj",
+		// 		"/property:GenerateFullPaths=true",
+		// 		"/consoleloggerparameters:NoSummary"
+		// 	],
+		// 	"problemMatcher": "$msCompile"
+		// },
 		{
-			"label": "build",
+			"label":"build",
 			"command": "dotnet",
 			"type": "process",
 			"args": [
-				"build",
-				"${workspaceFolder}/RetireSimple.Backend/RetireSimple.Backend.csproj",
-				"/property:GenerateFullPaths=true",
-				"/consoleloggerparameters:NoSummary"
+				"build", 
+				"${workspaceFolder}/NewBackend/RetireSimple.NewBackend.csproj"
 			],
 			"problemMatcher": "$msCompile"
+
 		},
 		{
 			"label": "publish",

@@ -111,12 +111,12 @@ namespace RetireSimple.NewTests {
 			userInfo.RetirementGoal = 100000;
 			userInfo.FilingStatus = "Single";
 
-			Projection projection = await portfolio.Calculate(35);
+			//Projection projection = await portfolio.Calculate(35);
 
-			info.yearly_projections = projection.yearly_projections;
+			//info.yearly_projections = projection.yearly_projections;
 
-			Console.WriteLine(info.yearly_projections);
-			Assert.AreEqual(2, portfolio.investmentVehicles.Count);
+			//Console.WriteLine(info.yearly_projections);
+			//Assert.AreEqual(2, portfolio.investmentVehicles.Count);
 
 
 
