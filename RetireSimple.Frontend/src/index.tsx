@@ -11,11 +11,10 @@ import {
 	useRouteError,
 } from 'react-router-dom';
 import {Layout} from './Layout';
-import {getPortfolio} from './api/ApiCommon';
 import {flattenApiInvestment, getFlatVehicleData} from './api/ApiMapper';
 import {convertFromDecimal} from './api/ConvertUtils';
-import {deleteInvestment, getInvestment} from './api/InvestmentApi';
-import {deleteVehicle, getVehicle} from './api/VehicleApi';
+// import {deleteInvestment, getInvestment} from './api/InvestmentApi';
+// import {deleteVehicle, getVehicle} from './api/VehicleApi';
 import {InvestmentsPage} from './pages/InvestmentsPage';
 import {VehiclesPage} from './pages/VehiclesPage';
 import {AboutPage} from './pages/AboutPage';
@@ -25,8 +24,10 @@ import { ExpensesPage } from './pages/ExpensesPage';
 import { EngineInfoPage } from './pages/EngineInfoPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { getInvestmentVehicle } from './api/New API/InvestmentVehicleApi';
-import { getExpense } from './api/ExpenseApi';
+// import { getExpense } from './api/ExpenseApi';
 import { ExpenseView } from './routes/ExpensesView';
+import { getInvestment } from './api/New API/InvestmentApi';
+import { getExpense } from './api/New API/ExpenseApi';
 
 /************************
  * Lazy Loaded Components
@@ -50,44 +51,38 @@ export const SuspenseRoute = ({children}: {children: React.ReactNode}) => {
 	return <React.Suspense fallback={<CircularProgress />}>{children}</React.Suspense>;
 };
 
-/************************
- * React Router Actions
- ************************/
-const addInvestmentAction = async () => {
-	//Assert that the actual addition occured already
-	//Use this as a way to refresh loader data
-	return new Response(null, {status: 302, headers: {Location: '/'}});
-};
+// const addInvestmentAction = async () => {
+// 	//Assert that the actual addition occured already
+// 	//Use this as a way to refresh loader data
+// 	return new Response(null, {status: 302, headers: {Location: '/'}});
+// };
 
-const updateInvestmentAction = async ({params}: {params: any}) => {
-	return new Response(null, {status: 302, headers: {Location: `/investment/${params.id}`}});
-};
+// const updateInvestmentAction = async ({params}: {params: any}) => {
+// 	return new Response(null, {status: 302, headers: {Location: `/investment/${params.id}`}});
+// };
 
-const deleteInvestmentAction = async ({params}: {params: any}) => {
-	const id = params.id;
-	await deleteInvestment(id);
-	return new Response(null, {status: 302, headers: {Location: '/'}});
-};
+// // const deleteInvestmentAction = async ({params}: {params: any}) => {
+// // 	const id = params.id;
+// // 	await deleteInvestment(id);
+// // 	return new Response(null, {status: 302, headers: {Location: '/'}});
+// // };
 
-const addVehicleAction = async () => {
-	//Assert that the actual addition occured already
-	//Use this as a way to refresh loader data
-	return new Response(null, {status: 302, headers: {Location: '/'}});
-};
+// const addVehicleAction = async () => {
+// 	//Assert that the actual addition occured already
+// 	//Use this as a way to refresh loader data
+// 	return new Response(null, {status: 302, headers: {Location: '/'}});
+// };
 
-const updateVehicleAction = async ({params}: {params: any}) => {
-	return new Response(null, {status: 302, headers: {Location: `/vehicle/${params.id}`}});
-};
+// const updateVehicleAction = async ({params}: {params: any}) => {
+// 	return new Response(null, {status: 302, headers: {Location: `/vehicle/${params.id}`}});
+// };
 
-const deleteVehicleAction = async ({params}: {params: any}) => {
-	const id = params.id;
-	await deleteVehicle(id);
-	return new Response(null, {status: 302, headers: {Location: '/'}});
-};
+// // const deleteVehicleAction = async ({params}: {params: any}) => {
+// // 	const id = params.id;
+// // 	await deleteVehicle(id);
+// // 	return new Response(null, {status: 302, headers: {Location: '/'}});
+// // };
 
-/**********************************
- * Error Page
- *********************************/
 const ErrorPage = () => {
 	const error = useRouteError();
 
@@ -224,40 +219,7 @@ const router = createBrowserRouter(
 					<HelpPage />
 				}
 			/>
-			{/* <Route
-				path='investment/:id'
-				element={
-					<SuspenseRoute>
-						<InvestmentView />
-					</SuspenseRoute>
-				}
-				loader={async ({params}) => {
-					const data = flattenApiInvestment(
-						await getInvestment(parseInt(params.id ?? '')),
-					);
-					convertFromDecimal(data);
-					return data;
-				}}>
-				<Route path='update' action={updateInvestmentAction} />
-				<Route path='delete' action={deleteInvestmentAction} />
-			</Route> */}
-			<Route
-				path='vehicle/:id'
-				element={
-					<SuspenseRoute>
-						<VehicleView />
-					</SuspenseRoute>
-				}
-				loader={async ({params}) => {
-					const data = getFlatVehicleData(await getVehicle(parseInt(params.id ?? '')));
-					convertFromDecimal(data);
-					return data;
-				}}>
-				<Route path='update' action={updateVehicleAction} />
-				<Route path='delete' action={deleteVehicleAction} />
-			</Route>
-			<Route path='addVehicle' action={addVehicleAction} />
-			<Route path='add' action={addInvestmentAction} />
+			
 			<Route path='*' element={<div>404</div>} />
 		</Route>,
 	]),

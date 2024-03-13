@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import {ApiPresetData,InvestmentVehicleInfo, ProjectionInfo} from '../Interfaces';
 import { AddVehicleDialog } from '../components/DialogComponents';
 import { PresetContext } from '../Layout';
-import { getAnalysisPresets } from '../api/ApiCommon';
 import { VehicleComponent } from '../components/VehicleComponent';
 
 import { getInvestmentVehicleProjection, getInvestmentVehicles } from '../api/New API/InvestmentVehicleApi';
@@ -22,11 +21,6 @@ export function VehiclesPage() {
 	const navigate = useNavigate();
 
 	React.useEffect(() => {
-		// if (presetData === undefined) {
-		// 	getAnalysisPresets().then((data) => {
-		// 		setPresetData(data);
-		// 	});
-		// }
 		loadVehicles();
 	}, [presetData]);
 	
@@ -57,8 +51,7 @@ export function VehiclesPage() {
 				vehicle, 
 				() => {navigatePage(vehicle.id)},
 				() => {loadVehicles()},
-			)
-					
+			)		
 			))
 		}
 		

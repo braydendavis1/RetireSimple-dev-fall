@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import {ApiPresetData,Expense} from '../Interfaces';
 import { AddExpenseDialog } from '../components/DialogComponents';
 import { PresetContext } from '../Layout';
-import { getAnalysisPresets } from '../api/ApiCommon';
 
 import { convertExpenseInfo } from '../api/ApiMapper';
 import { useNavigate } from 'react-router-dom';
@@ -20,11 +19,6 @@ export function ExpensesPage() {
 	const navigate = useNavigate();
 
 	React.useEffect(() => {
-		// if (presetData === undefined) {
-		// 	getAnalysisPresets().then((data) => {
-		// 		setPresetData(data);
-		// 	});
-		// }
 		loadExpenses();
 	}, [presetData]);
 	
@@ -62,6 +56,4 @@ export function ExpensesPage() {
 		/>
 	</PresetContext.Provider>
 	</div>;
-	
-    
 } 

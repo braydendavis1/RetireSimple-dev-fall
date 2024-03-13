@@ -1,13 +1,8 @@
-import { style  } from '@mui/system';
-import {Box, Button, Divider, Tab, Tabs, Typography, Icon} from '@mui/material';
-
 import {InvestmentVehicleInfo} from '../Interfaces';
 import { VehicleModelGraph } from './GraphComponents';
-import { deleteVehicle } from '../api/VehicleApi';
+// import { deleteVehicle } from '../api/VehicleApi';
 import { getInvestmentVehicleProjection, getInvestmentVehicles } from '../api/New API/InvestmentVehicleApi';
 import { deleteInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
-import { Link, useNavigate } from 'react-router-dom';
-import { convertProjectionData } from '../api/ApiMapper';
 import React from 'react';
 
 

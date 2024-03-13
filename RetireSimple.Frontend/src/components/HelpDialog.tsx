@@ -1,4 +1,4 @@
-import {Box, Button, Dialog, DialogActions, DialogTitle, Link, Typography} from '@mui/material';
+import {Box, Button, Dialog, DialogActions, DialogTitle, Typography} from '@mui/material';
 
 export interface HelpDialogProps {
 	open: boolean;

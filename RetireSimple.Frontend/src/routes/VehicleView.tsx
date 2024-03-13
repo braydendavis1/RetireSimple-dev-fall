@@ -3,7 +3,7 @@ import {Box, Button, Divider, Typography} from '@mui/material';
 import React from 'react';
 import {FieldValues, FormProvider, useForm, useFormState} from 'react-hook-form';
 import {useFormAction, useLoaderData, useSubmit} from 'react-router-dom';
-import {updateVehicle} from '../api/VehicleApi';
+// import {updateVehicle} from '../api/VehicleApi';
 import {ConfirmDeleteDialog} from '../components/DialogComponents';
 import {VehicleModelGraph} from '../components/GraphComponents';
 import {VehicleFormDefaults, vehicleFormSchema} from '../forms/FormSchema';
@@ -33,27 +33,27 @@ export const VehicleView = () => {
 	}, [reset, vehicleData]);
 
 	const handleUpdate = handleSubmit((data: FieldValues) => {
-		const requestData: {[key: string]: string} = {};
-		Object.entries(dirtyFields).forEach(([key, value]) => {
-			if (value === true) {
-				requestData[key] = data[key].toString();
-			}
-		});
+		// const requestData: {[key: string]: string} = {};
+		// Object.entries(dirtyFields).forEach(([key, value]) => {
+		// 	if (value === true) {
+		// 		requestData[key] = data[key].toString();
+		// 	}
+		// });
 
-		updateVehicle(vehicleData.investmentVehicleId, requestData)
-			.then(() => {
-				enqueueSnackbar('Vehicle updated successfully.', {variant: 'success'});
-				submit(null, {action: updateAction, method: 'post'});
-			})
-			.catch((error) => {
-				enqueueSnackbar(`Failed to update vehicle: ${error.message}`, {variant: 'error'});
-			});
+		// updateVehicle(vehicleData.investmentVehicleId, requestData)
+		// 	.then(() => {
+		// 		enqueueSnackbar('Vehicle updated successfully.', {variant: 'success'});
+		// 		submit(null, {action: updateAction, method: 'post'});
+		// 	})
+		// 	.catch((error) => {
+		// 		enqueueSnackbar(`Failed to update vehicle: ${error.message}`, {variant: 'error'});
+		// 	});
 	});
 
 	const handleDelete = (id: string) => {
 		
-		// eslint-disable-next-line no-restricted-globals
-		deleteInvestmentVehicle(vehicleData.id).then(() => {history.back();});
+		// // eslint-disable-next-line no-restricted-globals
+		// deleteInvestmentVehicle(vehicleData.id).then(() => {history.back();});
 	};
 
 	return (

@@ -3,8 +3,7 @@ import {Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid} fr
 import {FieldValues, FormProvider, useForm, useWatch} from 'react-hook-form';
 import {useFormAction, useSubmit} from 'react-router-dom';
 import {convertDates} from '../api/ConvertUtils';
-import {addExpense, addInvestment} from '../api/InvestmentApi';
-import {addInvestmentToVehicle, addVehicle} from '../api/VehicleApi';
+// import {addInvestmentToVehicle, addVehicle} from '../api/VehicleApi';
 import {investmentFormSchema, vehicleFormSchema} from '../forms/FormSchema';
 import {InvestmentDataForm} from '../forms/InvestmentDataForm';
 import {VehicleDataForm} from '../forms/VehicleDataForm';
@@ -18,6 +17,7 @@ import {enqueueSnackbar, useSnackbar} from 'notistack';
 import { Expense, Investment, InvestmentVehicleInfo } from '../Interfaces';
 import { createInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
 import { createExpense } from '../api/New API/ExpenseApi';
+import { createInvestment } from '../api/New API/InvestmentApi';
 
 export interface AddInvestmentDialogProps {
 	loadInvestments: () => void;
@@ -62,29 +62,52 @@ export const AddInvestmentDialog = (props: AddInvestmentDialogProps) => {
 	const addAction = useFormAction('/add');
 	const {enqueueSnackbar} = useSnackbar();
 
+
+
+
+	
 	const handleAdd = (data: FieldValues) => {
-		const requestData: {[key: string]: string} = {};
+		// const investment: Investment = {
+		// 	// id: "",
+		// 	// name: data.investmentVehicleName,
+		// 	// value: data.cashHoldings,
+		// 	// contributions: data.analysis_userContributionPercentage,
+		// 	// salary: data.analysis_salary,
+		// 	// salaryIncrease: 0,
+		// 	// rate: data.analysis_rate,
+		// 	// type: data.investmentVehicleType,
+		// 	// employerMatch: data.analysis_employerMatchPercentage,
+		// 	// employerMatchCap: data.analysis_employerMatchCap,
+		// 	// projection: null,
+		// };
+		// console.log(investment);
+		// createInvestment(investment).then ( () => {
+		// 	props.onClose();
+		// 	props.loadInvestments();
+		// },
+		// );
+		// const requestData: {[key: string]: string} = {};
 
 
-		Object.entries(data)
-			.map(([key, value]) => [key, value.toString()])
-			.forEach(([key, value]) => (requestData[key] = value));
+		// Object.entries(data)
+		// 	.map(([key, value]) => [key, value.toString()])
+		// 	.forEach(([key, value]) => (requestData[key] = value));
 
-		//Check if we have known date fields, and convert them to yyyy-MM-dd
-		convertDates(requestData);
-
-		addInvestment(requestData)
-			.then((investmentId) => {
-				if (props.vehicleTarget > -1) {
-					addInvestmentToVehicle(props.vehicleTarget, Number.parseInt(investmentId));
-				} //Add investment to vehicle
-				enqueueSnackbar('Investment added successfully.', {variant: 'success'});
-				props.onClose();
-				submit(null, {method: 'post', action: addAction});
-			})
-			.catch((error) => {
-				enqueueSnackbar(`Failed to add investment: ${error.message}`, {variant: 'error'});
-			});
+		// //Check if we have known date fields, and convert them to yyyy-MM-dd
+		// convertDates(requestData);
+		// // use new api
+		// addInvestment(requestData)
+		// 	.then((investmentId) => {
+		// 		if (props.vehicleTarget > -1) {
+		// 			addInvestmentToVehicle(props.vehicleTarget, Number.parseInt(investmentId));
+		// 		} //Add investment to vehicle
+		// 		enqueueSnackbar('Investment added successfully.', {variant: 'success'});
+		// 		props.onClose();
+		// 		submit(null, {method: 'post', action: addAction});
+		// 	})
+		// 	.catch((error) => {
+		// 		enqueueSnackbar(`Failed to add investment: ${error.message}`, {variant: 'error'});
+		// 	});
 	};
 
 	return (
@@ -130,19 +153,19 @@ export const EditInvestmentDialog = (props: EditInvestmentDialogProps) => {
 		//Check if we have known date fields, and convert them to yyyy-MM-dd
 		convertDates(requestData);
 
-		//TODO: will need to make an edit investment method
-		addInvestment(requestData)
-			.then((investmentId) => {
-				// if (props.vehicleTarget > -1) {
-				// 	addInvestmentToVehicle(props.vehicleTarget, Number.parseInt(investmentId));
-				// } //Add investment to vehicle
-				enqueueSnackbar('Investment added successfully.', {variant: 'success'});
-				props.onClose();
-				submit(null, {method: 'post', action: addAction});
-			})
-			.catch((error) => {
-				enqueueSnackbar(`Failed to add investment: ${error.message}`, {variant: 'error'});
-			});
+		// //TODO: will need to make an edit investment method
+		// addInvestment(requestData)
+		// 	.then((investmentId) => {
+		// 		// if (props.vehicleTarget > -1) {
+		// 		// 	addInvestmentToVehicle(props.vehicleTarget, Number.parseInt(investmentId));
+		// 		// } //Add investment to vehicle
+		// 		enqueueSnackbar('Investment added successfully.', {variant: 'success'});
+		// 		props.onClose();
+		// 		submit(null, {method: 'post', action: addAction});
+		// 	})
+		// 	.catch((error) => {
+		// 		enqueueSnackbar(`Failed to add investment: ${error.message}`, {variant: 'error'});
+		// 	});
 	};
 
 	return (

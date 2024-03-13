@@ -89,10 +89,10 @@ export interface InvestmentVehicle {
 export interface Expense {
 	id: string;
 	name: string;
-	amount: number;
-	start: number;
-	end: number;
-	type: string; //treat as a date later?
+	amount: number; 
+	start: number; //starting age 
+	end: number; //ending age
+	type: string; 
 }
 
 export interface Portfolio {

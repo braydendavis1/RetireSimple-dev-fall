@@ -3,7 +3,6 @@ import {Box, Button, Divider, Typography} from '@mui/material';
 import React from 'react';
 import {FieldValues, FormProvider, useForm, useFormState} from 'react-hook-form';
 import {useFormAction, useLoaderData, useSubmit} from 'react-router-dom';
-// import {updateExpense} from '../api/ExpenseApi';
 import {ConfirmDeleteDialog} from '../components/DialogComponents';
 import {VehicleModelGraph} from '../components/GraphComponents';
 import {VehicleFormDefaults, vehicleFormSchema} from '../forms/FormSchema';
@@ -31,12 +30,12 @@ export const ExpenseView = () => {
 	}, [reset, expenseData]);
 
 	const handleUpdate = handleSubmit((data: FieldValues) => {
-		const requestData: {[key: string]: string} = {};
-		Object.entries(dirtyFields).forEach(([key, value]) => {
-			if (value === true) {
-				requestData[key] = data[key].toString();
-			}
-		});
+		// const requestData: {[key: string]: string} = {};
+		// Object.entries(dirtyFields).forEach(([key, value]) => {
+		// 	if (value === true) {
+		// 		requestData[key] = data[key].toString();
+		// 	}
+		// });
 
 		// updateExpense(expenseData.investmentVehicleId, requestData)
 		// 	.then(() => {

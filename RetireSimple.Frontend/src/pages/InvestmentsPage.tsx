@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 
 import {useNavigate} from 'react-router-dom';
 import {Investment, ApiPresetData} from '../Interfaces';
-import {getAnalysisPresets} from '../api/ApiCommon';
 import {AddInvestmentDialog} from '../components/DialogComponents';
 import { InvestmentComponent } from '../components/InvestmentComponent';
 import { getInvestments } from '../api/New API/InvestmentApi';
@@ -17,11 +16,6 @@ export const InvestmentsPage = () => {
 	const [investmentList, setInvestmentList] = useState<Investment[]>([]);
 
 	React.useEffect(() => {
-		// if (presetData === undefined) {
-		// 	getAnalysisPresets().then((data) => {
-		// 		setPresetData(data);
-		// 	});
-		// }
 		loadInvestments();
 	}, [presetData]);
 

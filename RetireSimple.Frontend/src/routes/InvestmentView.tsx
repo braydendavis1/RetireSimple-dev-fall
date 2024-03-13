@@ -5,13 +5,10 @@ import {FormProvider, useForm, useFormState} from 'react-hook-form';
 import {FieldValues} from 'react-hook-form/dist/types';
 import {useFormAction, useLoaderData, useSubmit} from 'react-router-dom';
 import {Investment} from '../Interfaces';
-import {updateInvestment} from '../api/InvestmentApi';
 import {ConfirmDeleteDialog} from '../components/DialogComponents';
 import {InvestmentModelGraph} from '../components/GraphComponents';
 import {InvestmentFormDefaults, investmentFormSchema} from '../forms/FormSchema';
 import {InvestmentDataForm} from '../forms/InvestmentDataForm';
-import {convertDates} from '../api/ConvertUtils';
-import {ExpensesTable} from '../forms/ExpenseTable';
 import {useSnackbar} from 'notistack';
 
 interface InvestmentViewTabProps {
@@ -51,25 +48,25 @@ export const InvestmentView = () => {
 	}, [currentInvestmentData, reset]);
 
 	const handleUpdate = handleSubmit((data: FieldValues) => {
-		const requestData: {[key: string]: string} = {};
-		Object.entries(dirtyFields).forEach(([key, value]) => {
-			if (value === true) {
-				requestData[key] = data[key].toString();
-			}
-		});
+		// const requestData: {[key: string]: string} = {};
+		// Object.entries(dirtyFields).forEach(([key, value]) => {
+		// 	if (value === true) {
+		// 		requestData[key] = data[key].toString();
+		// 	}
+		// });
 
-		convertDates(requestData);
+		// convertDates(requestData);
 
-		updateInvestment(currentInvestmentData.investmentId, requestData)
-			.then(() => {
-				enqueueSnackbar('Investment updated successfully.', {variant: 'success'});
-				submit(null, {action: updateAction, method: 'post'});
-			})
-			.catch((error) => {
-				enqueueSnackbar(`Failed to update investment: ${error.message}`, {
-					variant: 'error',
-				});
-			});
+		// updateInvestment(currentInvestmentData.investmentId, requestData)
+		// 	.then(() => {
+		// 		enqueueSnackbar('Investment updated successfully.', {variant: 'success'});
+		// 		submit(null, {action: updateAction, method: 'post'});
+		// 	})
+		// 	.catch((error) => {
+		// 		enqueueSnackbar(`Failed to update investment: ${error.message}`, {
+		// 			variant: 'error',
+		// 		});
+		// 	});
 	});
 
 	return (
@@ -104,12 +101,7 @@ export const InvestmentView = () => {
 					</InvestmentDataForm>
 				</FormProvider>
 			</InvestmentViewTab>
-			<InvestmentViewTab value={tab} tab={1}>
-				<Typography variant='h6' component='div' sx={{flexGrow: 1, marginBottom: '1rem'}}>
-					Expense Information:
-					<ExpensesTable investmentId={currentInvestmentData.investmentId} />
-				</Typography>
-			</InvestmentViewTab>
+			
 			<Box sx={{width: '100%', height: '100%'}}>
 				<InvestmentModelGraph investmentId={currentInvestmentData.investmentId} />
 			</Box>

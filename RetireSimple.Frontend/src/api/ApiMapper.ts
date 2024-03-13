@@ -11,6 +11,7 @@ import {
 	InvestmentVehicleInfo,
 	Expense,
 	ProjectionInfo,
+	Projection,
 	
 } from '../Interfaces';
 import { getInvestmentVehicleProjection } from './New API/InvestmentVehicleApi';
@@ -155,6 +156,19 @@ export const convertUserInfo = (data: any): UserInfo => {
 	return result;
 };
 
+export const convertVehicleModelData = (model: Projection) => {
+	const result = [];
+	
+
+	for (let i = 0; i < model.values.length; i++) {
+		result.push({
+			year: i,
+			avg: +model.values[i].toFixed(2),
+		});
+	}
+	return result;
+};
+
 export const convertInvestmentVehiclesInfo = (data : any): InvestmentVehicleInfo[] => {
 
 	let vehicles: InvestmentVehicleInfo[] = [];
@@ -183,53 +197,53 @@ export const convertInvestmentVehiclesInfo = (data : any): InvestmentVehicleInfo
 }
 
 
-export const convertInvestmentVehicleInfo = (data : any): InvestmentVehicleInfo[] => {
+// export const convertInvestmentVehicleInfo = (data : any): InvestmentVehicleInfo[] => {
 
-	let vehicles: InvestmentVehicleInfo[] = [];
+// 	let vehicles: InvestmentVehicleInfo[] = [];
 
-	data.forEach(async (vehicleInfo: any) => {
-		const vehicle: InvestmentVehicleInfo = {
-			id: vehicleInfo.id,
-			name: vehicleInfo.name,
-			type: vehicleInfo.type,
-			value: vehicleInfo.value,
-			contributions: vehicleInfo.contributions,
-			salary: vehicleInfo.salary,
-			salaryIncrease: vehicleInfo.salaryIncrease,
-			rate: vehicleInfo.rate,
-			employerMatch: vehicleInfo.employerMatch,
-			employerMatchCap: vehicleInfo.employerMatchCap,
-			projection: null,
-		};
+// 	data.forEach(async (vehicleInfo: any) => {
+// 		const vehicle: InvestmentVehicleInfo = {
+// 			id: vehicleInfo.id,
+// 			name: vehicleInfo.name,
+// 			type: vehicleInfo.type,
+// 			value: vehicleInfo.value,
+// 			contributions: vehicleInfo.contributions,
+// 			salary: vehicleInfo.salary,
+// 			salaryIncrease: vehicleInfo.salaryIncrease,
+// 			rate: vehicleInfo.rate,
+// 			employerMatch: vehicleInfo.employerMatch,
+// 			employerMatchCap: vehicleInfo.employerMatchCap,
+// 			projection: null,
+// 		};
 
-		vehicles.push(vehicle);
-	} )
+// 		vehicles.push(vehicle);
+// 	} )
 
-	return vehicles;
+// 	return vehicles;
 	
-}
+// }
 
-export const convertApiPresets = (data: any): ApiPresetData => {
-	const result: ApiPresetData = {};
+// export const convertApiPresets = (data: any): ApiPresetData => {
+// 	const result: ApiPresetData = {};
 
-	Object.keys(data).forEach((analysis_key) => {
-		const properName = analysis_key.charAt(0).toUpperCase() + analysis_key.slice(1);
-		result[properName] = {};
+// 	Object.keys(data).forEach((analysis_key) => {
+// 		const properName = analysis_key.charAt(0).toUpperCase() + analysis_key.slice(1);
+// 		result[properName] = {};
 
-		Object.keys(data[analysis_key]).forEach((preset_key) => {
-			const properPresetName = preset_key.charAt(0).toUpperCase() + preset_key.slice(1);
-			result[properName][properPresetName] = {};
+// 		Object.keys(data[analysis_key]).forEach((preset_key) => {
+// 			const properPresetName = preset_key.charAt(0).toUpperCase() + preset_key.slice(1);
+// 			result[properName][properPresetName] = {};
 
-			Object.keys(data[analysis_key][preset_key]).forEach((option_key) => {
-				const presetOption = `analysis_${option_key}`;
-				result[properName][properPresetName][presetOption] =
-					data[analysis_key][preset_key][option_key];
-			});
-		});
-	});
+// 			Object.keys(data[analysis_key][preset_key]).forEach((option_key) => {
+// 				const presetOption = `analysis_${option_key}`;
+// 				result[properName][properPresetName][presetOption] =
+// 					data[analysis_key][preset_key][option_key];
+// 			});
+// 		});
+// 	});
 
-	return result;
-};
+// 	return result;
+// };
 
 
 export const convertExpenseInfo = (data : any): Expense[] => {
@@ -239,10 +253,11 @@ export const convertExpenseInfo = (data : any): Expense[] => {
 	data.forEach((expenseInfo: any) => {
 		const expense: Expense = {
 			id: expenseInfo.id,
-			expenseName: expenseInfo.name,
-			expenseAmount: expenseInfo.amount,
-			expenseFrequency: "monthly",
-			lastUpdated: "",
+			name: expenseInfo.name,
+			amount: expenseInfo.amount,
+			start: expenseInfo.start,
+			end: expenseInfo.end,
+			type: expenseInfo.type,
 		};
 
 		expenses.push(expense);

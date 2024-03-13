@@ -1,7 +1,6 @@
 import {Box, Button, CircularProgress, Typography} from '@mui/material';
 import React from 'react';
 import {useNavigation} from 'react-router-dom';
-import {getAggregateModel} from '../api/InvestmentApi';
 import {PortfolioAggregateGraph, PortfolioBreakdownGraph} from '../components/GraphComponents';
 import {convertPortfolioModelData, convertProjectionData, createAggregateStackData} from '../api/ApiMapper';
 import { getPortfolioProjection } from '../api/New API/InvestmentVehicleApi';

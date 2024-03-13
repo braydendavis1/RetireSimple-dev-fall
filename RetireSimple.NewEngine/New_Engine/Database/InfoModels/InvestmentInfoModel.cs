@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RetireSimple.NewEngine.New_Engine.Database.InfoModels {
 	public class InvestmentInfoModel : Info {
 
-		public string Id { get; set; }
+		
 
 		//name for the investment
 		public string Name { get; set; }
