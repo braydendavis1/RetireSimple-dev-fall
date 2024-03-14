@@ -3,6 +3,8 @@ import {Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid} fr
 import {FieldValues, FormProvider, useForm, useWatch} from 'react-hook-form';
 import {useFormAction, useSubmit} from 'react-router-dom';
 import {convertDates} from '../api/ConvertUtils';
+import { useNavigate } from 'react-router-dom';
+
 // import {addInvestmentToVehicle, addVehicle} from '../api/VehicleApi';
 import {investmentFormSchema, vehicleFormSchema} from '../forms/FormSchema';
 import {InvestmentDataForm} from '../forms/InvestmentDataForm';
@@ -15,7 +17,7 @@ import {
 } from './InputComponents';
 import {enqueueSnackbar, useSnackbar} from 'notistack';
 import { Expense, Investment, InvestmentVehicleInfo } from '../Interfaces';
-import { createInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
+import { createInvestmentVehicle, deleteInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
 import { createExpense, deleteExpense } from '../api/New API/ExpenseApi';
 import { createInvestment } from '../api/New API/InvestmentApi';
 import { ExpenseDataForm } from '../forms/ExpenseDataForm';
@@ -49,8 +51,7 @@ export interface ConfirmDeleteDialogProps {
 	open: boolean;
 	onClose: () => void;
 	onConfirm: () => void;
-	deleteTarget: string;
-	deleteTargetType: string;
+	vehicleId: string;
 }
 
 export interface ConfirmDeleteExpenseProps {
@@ -198,31 +199,32 @@ export const EditInvestmentDialog = (props: EditInvestmentDialogProps) => {
 export const AddVehicleDialog = (props: AddVehicleDialogProps) => {
 	const formContext = useForm({
 		shouldUnregister: true,
-		resolver: yupResolver(vehicleFormSchema),
+		// resolver: yupResolver(vehicleFormSchema), 
+		// how to do form validations!
 	});
 
 	const handleVehicleAdd = (data: FieldValues) => {
-		console.log("vehicle data");
-		console.log(data);
 		const vehicle: InvestmentVehicleInfo = {
 			id: "",
 			name: data.investmentVehicleName,
 			value: data.cashHoldings,
 			contributions: data.analysis_userContributionPercentage,
+			contributionType: data.analysis_userContributionType,
 			salary: data.analysis_salary,
-			salaryIncrease: 0,
+			salaryIncrease: data.analysis_salaryIncrease,
 			rate: data.analysis_rate,
 			type: data.investmentVehicleType,
 			employerMatch: data.analysis_employerMatchPercentage,
 			employerMatchCap: data.analysis_employerMatchCap,
 			projection: null,
 		};
-		console.log(vehicle);
-		createInvestmentVehicle(vehicle, '401k').then ( () => {
+		createInvestmentVehicle(vehicle, '401k').then(() => {
 			props.onClose();
 			props.loadVehicles();
-		},
-		);
+			enqueueSnackbar('Vehicle added successfully.', {variant: 'success'});
+		}).catch((error) => {
+			enqueueSnackbar(`Failed to add vehicle: ${error.message}`, {variant: 'error'});
+		});
 		
 	};
 
@@ -247,23 +249,23 @@ export const AddVehicleDialog = (props: AddVehicleDialogProps) => {
 
 export const ConfirmDeleteDialog = (props: ConfirmDeleteDialogProps) => {
 	const {enqueueSnackbar} = useSnackbar();
-
+	const navigate = useNavigate();
 	const handleConfirm = () => {
-		props.onConfirm();
-		enqueueSnackbar(
-			`${props.deleteTargetType === 'vehicle' ? 'Vehicle' : 'Invesetment'} was deleted`,
-			{variant: 'success'},
-		);
+		deleteInvestmentVehicle(props.vehicleId).then(() => {
+			enqueueSnackbar('Vehicle deleted successfully.', {variant: 'success'});
+		}).catch((error) => {
+			enqueueSnackbar(`Failed to delete vehicle: ${error.message}`, {variant: 'error'});
+		});
 		props.onClose();
+		
+		navigate(`/VehiclesPage/`);
 	};
 
 	return (
 		<Dialog open={props.open}>
 			<DialogTitle>Confirm Deletion</DialogTitle>
 			<DialogContent>
-				Are you sure you want to delete{' '}
-				{props.deleteTargetType + ' ' + props.deleteTarget + ' '}
-				{props.deleteTargetType === 'vehicle' ? 'and all associated investments' : ''}?
+				Are you sure you want to delete this vehicle?
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={props.onClose}>Cancel</Button>
@@ -278,10 +280,15 @@ export const ConfirmDeleteDialog = (props: ConfirmDeleteDialogProps) => {
 
 export const ConfirmDeleteExpense = (props: ConfirmDeleteExpenseProps) => {
 	const {enqueueSnackbar} = useSnackbar();
-
+	const navigate = useNavigate();
 	const handleConfirm = () => {
-		deleteExpense(props.expenseId);
+		deleteExpense(props.expenseId).then(() => {
+			enqueueSnackbar('Expense deleted successfully.', {variant: 'success'});
+		}).catch((error) => {
+			enqueueSnackbar(`Failed to delete expense: ${error.message}`, {variant: 'error'});
+		});
 		props.onClose();
+		navigate(`/ExpensesPage/`);
 	};
 
 	return (
@@ -326,9 +333,10 @@ export const AddExpenseDialog = (props: AddExpenseDialogProps) => {
 		createExpense(expense, data.expenseType).then ( () => {
 			props.onClose();
 			props.loadExpenses();
-			console.log("Added expense");
-		},
-		);
+			enqueueSnackbar('Expense added successfully.', {variant: 'success'});
+		}).catch((error) => {
+			enqueueSnackbar(`Failed to add expense: ${error.message}`, {variant: 'error'});
+		});
 	};
 
 	return (

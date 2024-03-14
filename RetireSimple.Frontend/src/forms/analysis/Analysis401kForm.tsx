@@ -27,18 +27,15 @@ export const Analysis401kForm = () => {
 			label='Salary'
 			control={formContext.control}
 			errorField={errors.analysis_salary}
-			tooltip={
-				<>
-					<Typography variant='inherit'>
-						The salary of the job associated with this vehicle.
-					</Typography>
-					<Typography variant='inherit'>
-						This is used to determine the amount of money that can be contributed to the
-						vehicle.
-					</Typography>
-				</>
-			}
-		/>
+			tooltip={<>
+				<Typography variant='inherit'>
+					The salary of the job associated with this vehicle.
+				</Typography>
+				<Typography variant='inherit'>
+					This is used to determine the amount of money that can be contributed to the
+					vehicle.
+				</Typography>
+			</>} defaultValue={''}		/>
 	);
 
 	const payFrequencyField = (

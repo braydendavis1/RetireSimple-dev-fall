@@ -14,7 +14,7 @@ export const ExpenseComponent =
 				</h2>				
 			</span>
 			<h3> Expense Cost: ${expense.amount} </h3>
-			<h3> Expense Frequency: ${expense.type} </h3>
+			<h3> Expense Frequency: {expense.type} </h3>
 			
 		</div>
 	</body>

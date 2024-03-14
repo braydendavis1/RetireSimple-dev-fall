@@ -36,23 +36,20 @@ export const ExpenseView = () => {
 		reset(expenseData, {keepErrors: true});
 	}, [reset, expenseData]);
 
-	const handleUpdate = (data: FieldValues) => {
-		console.log("updating");
+	const handleUpdate = handleSubmit((data: FieldValues) => {
 		const expense: Expense = {
-			id: "",
+			id: expenseData.id,
 			name: data.name,
 			amount: data.amount,
 			start: data.start,
 			end: data.end,
 			type: data.expenseType,
 		}
-		updateExpense(expense, expenseData.id).then ( () => {
-			// props.onClose();
-			// Go back to expenses page after submitting????
-			// props.loadExpenses();
-			console.log("Edited expense");
-		},
-		);
+		updateExpense(expense, expenseData.id).then(() => {
+			enqueueSnackbar('Expense updated successfully.', {variant: 'success'});
+		}).catch((error) => {
+			enqueueSnackbar(`Failed to update expense: ${error.message}`, {variant: 'error'});
+		});
 
 		// const requestData: {[key: string]: string} = {};
 		// Object.entries(dirtyFields).forEach(([key, value]) => {
@@ -69,7 +66,7 @@ export const ExpenseView = () => {
 		// 	.catch((error) => {
 		// 		enqueueSnackbar(`Failed to update vehicle: ${error.message}`, {variant: 'error'});
 		// 	});
-	};
+	});
 
 	const temp = () => {
 		console.log("clicked")
@@ -87,7 +84,7 @@ export const ExpenseView = () => {
 							<Button color='error' onClick={() => setShowDelete(true)}>
 								Delete
 							</Button>
-							<Button onClick={() => formContext.handleSubmit(handleUpdate)}>
+							<Button onClick={handleUpdate} disabled={!isDirty}>
 								Update
 							</Button>
 						</DialogActions>
