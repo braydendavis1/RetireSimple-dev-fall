@@ -52,5 +52,11 @@ public class InvestmentsController : ControllerBase {
 		return NoContent();
 	}
 
+	[HttpDelete]
+	public async Task<IActionResult> Delete(string id) {
+		await newEngineMain.HandleDeleteInvestment(id);
+		return NoContent();
+	}
+
 
 }

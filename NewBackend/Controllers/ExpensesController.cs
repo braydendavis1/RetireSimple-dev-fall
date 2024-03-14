@@ -52,5 +52,11 @@ public class ExpensesController : ControllerBase {
 		return NoContent();
 	}
 
+	[HttpDelete]
+	public async Task<IActionResult> Delete(string id) {
+		await newEngineMain.HandleDeleteExpense(id);
+		return NoContent();
+	}
+
 
 }
