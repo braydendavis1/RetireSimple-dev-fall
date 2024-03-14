@@ -204,21 +204,30 @@ export const AddVehicleDialog = (props: AddVehicleDialogProps) => {
 	});
 
 	const handleVehicleAdd = (data: FieldValues) => {
-		const vehicle: InvestmentVehicleInfo = {
-			id: "",
-			name: data.investmentVehicleName,
-			value: data.cashHoldings,
-			contributions: data.analysis_userContributionPercentage,
-			contributionType: data.analysis_userContributionType,
-			salary: data.analysis_salary,
-			salaryIncrease: data.analysis_salaryIncrease,
-			rate: data.analysis_rate,
-			type: data.investmentVehicleType,
-			employerMatch: data.analysis_employerMatchPercentage,
-			employerMatchCap: data.analysis_employerMatchCap,
-			projection: null,
-		};
-		createInvestmentVehicle(vehicle, '401k').then(() => {
+		console.log("ADDING " + data.type);
+		const vehicle: {[key: string]: string} = {};
+		Object.entries(data)
+			.map(([key, value]) => [key, value.toString()])
+			.forEach(([key, value]) => (vehicle[key] = value));
+
+
+
+
+		// const vehicle: InvestmentVehicleInfo = {
+		// 	id: "",
+		// 	name: data.name,
+		// 	value: data.value,
+		// 	contributions: data.contributions,
+		// 	contributionType: data.contributionType,
+		// 	salary: data.salary,
+		// 	salaryIncrease: data.salaryIncrease,
+		// 	rate: data.rate,
+		// 	type: data.type,
+		// 	employerMatch: data.employerMatch,
+		// 	employerMatchCap: data.employerMatchCap,
+		// 	projection: null,
+		// };
+		createInvestmentVehicle(vehicle, data.type).then(() => {
 			props.onClose();
 			props.loadVehicles();
 			enqueueSnackbar('Vehicle added successfully.', {variant: 'success'});
