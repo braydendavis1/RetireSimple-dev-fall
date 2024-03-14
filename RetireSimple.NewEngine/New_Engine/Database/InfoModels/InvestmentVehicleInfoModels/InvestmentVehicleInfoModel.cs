@@ -32,6 +32,9 @@ namespace RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicl
 		//Up to what percent do they match until 
 		public double? EmployerMatchCap { get; set; }
 
+		//
+		public string ContributionType { get; set; }
+
 
 	}
 }

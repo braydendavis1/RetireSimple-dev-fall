@@ -75,8 +75,8 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 		public async Task DeleteExpenseInfoModel(string id) {
 			int index = -1;
 			for (int i = 0; i < this.expenses.Count; i++) {
-				if (this.expenses[i].Equals(id)) {
-					index = 0;
+				if (this.expenses[i].id.Equals(id)) {
+					index = i;
 				}
 			}
 			if (index != -1) {
