@@ -36,5 +36,14 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.Expenses {
 			await this.Service.HandleCreateAsync(info);
 		}
 
+		public async Task UpdateInfo(ExpenseInfoModel info) {
+			await this.Service.HandleUpdateAsync(info.Id, info);
+		}
+
+		public async Task GetInfo(string id) {
+			await this.Service.HandleGetAsync(id);
+		}
+
+
 	}
 }

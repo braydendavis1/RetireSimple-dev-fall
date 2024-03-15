@@ -68,15 +68,23 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 		}
 
 		public async Task UpdateExpense(string id, ExpenseInfoModel info) {
-			await this.service.HandleUpdateAsync(id, info);
-
+			//await this.service.HandleUpdateAsync(id, info);
+			int index = -1;
+			for(int i = 0; i < this.expenses.Count; i++) {
+				if (this.expenses[i].Equals(id)) {
+					index = i;
+				}
+			}
+			if (index != -1) {
+				await this.expenses[index].UpdateInfo(info);
+			}
 		}
 
 		public async Task DeleteExpenseInfoModel(string id) {
 			int index = -1;
 			for (int i = 0; i < this.expenses.Count; i++) {
 				if (this.expenses[i].Equals(id)) {
-					index = 0;
+					index = i;
 				}
 			}
 			if (index != -1) {
