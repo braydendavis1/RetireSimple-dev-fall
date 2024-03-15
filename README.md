@@ -78,3 +78,8 @@ The following libraries are used by the RetireSimple Engine and are subject to t
  - [.NET 6](https://github.com/dotnet/runtime) (MIT License)
  - [Entity Framework Core](https://github.com/dotnet/efcore) (MIT License)
  - [Math.NET Numerics](https://github.com/mathnet/mathnet-numerics) (MIT License)
+
+
+## SwaggerUI
+https://localhost:7199/swagger/index.html 
+Displays endpoints for the API service
