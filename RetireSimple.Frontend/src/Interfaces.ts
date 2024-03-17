@@ -29,10 +29,10 @@ export interface UserInfo {
 }
 
 export interface InvestmentVehicleInfo{
-	id: string
-	name: string
-	value: number
-	type: string
+	id: string | null
+	name: string | null
+	value: number | null
+	type: string | null
 	contributions: number | null
 	contributionType: string | null
 	salary: number | null

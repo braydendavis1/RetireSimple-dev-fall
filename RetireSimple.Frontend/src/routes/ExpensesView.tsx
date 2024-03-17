@@ -1,15 +1,11 @@
-import {yupResolver} from '@hookform/resolvers/yup';
-import {Box, Button, DialogActions, Divider, Typography} from '@mui/material';
+import {Box, Button, DialogActions, Typography} from '@mui/material';
 import React from 'react';
 import {FieldValues, FormProvider, useForm, useFormState} from 'react-hook-form';
 import {useFormAction, useLoaderData, useSubmit} from 'react-router-dom';
-import {ConfirmDeleteDialog, ConfirmDeleteExpense} from '../components/DialogComponents';
-import {VehicleModelGraph} from '../components/GraphComponents';
-import {VehicleFormDefaults, vehicleFormSchema} from '../forms/FormSchema';
-import {VehicleDataForm} from '../forms/VehicleDataForm';
+import {ConfirmDeleteExpense} from '../components/DialogComponents';
 import {useSnackbar} from 'notistack';
 import { ExpenseDataForm } from '../forms/ExpenseDataForm';
-import { createExpense, updateExpense } from '../api/New API/ExpenseApi';
+import { updateExpense } from '../api/New API/ExpenseApi';
 import { Expense } from '../Interfaces';
 
 export const ExpenseView = () => {
@@ -18,11 +14,6 @@ export const ExpenseView = () => {
 	const submit = useSubmit();
 	const deleteAction = useFormAction('delete');
 	const updateAction = useFormAction('update');
-	// const formContext = useForm({
-	// 	shouldUnregister: true,
-	// 	resolver: yupResolver(vehicleFormSchema),
-	// 	defaultValues: expenseData ?? VehicleFormDefaults,
-	// });
 
 	const formContext = useForm({
 		shouldUnregister: true,
@@ -50,27 +41,7 @@ export const ExpenseView = () => {
 		}).catch((error) => {
 			enqueueSnackbar(`Failed to update expense: ${error.message}`, {variant: 'error'});
 		});
-
-		// const requestData: {[key: string]: string} = {};
-		// Object.entries(dirtyFields).forEach(([key, value]) => {
-		// 	if (value === true) {
-		// 		requestData[key] = data[key].toString();
-		// 	}
-		// });
-
-		// updateExpense(expenseData.investmentVehicleId, requestData)
-		// 	.then(() => {
-		// 		enqueueSnackbar('Vehicle updated successfully.', {variant: 'success'});
-		// 		submit(null, {action: updateAction, method: 'post'});
-		// 	})
-		// 	.catch((error) => {
-		// 		enqueueSnackbar(`Failed to update vehicle: ${error.message}`, {variant: 'error'});
-		// 	});
 	});
-
-	const temp = () => {
-		console.log("clicked")
-	};
 
 	return (
 		<Box sx={{display: 'flex', flexDirection: 'column'}}>
@@ -88,13 +59,9 @@ export const ExpenseView = () => {
 								Update
 							</Button>
 						</DialogActions>
-						
 					</ExpenseDataForm>
 				</FormProvider>
 			</Box>
-			{/* <Box sx={{width: '100%', height: '100%'}}>
-				<VehicleModelGraph vehicleId={expenseData.investmentVehicleId} />
-			</Box> */}
 			<ConfirmDeleteExpense
 				open={showDelete}
 				onClose={() => setShowDelete(false)}

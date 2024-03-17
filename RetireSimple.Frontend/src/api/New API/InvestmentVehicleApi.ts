@@ -15,7 +15,7 @@ export const getInvestmentVehicle = async (id : String) : Promise<InvestmentVehi
 	return await response.json()
 }
 
-export const createInvestmentVehicle = async(data : InvestmentVehicleInfo, type : string) => {
+export const createInvestmentVehicle = async(data : {[key: string]: string}, type : string) => {
 	const response = await fetch(`https://localhost:7199/api/InvestmentVehicles?Type=${type}`,{
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -26,7 +26,7 @@ export const createInvestmentVehicle = async(data : InvestmentVehicleInfo, type 
 	});
 }
 
-export const updateInvestmentVehicle = async(data : InvestmentVehicleInfo, id : string) => {
+export const updateInvestmentVehicle = async(data : {[key: string]: string}, id : string) => {
 	const response = await fetch(`https://localhost:7199/api/InvestmentVehicles?Id=${id}`, {
 		method: 'PUT',
 		body: JSON.stringify(data),

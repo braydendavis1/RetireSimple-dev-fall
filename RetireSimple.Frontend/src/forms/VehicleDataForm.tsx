@@ -28,27 +28,27 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 
 	const vehicleNameField = (
 		<FormTextField
-			name='investmentVehicleName'
+			name='name'
 			label='Name'
 			control={formContext.control}
-			errorField={errors.investmentVehicleName}
+			errorField={errors.name}
 			tooltip='The name of this investment vehicle. Usually a personally identifiable name.' 
 			defaultValue={props.defaultValues ? props.defaultValues.name : ''}		/>
 	);
 
 	const vehicleTypeField = (
 		<FormSelectField
-			name='investmentVehicleType'
+			name='type'
 			label='Vehicle Type'
 			control={formContext.control}
-			errorField={errors.investmentVehicleType}
+			errorField={errors.type}
 			defaultOption='Vehicle401k'
 			options={[
-				{value: 'Vehicle401k', label: '401k', tooltip: ''},
-				{value: 'VehicleIRA', label: 'IRA', tooltip: ''},
-				{value: 'VehicleRothIRA', label: 'Roth IRA', tooltip: ''},
-				{value: 'Vehicle403b', label: '403b', tooltip: ''},
-				{value: 'Vehicle457', label: '457', tooltip: ''},
+				{value: '401k', label: '401k', tooltip: ''},
+				{value: 'IRA', label: 'IRA', tooltip: ''},
+				{value: 'RothIRA', label: 'Roth IRA', tooltip: ''},
+				{value: '403b', label: '403b', tooltip: ''},
+				{value: '457', label: '457', tooltip: ''},
 			]}
 			disable={props.disableTypeSelect ?? false}
 			tooltip='The type of vehicle this is. This does alter how we determine the tax-applied model.'
@@ -57,10 +57,10 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 
 	const cashHoldingField = (
 		<FormTextFieldCurrency
-			name='cashHoldings'
+			name='value'
 			label='Cash Holdings'
 			control={formContext.control}
-			errorField={errors.cashHoldings}
+			errorField={errors.value}
 			tooltip='The amount of cash in the vehicle that is not invested in a security.' 
 			defaultValue={props.defaultValues ? props.defaultValues.value : ''}		/>
 	);
@@ -70,7 +70,7 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 		const userContributionType = useWatch({
 			name: 'analysis_userContributionType',
 			control: formContext.control,
-			defaultValue: 'percentage',
+			defaultValue: props.defaultValues ? props.defaultValues.contributionType : 'percentage',
 		});
 	
 		const {errors} = formContext.formState;
@@ -81,10 +81,10 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 	
 		const salaryField = (
 			<FormTextFieldCurrency
-				name='analysis_salary'
+				name='salary'
 				label='Salary'
 				control={formContext.control}
-				errorField={errors.analysis_salary}
+				errorField={errors.salary}
 				tooltip={<>
 					<Typography variant='inherit'>
 						The salary of the job associated with this vehicle.
@@ -98,10 +98,10 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 		);
 		const salaryIncrease = (
 			<FormTextFieldPercent
-				name='analysis_salaryIncrease'
+				name='salaryIncrease'
 				label='Salary Increase'
 				control={formContext.control}
-				errorField={errors.analysis_salaryIncrease}
+				errorField={errors.salaryIncrease}
 				tooltip={<>
 					<Typography variant='inherit'>
 						The rate you expect your salary to grow each year.
@@ -110,38 +110,12 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 				defaultValue={props.defaultValues ? props.defaultValues.salaryIncrease : ''}			/>
 		);
 	
-		// const payFrequencyField = (
-		// 	<FormSelectField
-		// 		name='analysis_payFrequency'
-		// 		label='Pay Frequency'
-		// 		control={formContext.control}
-		// 		errorField={errors.analysis_payFrequency}
-		// 		defaultOption='biweekly'
-		// 		options={[
-		// 			{value: 'biweekly', label: 'Biweekly', tooltip: ''},
-		// 			{value: 'weekly', label: 'Weekly', tooltip: ''},
-		// 			{value: 'monthly', label: 'Monthly', tooltip: ''},
-		// 		]}
-		// 		disable={false}
-		// 		tooltip={
-		// 			<>
-		// 				<Typography variant='inherit'>
-		// 					The frequency of paychecks for the job associated with this vehicle.
-		// 				</Typography>
-		// 				<Typography variant='inherit'>
-		// 					This is used to determine monthly contribution amounts and limits.
-		// 				</Typography>
-		// 			</>
-		// 		}
-		// 	/>
-		// );
-	
 		const employerMatchField = (
 			<FormTextFieldPercent
-				name='analysis_employerMatchPercentage'
+				name='employerMatch'
 				label='Employer Match'
 				control={formContext.control}
-				errorField={errors.analysis_employerMatchPercentage}
+				errorField={errors.employerMatch}
 				tooltip={<>
 					<Typography variant='inherit'>
 						The percentage of the employee contribution that the employer will match.
@@ -152,10 +126,10 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 	
 		const employerMatchCap = (
 			<FormTextFieldPercent
-				name='analysis_employerMatchCap'
+				name='employerMatchCap'
 				label='Employer Match Cap'
 				control={formContext.control}
-				errorField={errors.analysis_employerMatchCap}
+				errorField={errors.employerMatchCap}
 				tooltip={<>
 					<Typography variant='inherit'>
 						The max employee contribution that the employer will match.
@@ -166,10 +140,10 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 	
 		const rate = (
 			<FormTextFieldPercent
-				name='analysis_rate'
+				name='rate'
 				label='Rate'
 				control={formContext.control}
-				errorField={errors.analysis_rate}
+				errorField={errors.rate}
 				tooltip={<>
 					<Typography variant='inherit'>
 						The rate you expect the vehicle to grow.
@@ -180,10 +154,10 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 	
 		const userContributionTypeField = (
 			<FormSelectField
-				name='analysis_userContributionType'
+				name='contributionType'
 				label='User Contribution Type'
 				control={formContext.control}
-				errorField={errors.analysis_userContributionType}
+				errorField={errors.contributionType}
 				defaultOption={props.defaultValues ? props.defaultValues.contributionType : 'percentage'}		
 				options={[
 					{value: 'percentage', label: 'Paycheck Percentage', tooltip: ''},
@@ -211,20 +185,20 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 				case 'percentage':
 					return (
 						<FormTextFieldPercent
-							name='analysis_userContributionPercentage'
+							name='contributions'
 							label='User Contribution'
 							control={formContext.control}
-							errorField={errors.analysis_userContributionPercentage}
+							errorField={errors.contributions}
 							tooltip='The percentage of the a paycheck used to contribute to a vehicle.' 
 							defaultValue={props.defaultValues ? props.defaultValues.contributions : ''}							/>
 					);
 				case 'fixed':
 					return (
 						<FormTextFieldCurrency
-							name='analysis_userContributionAmount'
+							name='contributions'
 							label='User Contribution'
 							control={formContext.control}
-							errorField={errors.analysis_userContributionAmount}
+							errorField={errors.contributions}
 							tooltip='The amount of money contributed to the vehicle each month.' 
 							defaultValue={props.defaultValues ? props.defaultValues.contributions : ''}							/>
 					);
@@ -233,7 +207,6 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 			}
 		}, [userContributionType, formContext.control, errors]);
 	
-		//add salary increase and fix contribution type
 		return (
 			<>
 		
@@ -281,7 +254,7 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 					</Grid>
 				);
 		}
-	}, [errors.analysis_userContributionFixed, formContext.control, investmentVehicleType]);
+	}, [errors.analysis_userContributionFixed, formContext.control, investmentVehicleType, props.defaultValues]);
 
 	return (
 		<>
@@ -301,16 +274,6 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 					<Grid item xs={12}>
 						<Typography variant='subtitle2'>Analysis Configuration</Typography>
 					</Grid>
-					{/* <Grid item xs={4}>
-						{analysisLengthField}
-					</Grid>
-					<Grid item xs={4}>
-						{shortTermCapitalGainsField}
-					</Grid>
-					<Grid item xs={4}>
-						{longTermCapitalGainsField}
-					</Grid> */}
-
 					{analysisSubform}
 				</Grid>
 			</Box>
