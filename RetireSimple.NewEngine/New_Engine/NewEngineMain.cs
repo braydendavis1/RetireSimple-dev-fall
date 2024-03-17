@@ -105,6 +105,10 @@ namespace RetireSimple.NewEngine.New_Engine {
 
 		}
 
+		public async Task HandleDeleteExpense(string id) {
+			await this.user.DeleteExpense(id);
+		}
+
 		public async Task HandleCreateInvestment(InvestmentInfoModel info, string type) {
 			await this.user.CreateInvestment(info, type);
 
@@ -123,6 +127,10 @@ namespace RetireSimple.NewEngine.New_Engine {
 		public async Task HandleUpdateInvestment(string id, InvestmentInfoModel info) {
 			await this.user.UpdateInvestment(id, info);
 
+		}
+
+		public async Task HandleDeleteInvestment(string id) {
+			await this.user.DeleteInvestment(id);
 		}
 
 		public async Task HandleLoadPortfolio() {

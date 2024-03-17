@@ -16,8 +16,6 @@ export const getExpense = async (id : String) : Promise<Expense> => {
 }
 
 export const createExpense = async(data : Expense, type : string) => {
-	console.log(data);
-	console.log(type);
 	const response = await fetch(`https://localhost:7199/api/Expenses?type=${type}`,{
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -50,6 +48,7 @@ export const deleteExpense = async(id : string) => {
 			'Access-Control-Allow-Methods': 'GET, HEAD, POST, PUT, DELETE, OPTIONS',
 		},
 	});
+	console.log()
 }
 
 export const getExpenseProjection = 

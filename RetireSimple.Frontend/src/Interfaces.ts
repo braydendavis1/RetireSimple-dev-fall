@@ -34,6 +34,7 @@ export interface InvestmentVehicleInfo{
 	value: number
 	type: string
 	contributions: number | null
+	contributionType: string | null
 	salary: number | null
 	salaryIncrease: number | null
 	rate: number | null

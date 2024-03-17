@@ -187,6 +187,7 @@ export const convertInvestmentVehiclesInfo = (data : any): InvestmentVehicleInfo
 			employerMatch: vehicleInfo.employerMatch,
 			employerMatchCap: vehicleInfo.employerMatchCap,
 			projection: null,
+			contributionType: vehicleInfo.contributionType,
 		};
 
 		vehicles.push(vehicle);

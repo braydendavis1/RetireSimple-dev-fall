@@ -84,7 +84,7 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			int index = -1;
 			for (int i = 0; i < this.expenses.Count; i++) {
 				if (this.expenses[i].Equals(id)) {
-					index = i;
+					index = 0;
 				}
 			}
 			if (index != -1) {

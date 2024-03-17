@@ -10,7 +10,8 @@ import {VehicleFormDefaults, vehicleFormSchema} from '../forms/FormSchema';
 import {VehicleDataForm} from '../forms/VehicleDataForm';
 import {useSnackbar} from 'notistack';
 import { useNavigate } from 'react-router-dom';
-import { deleteInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
+import { deleteInvestmentVehicle, updateInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
+import { InvestmentVehicleInfo } from '../Interfaces';
 
 export const VehicleView = () => {
 	const [showDelete, setShowDelete] = React.useState(false);
@@ -20,8 +21,8 @@ export const VehicleView = () => {
 	const updateAction = useFormAction('update');
 	const formContext = useForm({
 		shouldUnregister: true,
-		resolver: yupResolver(vehicleFormSchema),
-		defaultValues: vehicleData ?? VehicleFormDefaults,
+		// resolver: yupResolver(vehicleFormSchema),
+		// defaultValues: vehicleData ?? VehicleFormDefaults,
 	});
 
 	const {reset, control, handleSubmit} = formContext;
@@ -32,7 +33,8 @@ export const VehicleView = () => {
 		reset(vehicleData, {keepErrors: true});
 	}, [reset, vehicleData]);
 
-	const handleUpdate = handleSubmit((data: FieldValues) => {
+	const oldUpdate = handleSubmit((data: FieldValues) => {
+		//console.log("Update vehicle");
 		// const requestData: {[key: string]: string} = {};
 		// Object.entries(dirtyFields).forEach(([key, value]) => {
 		// 	if (value === true) {
@@ -50,12 +52,43 @@ export const VehicleView = () => {
 		// 	});
 	});
 
-	const handleDelete = (id: string) => {
-		
-		// // eslint-disable-next-line no-restricted-globals
-		// deleteInvestmentVehicle(vehicleData.id).then(() => {history.back();});
-	};
+	const handleUpdate = handleSubmit((data: FieldValues) => {
+		const vehicle: InvestmentVehicleInfo = {
+			id: vehicleData.id,
+			name: data.investmentVehicleName,
+			value: data.cashHoldings,
+			contributions: data.analysis_userContributionPercentage,
+			contributionType: data.analysis_userContributionType,
+			salary: data.analysis_salary,
+			salaryIncrease: data.analysis_salaryIncrease,
+			rate: data.analysis_rate,
+			type: data.investmentVehicleType,
+			employerMatch: data.analysis_employerMatchPercentage,
+			employerMatchCap: data.analysis_employerMatchCap,
+			projection: null,
+		};
+		updateInvestmentVehicle(vehicle, vehicleData.id).then(() => {
+			enqueueSnackbar('Vehicle updated successfully.', {variant: 'success'});
+		}).catch((error) => {
+			enqueueSnackbar(`Failed to update vehicle: ${error.message}`, {variant: 'error'});
+		});
 
+		// const requestData: {[key: string]: string} = {};
+		// Object.entries(dirtyFields).forEach(([key, value]) => {
+		// 	if (value === true) {
+		// 		requestData[key] = data[key].toString();
+		// 	}
+		// });
+
+		// updateExpense(expenseData.investmentVehicleId, requestData)
+		// 	.then(() => {
+		// 		enqueueSnackbar('Vehicle updated successfully.', {variant: 'success'});
+		// 		submit(null, {action: updateAction, method: 'post'});
+		// 	})
+		// 	.catch((error) => {
+		// 		enqueueSnackbar(`Failed to update vehicle: ${error.message}`, {variant: 'error'});
+		// 	});
+	});
 	return (
 		<><Box sx={{ display: 'flex', flexDirection: 'column' }}>
 			<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
@@ -71,8 +104,7 @@ export const VehicleView = () => {
 								flexDirection: 'row',
 								justifyContent: 'flex-end',
 							}}>
-							<Button color='error' onClick={() => 
-								handleDelete(vehicleData.id)}>
+							<Button color='error' onClick={() => setShowDelete(true)}>
 
 								Delete
 							</Button>
@@ -87,9 +119,8 @@ export const VehicleView = () => {
 			</Box><ConfirmDeleteDialog
 				open={showDelete}
 				onClose={() => setShowDelete(false)}
-				onConfirm={() => submit(null, { action: deleteAction, method: 'delete' })}
-				deleteTargetType='vehicle'
-				deleteTarget={vehicleData.investmentVehicleName} />
+				onConfirm={() => submit(null, {action: deleteAction, method: 'delete'})}
+				vehicleId={vehicleData.id} />
 		</Box>
 		</>
 	);
