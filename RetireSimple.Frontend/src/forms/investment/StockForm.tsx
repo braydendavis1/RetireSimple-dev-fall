@@ -14,7 +14,6 @@ import {BinomialRegressionAnalysisForm} from '../analysis/BinomialRegressionAnal
 
 export interface StockFormProps {
 	defaultValues?: any;
-	analysisTypeField: React.ReactNode;
 }
 
 export const StockForm = (props: StockFormProps) => {
@@ -127,49 +126,49 @@ export const StockForm = (props: StockFormProps) => {
 			defaultValue={props.defaultValues?.investmentData.stockDividendPercent}		/>
 	);
 
-	const stockDividendDistributionIntervalField = (
-		<FormSelectField
-			name='stockDividendDistributionInterval'
-			label='Dividend Int.'
-			control={formContext.control}
-			errorField={errors.stockDividendDistributionInterval}
-			options={[
-				{value: 'Month', label: 'Monthly'},
-				{value: 'Quarter', label: 'Quarterly'},
-				{value: 'Annual', label: 'Annual'},
-			]}
-			defaultOption={props.defaultValues?.investmentData.stockDividendDistributionInterval}
-			disable={false}
-			tooltip='The interval at which dividends are paid out.'
-		/>
-	);
+	// const stockDividendDistributionIntervalField = (
+	// 	<FormSelectField
+	// 		name='stockDividendDistributionInterval'
+	// 		label='Dividend Int.'
+	// 		control={formContext.control}
+	// 		errorField={errors.stockDividendDistributionInterval}
+	// 		options={[
+	// 			{value: 'Month', label: 'Monthly'},
+	// 			{value: 'Quarter', label: 'Quarterly'},
+	// 			{value: 'Annual', label: 'Annual'},
+	// 		]}
+	// 		defaultOption={props.defaultValues?.investmentData.stockDividendDistributionInterval}
+	// 		disable={false}
+	// 		tooltip='The interval at which dividends are paid out.'
+	// 	/>
+	// );
 
-	const stockDividendDistributionMethodField = (
-		<FormSelectField
-			name='stockDividendDistributionMethod'
-			label='Dividend Method'
-			control={formContext.control}
-			errorField={errors.stockDividendDistributionMethod}
-			options={[
-				{value: 'Stock', label: 'Stock'},
-				{value: 'Cash', label: 'Cash'},
-				{value: 'DRIP', label: 'DRIP'},
-			]}
-			defaultOption={props.defaultValues?.investmentData.stockDividendDistributionMethod}
-			disable={false}
-			tooltip={
-				<>
-					<Typography variant='inherit'>
-						{' '}
-						The method in which dividends are paid out.
-					</Typography>
-					<Typography variant='inherit'>
-						Currently, only stock dividends are supported.
-					</Typography>
-				</>
-			}
-		/>
-	);
+	// const stockDividendDistributionMethodField = (
+	// 	<FormSelectField
+	// 		name='stockDividendDistributionMethod'
+	// 		label='Dividend Method'
+	// 		control={formContext.control}
+	// 		errorField={errors.stockDividendDistributionMethod}
+	// 		options={[
+	// 			{value: 'Stock', label: 'Stock'},
+	// 			{value: 'Cash', label: 'Cash'},
+	// 			{value: 'DRIP', label: 'DRIP'},
+	// 		]}
+	// 		defaultOption={props.defaultValues?.investmentData.stockDividendDistributionMethod}
+	// 		disable={false}
+	// 		tooltip={
+	// 			<>
+	// 				<Typography variant='inherit'>
+	// 					{' '}
+	// 					The method in which dividends are paid out.
+	// 				</Typography>
+	// 				<Typography variant='inherit'>
+	// 					Currently, only stock dividends are supported.
+	// 				</Typography>
+	// 			</>
+	// 		}
+	// 	/>
+	// );
 
 	const stockDividendFirstPaymentDateField = (
 		<FormDatePicker
@@ -218,12 +217,12 @@ export const StockForm = (props: StockFormProps) => {
 				<Grid item xs={2}>
 					{stockDividendPercentField}
 				</Grid>
-				<Grid item xs={2}>
+				{/* <Grid item xs={2}>
 					{stockDividendDistributionIntervalField}
 				</Grid>
 				<Grid item xs={2}>
 					{stockDividendDistributionMethodField}
-				</Grid>
+				</Grid> */}
 				<Grid item xs={4}>
 					{stockDividendFirstPaymentDateField}
 				</Grid>
@@ -232,9 +231,9 @@ export const StockForm = (props: StockFormProps) => {
 				<Grid item xs={12}>
 					<Typography variant='subtitle2'>Analysis Configuration</Typography>
 				</Grid>
-				<Grid item xs={4}>
+				{/* <Grid item xs={4}>
 					{props.analysisTypeField}
-				</Grid>
+				</Grid> */}
 
 				{analysisSubForm()}
 			</Grid>

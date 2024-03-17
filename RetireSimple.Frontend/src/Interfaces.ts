@@ -1,14 +1,13 @@
 export interface Investment {
-	investmentId: string;
-	investmentName: string;
-	investmentType: string;
-	analysisType: string;
-	lastAnalysis?: string | null; //treat as date later?
-	portfolioId: number;
-	investmentData: {[key: string]: string};
-	analysisOptionsOverrides: {[key: string]: string};
+	investmentId: string | null;
+	investmentName: string | null;
+	investmentType: string | null;
+	vehicleId: string | null;
 	projection: number | null
-	value: number
+	currentValue: number | null;
+	cost: number | null;
+	rate: number | null;
+	bondLength: number | null;
 }
 
 export interface InvestmentModel {

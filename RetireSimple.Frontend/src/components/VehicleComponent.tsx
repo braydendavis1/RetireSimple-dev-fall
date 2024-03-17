@@ -21,7 +21,7 @@ export const VehicleComponent =
 				<h3> Current Value: ${vehicle.value} </h3>
 				<h3> Projected Value: ${vehicle.projection} </h3>
 			</div>
-			<div style={{flex: '50%', width: '50px'}}>
+			<div style={{flex: '50%', width: '250px'}}>
 				<VehicleModelGraph vehicleId={vehicle.id!} />
 			</div>
 		</div>

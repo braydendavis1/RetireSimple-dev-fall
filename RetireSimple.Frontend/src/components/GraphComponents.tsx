@@ -137,7 +137,7 @@ export const VehicleModelGraph = (props: {vehicleId: string}) => {
 
 	return (
 		<div>
-			<Button onClick={getModelData} disabled={modelData !== undefined}>
+			<Button style={{width: '150px'}} onClick={getModelData} disabled={modelData !== undefined}>
 				Get Model Data
 			</Button>
 			{modelData ? <MinMaxAvgGraph modelData={modelData} /> : <div></div>}

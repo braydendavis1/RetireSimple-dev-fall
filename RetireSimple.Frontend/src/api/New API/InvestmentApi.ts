@@ -5,8 +5,6 @@ export const getInvestments = async () : Promise<Investment[]> => {
 		method: 'GET',
 	});
 	const data = await response.json().then((data) => {
-		//TODO convert into investment[]
-		console.log("convert to investments");
 		return data;
 	});
 	return data
@@ -17,7 +15,7 @@ export const getInvestment = async (id : String) : Promise<InvestmentModel> => {
 	return await response.json()
 }
 
-export const createInvestment = async(data : InvestmentModel, type : string) => {
+export const createInvestment = async(data : {[key: string]: string}, type : string) => {
 	const response = await fetch(`https://localhost:7199/api/Investments?Type=${type}`,{
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -28,7 +26,7 @@ export const createInvestment = async(data : InvestmentModel, type : string) => 
 	});
 }
 
-export const updateInvestment = async(data : InvestmentModel, id : string) => {
+export const updateInvestment = async(data : {[key: string]: string}, id : string) => {
 	const response = await fetch(`https://localhost:7199/api/Investments?Id=${id}`, {
 		method: 'PUT',
 		body: JSON.stringify(data),

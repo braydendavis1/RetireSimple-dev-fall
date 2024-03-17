@@ -12,11 +12,11 @@ export const InvestmentComponent = (investment: Investment,
 					<h2> {investment.investmentName} 	
 					</h2>				
 				</span>
-				<h3> Current Value: ${investment.value} </h3>
+				<h3> Current Value: ${investment.currentValue} </h3>
 				<h3> Projected Value: ${investment.projection} </h3>
 			</div>
 			<div style={{flex: '50%', width: '50px'}}>
-				<InvestmentModelGraph  investmentId={investment.investmentId} />
+				<InvestmentModelGraph  investmentId={investment.investmentId!} />
 			</div>
 		</div>
 	</body>

@@ -19,7 +19,7 @@ import {enqueueSnackbar, useSnackbar} from 'notistack';
 import { Expense, Investment, InvestmentVehicleInfo } from '../Interfaces';
 import { createInvestmentVehicle, deleteInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
 import { createExpense, deleteExpense } from '../api/New API/ExpenseApi';
-import { createInvestment } from '../api/New API/InvestmentApi';
+import { createInvestment, deleteInvestment } from '../api/New API/InvestmentApi';
 import { ExpenseDataForm } from '../forms/ExpenseDataForm';
 
 export interface AddInvestmentDialogProps {
@@ -60,11 +60,17 @@ export interface ConfirmDeleteExpenseProps {
 	onConfirm: () => void;
 	expenseId: string;
 }
+export interface ConfirmDeleteInvestmentProps {
+	open: boolean;
+	onClose: () => void;
+	onConfirm: () => void;
+	investmentId: string;
+}
 
 export const AddInvestmentDialog = (props: AddInvestmentDialogProps) => {
 	const formContext = useForm({
 		shouldUnregister: true,
-		resolver: yupResolver(investmentFormSchema),
+		// resolver: yupResolver(investmentFormSchema),
 	});
 
 	const submit = useSubmit();
@@ -76,47 +82,19 @@ export const AddInvestmentDialog = (props: AddInvestmentDialogProps) => {
 
 	
 	const handleAdd = (data: FieldValues) => {
-		// const investment: Investment = {
-		// 	// id: "",
-		// 	// name: data.investmentVehicleName,
-		// 	// value: data.cashHoldings,
-		// 	// contributions: data.analysis_userContributionPercentage,
-		// 	// salary: data.analysis_salary,
-		// 	// salaryIncrease: 0,
-		// 	// rate: data.analysis_rate,
-		// 	// type: data.investmentVehicleType,
-		// 	// employerMatch: data.analysis_employerMatchPercentage,
-		// 	// employerMatchCap: data.analysis_employerMatchCap,
-		// 	// projection: null,
-		// };
-		// console.log(investment);
-		// createInvestment(investment).then ( () => {
-		// 	props.onClose();
-		// 	props.loadInvestments();
-		// },
-		// );
-		// const requestData: {[key: string]: string} = {};
+		console.log("ADDING " + data.type);
+		const investment: {[key: string]: string} = {};
+		Object.entries(data)
+			.map(([key, value]) => [key, value.toString()])
+			.forEach(([key, value]) => (investment[key] = value));
 
-
-		// Object.entries(data)
-		// 	.map(([key, value]) => [key, value.toString()])
-		// 	.forEach(([key, value]) => (requestData[key] = value));
-
-		// //Check if we have known date fields, and convert them to yyyy-MM-dd
-		// convertDates(requestData);
-		// // use new api
-		// addInvestment(requestData)
-		// 	.then((investmentId) => {
-		// 		if (props.vehicleTarget > -1) {
-		// 			addInvestmentToVehicle(props.vehicleTarget, Number.parseInt(investmentId));
-		// 		} //Add investment to vehicle
-		// 		enqueueSnackbar('Investment added successfully.', {variant: 'success'});
-		// 		props.onClose();
-		// 		submit(null, {method: 'post', action: addAction});
-		// 	})
-		// 	.catch((error) => {
-		// 		enqueueSnackbar(`Failed to add investment: ${error.message}`, {variant: 'error'});
-		// 	});
+		createInvestment(investment, data.type).then(() => {
+			props.onClose();
+			props.loadInvestments();
+			enqueueSnackbar('Investment added successfully.', {variant: 'success'});
+		}).catch((error) => {
+			enqueueSnackbar(`Failed to add investment: ${error.message}`, {variant: 'error'});
+		});
 	};
 
 	return (
@@ -139,62 +117,62 @@ export const AddInvestmentDialog = (props: AddInvestmentDialogProps) => {
 };
 
 
-export const EditInvestmentDialog = (props: EditInvestmentDialogProps) => {
-	const formContext = useForm({
-		shouldUnregister: true,
-		resolver: yupResolver(investmentFormSchema),
-	});
-	console.log("EDITING:");
-	console.log(props.investment);
+// export const EditInvestmentDialog = (props: EditInvestmentDialogProps) => {
+// 	const formContext = useForm({
+// 		shouldUnregister: true,
+// 		resolver: yupResolver(investmentFormSchema),
+// 	});
+// 	console.log("EDITING:");
+// 	console.log(props.investment);
 
-	const submit = useSubmit();
-	const addAction = useFormAction('/add');
-	const {enqueueSnackbar} = useSnackbar();
+// 	const submit = useSubmit();
+// 	const addAction = useFormAction('/add');
+// 	const {enqueueSnackbar} = useSnackbar();
 
-	const handleAdd = (data: FieldValues) => {
-		const requestData: {[key: string]: string} = {};
+// 	const handleAdd = (data: FieldValues) => {
+// 		const requestData: {[key: string]: string} = {};
 
 
-		Object.entries(data)
-			.map(([key, value]) => [key, value.toString()])
-			.forEach(([key, value]) => (requestData[key] = value));
+// 		Object.entries(data)
+// 			.map(([key, value]) => [key, value.toString()])
+// 			.forEach(([key, value]) => (requestData[key] = value));
 
-		//Check if we have known date fields, and convert them to yyyy-MM-dd
-		convertDates(requestData);
+// 		//Check if we have known date fields, and convert them to yyyy-MM-dd
+// 		convertDates(requestData);
 
-		// //TODO: will need to make an edit investment method
-		// addInvestment(requestData)
-		// 	.then((investmentId) => {
-		// 		// if (props.vehicleTarget > -1) {
-		// 		// 	addInvestmentToVehicle(props.vehicleTarget, Number.parseInt(investmentId));
-		// 		// } //Add investment to vehicle
-		// 		enqueueSnackbar('Investment added successfully.', {variant: 'success'});
-		// 		props.onClose();
-		// 		submit(null, {method: 'post', action: addAction});
-		// 	})
-		// 	.catch((error) => {
-		// 		enqueueSnackbar(`Failed to add investment: ${error.message}`, {variant: 'error'});
-		// 	});
-	};
+// 		// //TODO: will need to make an edit investment method
+// 		// addInvestment(requestData)
+// 		// 	.then((investmentId) => {
+// 		// 		// if (props.vehicleTarget > -1) {
+// 		// 		// 	addInvestmentToVehicle(props.vehicleTarget, Number.parseInt(investmentId));
+// 		// 		// } //Add investment to vehicle
+// 		// 		enqueueSnackbar('Investment added successfully.', {variant: 'success'});
+// 		// 		props.onClose();
+// 		// 		submit(null, {method: 'post', action: addAction});
+// 		// 	})
+// 		// 	.catch((error) => {
+// 		// 		enqueueSnackbar(`Failed to add investment: ${error.message}`, {variant: 'error'});
+// 		// 	});
+// 	};
 
-	return (
-		<FormProvider {...formContext}>
-			<Dialog open={props.open} maxWidth='md'>
-				<DialogTitle>
-					{'Edit Investment'}
-				</DialogTitle>
-				<Box sx={{padding: '2rem'}}>
-					<InvestmentDataForm selectedInvestment={props.investment}>
-						<DialogActions>
-							<Button onClick={props.onClose}>Cancel</Button>
-							<Button onClick={formContext.handleSubmit(handleAdd)}>Save</Button>
-						</DialogActions>
-					</InvestmentDataForm>
-				</Box>
-			</Dialog>
-		</FormProvider>
-	);
-};
+// 	return (
+// 		<FormProvider {...formContext}>
+// 			<Dialog open={props.open} maxWidth='md'>
+// 				<DialogTitle>
+// 					{'Edit Investment'}
+// 				</DialogTitle>
+// 				<Box sx={{padding: '2rem'}}>
+// 					<InvestmentDataForm selectedInvestment={props.investment}>
+// 						<DialogActions>
+// 							<Button onClick={props.onClose}>Cancel</Button>
+// 							<Button onClick={formContext.handleSubmit(handleAdd)}>Save</Button>
+// 						</DialogActions>
+// 					</InvestmentDataForm>
+// 				</Box>
+// 			</Dialog>
+// 		</FormProvider>
+// 	);
+// };
 
 export const AddVehicleDialog = (props: AddVehicleDialogProps) => {
 	const formContext = useForm({
@@ -209,24 +187,6 @@ export const AddVehicleDialog = (props: AddVehicleDialogProps) => {
 		Object.entries(data)
 			.map(([key, value]) => [key, value.toString()])
 			.forEach(([key, value]) => (vehicle[key] = value));
-
-
-
-
-		// const vehicle: InvestmentVehicleInfo = {
-		// 	id: "",
-		// 	name: data.name,
-		// 	value: data.value,
-		// 	contributions: data.contributions,
-		// 	contributionType: data.contributionType,
-		// 	salary: data.salary,
-		// 	salaryIncrease: data.salaryIncrease,
-		// 	rate: data.rate,
-		// 	type: data.type,
-		// 	employerMatch: data.employerMatch,
-		// 	employerMatchCap: data.employerMatchCap,
-		// 	projection: null,
-		// };
 		createInvestmentVehicle(vehicle, data.type).then(() => {
 			props.onClose();
 			props.loadVehicles();
@@ -275,6 +235,36 @@ export const ConfirmDeleteDialog = (props: ConfirmDeleteDialogProps) => {
 			<DialogTitle>Confirm Deletion</DialogTitle>
 			<DialogContent>
 				Are you sure you want to delete this vehicle?
+			</DialogContent>
+			<DialogActions>
+				<Button onClick={props.onClose}>Cancel</Button>
+				<Button color='error' onClick={handleConfirm}>
+					Delete
+				</Button>
+			</DialogActions>
+		</Dialog>
+	);
+};
+
+export const ConfirmDeleteInvestment = (props: ConfirmDeleteInvestmentProps) => {
+	const {enqueueSnackbar} = useSnackbar();
+	const navigate = useNavigate();
+	const handleConfirm = () => {
+		deleteInvestment(props.investmentId).then(() => {
+			enqueueSnackbar('Investment deleted successfully.', {variant: 'success'});
+		}).catch((error) => {
+			enqueueSnackbar(`Failed to delete investment: ${error.message}`, {variant: 'error'});
+		});
+		props.onClose();
+		
+		navigate(`/InvestmentPage/`);
+	};
+
+	return (
+		<Dialog open={props.open}>
+			<DialogTitle>Confirm Deletion</DialogTitle>
+			<DialogContent>
+				Are you sure you want to delete this investment?
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={props.onClose}>Cancel</Button>

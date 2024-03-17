@@ -40,7 +40,7 @@ export const InvestmentsPage = () => {
 		{investmentList.map((investment: Investment) => 
 			(InvestmentComponent(
 				investment, 
-				() => {navigatePage(investment.investmentId)},
+				() => {navigatePage(investment.investmentId!)},
 				() => {loadInvestments()},
 			)		
 			))

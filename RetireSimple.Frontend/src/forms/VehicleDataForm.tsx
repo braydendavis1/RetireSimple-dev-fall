@@ -161,7 +161,7 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 				defaultOption={props.defaultValues ? props.defaultValues.contributionType : 'percentage'}		
 				options={[
 					{value: 'percentage', label: 'Paycheck Percentage', tooltip: ''},
-					{value: 'fixed', label: 'Fixed Amount', tooltip: ''},
+					// {value: 'fixed', label: 'Fixed Amount', tooltip: ''},
 				]}
 				disable={false}
 				tooltip={

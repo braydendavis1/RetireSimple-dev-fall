@@ -1,42 +1,23 @@
-import {yupResolver} from '@hookform/resolvers/yup';
-import {Box, Button, Divider, Tab, Tabs, Typography} from '@mui/material';
+import {Box, Button, Divider, Typography} from '@mui/material';
 import React from 'react';
 import {FormProvider, useForm, useFormState} from 'react-hook-form';
 import {FieldValues} from 'react-hook-form/dist/types';
 import {useFormAction, useLoaderData, useSubmit} from 'react-router-dom';
 import {Investment} from '../Interfaces';
-import {ConfirmDeleteDialog} from '../components/DialogComponents';
+import {ConfirmDeleteInvestment} from '../components/DialogComponents';
 import {InvestmentModelGraph} from '../components/GraphComponents';
-import {InvestmentFormDefaults, investmentFormSchema} from '../forms/FormSchema';
 import {InvestmentDataForm} from '../forms/InvestmentDataForm';
 import {useSnackbar} from 'notistack';
-
-interface InvestmentViewTabProps {
-	tab: number;
-	children?: React.ReactNode;
-	value: number;
-}
-
-const InvestmentViewTab = (props: InvestmentViewTabProps) => {
-	return (
-		<Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
-			{props.tab === props.value && <Box sx={{p: 1}}>{props.children}</Box>}
-		</Box>
-	);
-};
+import { updateInvestment } from '../api/New API/InvestmentApi';
 
 export const InvestmentView = () => {
 	const [showDelete, setShowDelete] = React.useState(false);
-	const [tab, setTab] = React.useState(0);
-
+	const investmentData = useLoaderData() as any;
 	const currentInvestmentData = useLoaderData() as Investment;
 	const submit = useSubmit();
 	const deleteAction = useFormAction('delete');
-	const updateAction = useFormAction('update');
 	const formContext = useForm({
 		shouldUnregister: true,
-		//resolver: yupResolver(investmentFormSchema),
-		defaultValues: currentInvestmentData ?? InvestmentFormDefaults,
 	});
 	const {enqueueSnackbar} = useSnackbar();
 
@@ -48,70 +29,53 @@ export const InvestmentView = () => {
 	}, [currentInvestmentData, reset]);
 
 	const handleUpdate = handleSubmit((data: FieldValues) => {
-		// const requestData: {[key: string]: string} = {};
-		// Object.entries(dirtyFields).forEach(([key, value]) => {
-		// 	if (value === true) {
-		// 		requestData[key] = data[key].toString();
-		// 	}
-		// });
-
-		// convertDates(requestData);
-
-		// updateInvestment(currentInvestmentData.investmentId, requestData)
-		// 	.then(() => {
-		// 		enqueueSnackbar('Investment updated successfully.', {variant: 'success'});
-		// 		submit(null, {action: updateAction, method: 'post'});
-		// 	})
-		// 	.catch((error) => {
-		// 		enqueueSnackbar(`Failed to update investment: ${error.message}`, {
-		// 			variant: 'error',
-		// 		});
-		// 	});
+		const investment: {[key: string]: string} = {};
+		Object.entries(data)
+			.map(([key, value]) => [key, value.toString()])
+			.forEach(([key, value]) => (investment[key] = value));
+		investment["investmentId"] = investmentData.investmentId;
+		updateInvestment(investment, investment.investmentId).then(() => {
+			enqueueSnackbar('Investment updated successfully.', {variant: 'success'});
+		}).catch((error) => {
+			enqueueSnackbar(`Failed to update investment: ${error.message}`, {variant: 'error'});
+		});
 	});
 
 	return (
-		<Box sx={{display: 'flex', flexDirection: 'column', minWidth: '60rem'}}>
-			<Tabs value={tab} onChange={(e, v) => setTab(v)}>
-				<Tab label='Investment Details' />
-				<Tab label='Expense Information' />
-			</Tabs>
-			<InvestmentViewTab value={tab} tab={0}>
-				<Typography variant='h6' component='div' sx={{flexGrow: 1, marginBottom: '1rem'}}>
-					Investment Details: {currentInvestmentData.investmentName}
+		<><Box sx={{ display: 'flex', flexDirection: 'column' }}>
+			<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
+				<Typography variant='h6' component='div' sx={{ flexGrow: 1, marginBottom: '1rem' }}>
+					Vehicle Details: {investmentData.investmentVehicleName}
 				</Typography>
 				<FormProvider {...formContext}>
-					<InvestmentDataForm
-						defaultValues={currentInvestmentData}
-						disableTypeSelect={true}>
-						<Divider sx={{paddingY: '5px'}} />
+					<InvestmentDataForm defaultValues={investmentData} disableTypeSelect={true}>
+						<Divider sx={{ paddingY: '5px' }} />
 						<Box
 							sx={{
 								display: 'flex',
 								flexDirection: 'row',
 								justifyContent: 'flex-end',
 							}}>
-							<Button onClick={() => reset(currentInvestmentData)}>Reset</Button>
 							<Button color='error' onClick={() => setShowDelete(true)}>
 								Delete
 							</Button>
-							<Button onClick={handleUpdate} disabled={!isDirty}>
+							<Button onClick={handleUpdate}
+								// disabled={!isDirty}
+							>
 								Update
 							</Button>
 						</Box>
 					</InvestmentDataForm>
 				</FormProvider>
-			</InvestmentViewTab>
-			
-			<Box sx={{width: '100%', height: '100%'}}>
-				<InvestmentModelGraph investmentId={currentInvestmentData.investmentId} />
+			</Box><Box sx={{ width: '100%', height: '100%' }}>
+				<InvestmentModelGraph investmentId={investmentData.investmentId} />
 			</Box>
-			<ConfirmDeleteDialog
+			<ConfirmDeleteInvestment
 				open={showDelete}
 				onClose={() => setShowDelete(false)}
 				onConfirm={() => submit(null, {action: deleteAction, method: 'delete'})}
-				deleteTarget={currentInvestmentData.investmentName}
-				deleteTargetType='investment'
-			/>
+				investmentId={investmentData.investmentId} />
 		</Box>
+		</>
 	);
 };
