@@ -2,7 +2,6 @@ import {Box, Button, Divider, Typography} from '@mui/material';
 import React from 'react';
 import {FieldValues, FormProvider, useForm, useFormState} from 'react-hook-form';
 import {useFormAction, useLoaderData, useSubmit} from 'react-router-dom';
-// import {updateVehicle} from '../api/VehicleApi';
 import {ConfirmDeleteDialog} from '../components/DialogComponents';
 import {VehicleModelGraph} from '../components/GraphComponents';
 import {VehicleDataForm} from '../forms/VehicleDataForm';
@@ -14,11 +13,8 @@ export const VehicleView = () => {
 	const vehicleData = useLoaderData() as any;
 	const submit = useSubmit();
 	const deleteAction = useFormAction('delete');
-	const updateAction = useFormAction('update');
 	const formContext = useForm({
 		shouldUnregister: true,
-		// resolver: yupResolver(vehicleFormSchema),
-		// defaultValues: vehicleData ?? VehicleFormDefaults,
 	});
 
 	const {reset, control, handleSubmit} = formContext;

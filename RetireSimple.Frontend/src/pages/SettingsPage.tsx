@@ -6,9 +6,7 @@ import SettingsNav from './SettingsNav';
 import { UserInfo } from '../Interfaces';
   
 export function SettingsPage() { 
-
 	const [userInfo, setUserInfo] = React.useState<UserInfo>();
-
 	React.useEffect(() => {
 		if (userInfo === undefined) {
 			getUserInfo().then((data) => {
@@ -21,7 +19,6 @@ export function SettingsPage() {
 		saveUserInfo(data);
 	}
 
-
 	return (<div>
 		<SettingsNav />
 		<h1>Account Settings</h1>
@@ -30,6 +27,5 @@ export function SettingsPage() {
 				setUserInfo={(data: UserInfo) => updateUserInfo(data) } />
 		</Box>
 	</div>
-	);
-    
+	); 
 } 

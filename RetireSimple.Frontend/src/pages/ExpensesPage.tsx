@@ -3,18 +3,14 @@ import React, { useState } from 'react';
 import {ApiPresetData,Expense} from '../Interfaces';
 import { AddExpenseDialog } from '../components/DialogComponents';
 import { PresetContext } from '../Layout';
-
 import { convertExpenseInfo } from '../api/ApiMapper';
 import { useNavigate } from 'react-router-dom';
 import { ExpenseComponent } from '../components/ExpenseComponent';
 import { getExpenses } from '../api/New API/ExpenseApi';
   
 export function ExpensesPage() { 
-	
 	const [expenseList, setExpenseList] = useState<Expense[]>([]);
-	
 	const [presetData, setPresetData] = React.useState<ApiPresetData | undefined>(undefined);
-
 	const [expenseAddDialogOpen, setExpenseAddDialogOpen] = React.useState(false);
 	const navigate = useNavigate();
 
@@ -22,13 +18,11 @@ export function ExpensesPage() {
 		loadExpenses();
 	}, [presetData]);
 	
-
 	const loadExpenses = () => {
 		getExpenses().then((data) => {
 			setExpenseList(convertExpenseInfo(data));
 		});
 	};
-
 
 	const navigatePage = (id: string) => {
 		navigate(`/ExpensesPage/${id}`);

@@ -6,8 +6,6 @@ export function HelpPage() {
 	return (<div>
 		<SettingsNav />
 		<h1>Help</h1>
-		
-		
 		<Box sx={{padding: '2rem'}}>
 			<Typography variant='h6' sx={{flexGrow: 1, marginBottom: '0.5rem'}}>
 				Welcome to RetireSimple!

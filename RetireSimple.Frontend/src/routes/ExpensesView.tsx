@@ -13,8 +13,6 @@ export const ExpenseView = () => {
 	const expenseData = useLoaderData() as any;
 	const submit = useSubmit();
 	const deleteAction = useFormAction('delete');
-	const updateAction = useFormAction('update');
-
 	const formContext = useForm({
 		shouldUnregister: true,
 	});

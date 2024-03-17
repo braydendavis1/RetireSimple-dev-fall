@@ -78,14 +78,6 @@ export interface InvestmentVehicle {
 	analysisOptionsOverrides: {[key: string]: string};
 }
 
-// export interface Expense {
-// 	id: string;
-// 	expenseName: string;
-// 	expenseAmount: number;
-// 	expenseFrequency: string;
-// 	lastUpdated: string; //treat as a date later?
-// }
-
 export interface Expense {
 	id: string;
 	name: string;

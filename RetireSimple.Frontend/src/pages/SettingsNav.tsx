@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 
 const SettingsNav = () => {
 	const [value, setValue] = useState('');
-
 	const handleChange = (event: React.SyntheticEvent, newValue: string) => {
 		setValue(newValue);
 	};

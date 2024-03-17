@@ -1,6 +1,6 @@
 import {Box, Button, Divider, Typography} from '@mui/material';
 import React from 'react';
-import {FormProvider, useForm, useFormState} from 'react-hook-form';
+import {FormProvider, useForm} from 'react-hook-form';
 import {FieldValues} from 'react-hook-form/dist/types';
 import {useFormAction, useLoaderData, useSubmit} from 'react-router-dom';
 import {Investment} from '../Interfaces';
@@ -13,7 +13,6 @@ import { updateInvestment } from '../api/New API/InvestmentApi';
 export const InvestmentView = () => {
 	const [showDelete, setShowDelete] = React.useState(false);
 	const investmentData = useLoaderData() as any;
-	const currentInvestmentData = useLoaderData() as Investment;
 	const submit = useSubmit();
 	const deleteAction = useFormAction('delete');
 	const formContext = useForm({
@@ -21,12 +20,10 @@ export const InvestmentView = () => {
 	});
 	const {enqueueSnackbar} = useSnackbar();
 
-	const {reset, control, handleSubmit} = formContext;
-	const {isDirty, dirtyFields} = useFormState({control});
+	const {handleSubmit} = formContext;
 
 	React.useEffect(() => {
-		reset(currentInvestmentData, {keepErrors: true});
-	}, [currentInvestmentData, reset]);
+	}, []);
 
 	const handleUpdate = handleSubmit((data: FieldValues) => {
 		const investment: {[key: string]: string} = {};

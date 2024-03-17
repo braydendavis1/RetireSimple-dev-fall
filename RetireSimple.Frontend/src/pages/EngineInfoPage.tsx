@@ -156,6 +156,4 @@ export function EngineInfoPage() {
 		</Box>
 	</div>
 	);
-    
-
 } 

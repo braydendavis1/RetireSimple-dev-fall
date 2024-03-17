@@ -11,10 +11,6 @@ import {
 	useRouteError,
 } from 'react-router-dom';
 import {Layout} from './Layout';
-import {flattenApiInvestment, getFlatVehicleData} from './api/ApiMapper';
-import {convertFromDecimal} from './api/ConvertUtils';
-// import {deleteInvestment, getInvestment} from './api/InvestmentApi';
-// import {deleteVehicle, getVehicle} from './api/VehicleApi';
 import {InvestmentsPage} from './pages/InvestmentsPage';
 import {VehiclesPage} from './pages/VehiclesPage';
 import {AboutPage} from './pages/AboutPage';
@@ -24,14 +20,9 @@ import { ExpensesPage } from './pages/ExpensesPage';
 import { EngineInfoPage } from './pages/EngineInfoPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { getInvestmentVehicle } from './api/New API/InvestmentVehicleApi';
-// import { getExpense } from './api/ExpenseApi';
 import { ExpenseView } from './routes/ExpensesView';
 import { getInvestment } from './api/New API/InvestmentApi';
 import { getExpense } from './api/New API/ExpenseApi';
-
-/************************
- * Lazy Loaded Components
- ***********************/
 
 const InvestmentView = React.lazy(() =>
 	import('./routes/InvestmentView').then((module) => ({default: module.InvestmentView})),
@@ -44,48 +35,12 @@ const VehicleView = React.lazy(() =>
 	import('./routes/VehicleView').then((module) => ({default: module.VehicleView})),
 );
 
-/************************
- * Suspense Wrapper
- ***********************/
 export const SuspenseRoute = ({children}: {children: React.ReactNode}) => {
 	return <React.Suspense fallback={<CircularProgress />}>{children}</React.Suspense>;
 };
 
-// const addInvestmentAction = async () => {
-// 	//Assert that the actual addition occured already
-// 	//Use this as a way to refresh loader data
-// 	return new Response(null, {status: 302, headers: {Location: '/'}});
-// };
-
-// const updateInvestmentAction = async ({params}: {params: any}) => {
-// 	return new Response(null, {status: 302, headers: {Location: `/investment/${params.id}`}});
-// };
-
-// // const deleteInvestmentAction = async ({params}: {params: any}) => {
-// // 	const id = params.id;
-// // 	await deleteInvestment(id);
-// // 	return new Response(null, {status: 302, headers: {Location: '/'}});
-// // };
-
-// const addVehicleAction = async () => {
-// 	//Assert that the actual addition occured already
-// 	//Use this as a way to refresh loader data
-// 	return new Response(null, {status: 302, headers: {Location: '/'}});
-// };
-
-// const updateVehicleAction = async ({params}: {params: any}) => {
-// 	return new Response(null, {status: 302, headers: {Location: `/vehicle/${params.id}`}});
-// };
-
-// // const deleteVehicleAction = async ({params}: {params: any}) => {
-// // 	const id = params.id;
-// // 	await deleteVehicle(id);
-// // 	return new Response(null, {status: 302, headers: {Location: '/'}});
-// // };
-
 const ErrorPage = () => {
 	const error = useRouteError();
-
 	return (
 		<Box
 			sx={{
@@ -127,9 +82,6 @@ const ErrorPage = () => {
 	);
 };
 
-/************************
- * React Router Route Defs.
- ************************/
 const router = createBrowserRouter(
 	createRoutesFromElements([
 		<Route
@@ -145,10 +97,8 @@ const router = createBrowserRouter(
 					</SuspenseRoute>
 				}
 			/>
-			
 			<Route
 				path='InvestmentPage/'
-				
 				element={
 					<InvestmentsPage />
 				}
@@ -156,7 +106,6 @@ const router = createBrowserRouter(
 			<Route
 				path='InvestmentPage/:id'
 				loader={async ({params}) => await getInvestment(params.id ?? '')}
-				
 				element={
 					<SuspenseRoute>
 						<InvestmentView />
@@ -165,7 +114,6 @@ const router = createBrowserRouter(
 			/>
 			<Route
 				path='VehiclesPage/'
-				
 				element={
 					<VehiclesPage />
 				}
@@ -188,7 +136,6 @@ const router = createBrowserRouter(
 			<Route
 				path='ExpensesPage/:id'
 				loader={async ({params}) => await getExpense(params.id ?? '')}
-				
 				element={
 					<SuspenseRoute>
 						<ExpenseView />
@@ -219,7 +166,6 @@ const router = createBrowserRouter(
 					<HelpPage />
 				}
 			/>
-			
 			<Route path='*' element={<div>404</div>} />
 		</Route>,
 	]),

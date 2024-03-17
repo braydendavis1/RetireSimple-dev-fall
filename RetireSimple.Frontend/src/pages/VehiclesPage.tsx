@@ -5,18 +5,14 @@ import { AddVehicleDialog } from '../components/DialogComponents';
 import { PresetContext } from '../Layout';
 import { VehicleComponent } from '../components/VehicleComponent';
 
-import { getInvestmentVehicleProjection, getInvestmentVehicles } from '../api/New API/InvestmentVehicleApi';
-import { deleteInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
+import {  getInvestmentVehicles } from '../api/New API/InvestmentVehicleApi';
 import { convertInvestmentVehiclesInfo } from '../api/ApiMapper';
 import { useNavigate } from 'react-router-dom';
 
   
 export function VehiclesPage() { 
-
 	const [vehicleList, setVehicleList] = useState<InvestmentVehicleInfo[]>([]);
-	
 	const [presetData, setPresetData] = React.useState<ApiPresetData | undefined>(undefined);
-
 	const [vehicleAddDialogOpen, setVehicleAddDialogOpen] = React.useState(false);
 	const navigate = useNavigate();
 
@@ -24,18 +20,15 @@ export function VehiclesPage() {
 		loadVehicles();
 	}, [presetData]);
 	
-
 	const loadVehicles = () => {
 		getInvestmentVehicles().then((data) => {
 			setVehicleList(convertInvestmentVehiclesInfo(data));
 		});
 	};
 
-
 	const navigatePage = (id: string) => {
 		navigate(`/VehiclesPage/${id}`);
 	};
-
 
 	return <div><PresetContext.Provider value={presetData}>
 		<h2>Vehicles</h2>

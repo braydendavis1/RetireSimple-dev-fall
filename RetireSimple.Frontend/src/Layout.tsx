@@ -5,15 +5,14 @@ import {
 	Icon,
 	IconButton,
 	List,
-	ListSubheader,
 	MenuItem,
 	Paper,
 	Tooltip,
 	Typography,
 } from '@mui/material';
 import React from 'react';
-import {Link, Outlet, useLoaderData} from 'react-router-dom';
-import {ApiPresetData, Investment, Portfolio} from './Interfaces';
+import {Link, Outlet} from 'react-router-dom';
+import {ApiPresetData} from './Interfaces';
 
 
 import logo from '../../logo.png';
@@ -21,28 +20,12 @@ import logo from '../../logo.png';
 export const PresetContext = React.createContext<ApiPresetData | undefined>(undefined);
 
 export const Layout = () => {
-	// const portfolio = useLoaderData() as Portfolio;
-	// const {investments, investmentVehicles: vehicles} = portfolio;
 
 	const [presetData, setPresetData] = React.useState<ApiPresetData | undefined>(undefined);
-	const [invAddDialogOpen, setInvAddDialogOpen] = React.useState(false);
-	const [vehicleAddDialogOpen, setVehicleAddDialogOpen] = React.useState(false);
-	const [vehicleAddInvTarget, setVehicleAddInvTarget] = React.useState<number>(-1); //by default, adds as individual investment
-	const [aboutOpen, setAboutOpen] = React.useState(false);
-	const [helpOpen, setHelpOpen] = React.useState(false);
+	
 
 	React.useEffect(() => {
-		// if (presetData === undefined) {
-		// 	getAnalysisPresets().then((data) => {
-		// 		setPresetData(data);
-		// 	});
-		// }
 	}, [presetData]);
-
-	const openAddInvDialog = (vehicleId: number) => {
-		setVehicleAddInvTarget(vehicleId);
-		setInvAddDialogOpen(true);
-	};
 
 	const renderPageList = (
 		<Box sx={{width: '100%', alignSelf: 'start'}}>
@@ -74,80 +57,7 @@ export const Layout = () => {
 						Expenses
 					</Typography>
 				</MenuItem>
-				{/* <Divider />
-				<MenuItem component={Link} to='/EngineInfoPage'>
-					<Icon baseClassName='material-icons'>info</Icon>
-					<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
-						Engine Info
-					</Typography>
-				</MenuItem>
 				<Divider />
-				<MenuItem component={Link} to='/AboutPage'>
-					<Icon baseClassName='material-icons'>info</Icon>
-					<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
-						About
-					</Typography>
-				</MenuItem>
-				<Divider />
-				<MenuItem component={Link} to='/HelpPage'>
-					<Icon baseClassName='material-icons'>help</Icon>
-					<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
-						Help
-					</Typography>
-				</MenuItem> */}
-				<Divider />
-				{/* <Divider />
-				<Divider />
-				<ListSubheader>Investments</ListSubheader>
-				{investments.map((investment: Investment) => (
-					<SidebarInvestment investment={investment} key={investment.investmentId} />
-				))}
-				<MenuItem onClick={() => openAddInvDialog(-1)}>
-					<Icon baseClassName='material-icons'>add_circle</Icon>
-					<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
-						Add Investment
-					</Typography>
-				</MenuItem>
-				<Divider />
-				<ListSubheader>Vehicles</ListSubheader>
-				{vehicles.map((vehicle) => (
-					<Box key={vehicle.investmentVehicleId}>
-						<MenuItem
-							component={Link}
-							to={`/vehicle/${vehicle.investmentVehicleId}`}
-							key={vehicle.investmentVehicleId}>
-							<VehicleListItem
-								vehicleName={vehicle.investmentVehicleName}
-								vehicleType={vehicle.investmentVehicleType}
-							/>
-						</MenuItem>
-						<Box sx={{marginLeft: '2rem'}}>
-							{vehicle.investments.map((investment: Investment) => (
-								<SidebarInvestment
-									investment={investment}
-									key={investment.investmentId}
-								/>
-							))}
-							<MenuItem onClick={() => openAddInvDialog(vehicle.investmentVehicleId)}>
-								<Icon baseClassName='material-icons'>add_circle</Icon>
-								<Typography
-									variant='body1'
-									component='div'
-									sx={{marginLeft: '10px'}}>
-									Add Investment to Vehicle
-								</Typography>
-							</MenuItem>
-						</Box>
-					</Box>
-				))}
-				<MenuItem onClick={() => setVehicleAddDialogOpen(true)}>
-					<Icon baseClassName='material-icons'>add_circle</Icon>
-					<Typography variant='body1' component='div' sx={{marginLeft: '10px'}}>
-						Add Vehicle
-					</Typography>
-				</MenuItem>
-				<Divider /> */}
-				
 			</List>
 		</Box>
 	);
@@ -179,16 +89,10 @@ export const Layout = () => {
 							RetireSimple
 						</Typography>
 						<Box component='span' sx={{flex: '1 1 auto'}} />
-						{/* <Tooltip title='About'>
-							<IconButton color='inherit' onClick={() => setAboutOpen(true)}>
-								<Icon baseClassName='material-icons'>info</Icon>
-							</IconButton>
-						</Tooltip> */}
 						<Tooltip title='Open the settings page'>
 							<IconButton
 								color='inherit'
 								href='/settings'>
-								{/* onClick={this.openSettings} */}
 								<Icon baseClassName='material-icons'>settings</Icon>
 							</IconButton>
 						</Tooltip>
@@ -213,17 +117,6 @@ export const Layout = () => {
 						<Outlet />
 					</Box>
 				</Box>
-				{/* <AddInvestmentDialog
-					open={invAddDialogOpen}
-					onClose={() => setInvAddDialogOpen(false)}
-					vehicleTarget={vehicleAddInvTarget}
-				/>
-				<AddVehicleDialog
-					open={vehicleAddDialogOpen}
-					onClose={() => setVehicleAddDialogOpen(false)}
-				/> */}
-				{/* <AboutDialog open={aboutOpen} onClose={() => setAboutOpen(false)} />
-				<HelpDialog open={helpOpen} onClose={() => setHelpOpen(false)} /> */}
 			</PresetContext.Provider>
 		</div>
 	);
