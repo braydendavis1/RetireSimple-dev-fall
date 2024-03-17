@@ -28,12 +28,12 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels._401kGrowthModels {
 			for (int i = 0; i < years; i++) {
 
 				//percent of salary contributions * salary (considering increase)
-				double personal_contribution = (double)(info.Contributions * this.CalculateSalaryIncrease(info, i));
+				double personal_contribution = (double)(info.Contributions/100 * this.CalculateSalaryIncrease(info, i));
 
 				//employer contributions
 				double employer_contribution = this.CalculateEmployerContributions(info, i);
 
-				double val = (double)(values[i] * (1 + info.Rate));
+				double val = (double)(values[i] * (1 + info.Rate/100));
 
 				double newVal = val + personal_contribution + employer_contribution;
 
@@ -61,11 +61,11 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels._401kGrowthModels {
 			if(info.Contributions < info.EmployerMatchCap) {
 
 				//the percentage the employer will match * thhe salary (considering increase) * the percentage of contribution
-				contributions = (double)(info.EmployerMatch * this.CalculateSalaryIncrease(info, i) * info.Contributions);
+				contributions = (double)(info.EmployerMatch/ 100 * this.CalculateSalaryIncrease(info, i) * info.Contributions/100);
 			} else {
 
 				//the percentage the employer will match * the salary (considering increase) * the max match of the employer
-				contributions = (double)(info.EmployerMatch * this.CalculateSalaryIncrease(info, i) * info.EmployerMatchCap);
+				contributions = (double)(info.EmployerMatch/100 * this.CalculateSalaryIncrease(info, i) * info.EmployerMatchCap/100);
 			}
 
 			return contributions;
@@ -76,7 +76,7 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels._401kGrowthModels {
 		private double CalculateSalaryIncrease(InvestmentVehicleInfoModel info, int i) {
 
 			//base salary * (1 + salary increase rate) ^ i 
-			return (double)(info.Salary * Math.Pow((double)(1 + info.SalaryIncrease), i));
+			return (double)(info.Salary * Math.Pow((double)(1 + (info.SalaryIncrease / 100)), i));
 		}
 
 		
