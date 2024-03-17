@@ -42,17 +42,17 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 			label='Vehicle Type'
 			control={formContext.control}
 			errorField={errors.type}
-			defaultOption='Vehicle401k'
+			defaultOption='401k'
 			options={[
-				{value: '401k', label: '401k', tooltip: ''},
-				{value: 'IRA', label: 'IRA', tooltip: ''},
-				{value: 'RothIRA', label: 'Roth IRA', tooltip: ''},
-				{value: '403b', label: '403b', tooltip: ''},
-				{value: '457', label: '457', tooltip: ''},
+				{ value: '401k', label: '401k', tooltip: '' },
+				// { value: 'IRA', label: 'IRA', tooltip: '' },
+				// { value: 'RothIRA', label: 'Roth IRA', tooltip: '' },
+				// { value: '403b', label: '403b', tooltip: '' },
+				// { value: '457', label: '457', tooltip: '' },
 			]}
-			disable={props.disableTypeSelect ?? false}
-			tooltip='The type of vehicle this is. This does alter how we determine the tax-applied model.'
-		/>
+			// disable={props.disableTypeSelect ?? false}
+			tooltip='The type of vehicle this is. This does alter how we determine the tax-applied model.' 
+			disable={false}		/>
 	);
 
 	const cashHoldingField = (
