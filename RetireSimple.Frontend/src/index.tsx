@@ -19,10 +19,13 @@ import { HelpPage } from './pages/HelpPage';
 import { ExpensesPage } from './pages/ExpensesPage';
 import { EngineInfoPage } from './pages/EngineInfoPage';
 import { SettingsPage } from './pages/SettingsPage';
-import { getInvestmentVehicle } from './api/New API/InvestmentVehicleApi';
+import { getInvestmentVehicle, getPortfolioProjection } from './api/New API/InvestmentVehicleApi';
 import { ExpenseView } from './routes/ExpensesView';
 import { getInvestment } from './api/New API/InvestmentApi';
 import { getExpense } from './api/New API/ExpenseApi';
+import { ProjectionView } from './routes/ProjectionView';
+import { convertProjectionData } from './api/ApiMapper';
+import { ProjectionInfo } from './Interfaces';
 
 const InvestmentView = React.lazy(() =>
 	import('./routes/InvestmentView').then((module) => ({default: module.InvestmentView})),
@@ -93,7 +96,7 @@ const router = createBrowserRouter(
 				path='/'
 				element={
 					<SuspenseRoute>
-						<RootView />
+						<ProjectionView />
 					</SuspenseRoute>
 				}
 			/>

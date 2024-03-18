@@ -31,20 +31,6 @@ export const VehicleView = () => {
 			.map(([key, value]) => [key, value.toString()])
 			.forEach(([key, value]) => (vehicle[key] = value));
 		vehicle["id"] = vehicleData.id;
-		// const vehicle: InvestmentVehicleInfo = {
-		// 	id: vehicleData.id,
-		// 	name: data.investmentVehicleName,
-		// 	value: data.cashHoldings,
-		// 	contributions: data.analysis_userContributionPercentage,
-		// 	contributionType: data.analysis_userContributionType,
-		// 	salary: data.analysis_salary,
-		// 	salaryIncrease: data.analysis_salaryIncrease,
-		// 	rate: data.analysis_rate,
-		// 	type: data.investmentVehicleType,
-		// 	employerMatch: data.analysis_employerMatchPercentage,
-		// 	employerMatchCap: data.analysis_employerMatchCap,
-		// 	projection: null,
-		// };
 		updateInvestmentVehicle(vehicle, vehicleData.id).then(() => {
 			enqueueSnackbar('Vehicle updated successfully.', {variant: 'success'});
 		}).catch((error) => {

@@ -5,7 +5,7 @@ export const ExpenseComponent =
 (expense: Expense, 
 	navigate: Function) => {
 
-	return <body 
+	return <div 
 		onClick={() => navigate()}
 		style={{backgroundColor: 'white', margin: '15px', outline: '5px solid black'}}>
 		<div style={{width: '900px', paddingLeft: '10px', paddingBottom: '10px', paddingRight: '0px'}}>
@@ -17,5 +17,5 @@ export const ExpenseComponent =
 			<h3> Expense Frequency: {expense.type} </h3>
 			
 		</div>
-	</body>
+	</div>
 }

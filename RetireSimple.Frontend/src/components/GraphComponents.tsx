@@ -196,9 +196,9 @@ export const PortfolioBreakdownGraph = (props: {modelData: any[], height: number
 
 export const PortfolioAggregateGraph = (props: {modelData: any[], height: number}) => {
 	return (
-		<Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '50%'}}>
+		<Box sx={{display: 'flex', flexDirection: 'column', width: '90%', height: '50%'}}>
 			<Typography variant='h6'>Portfolio Model</Typography>
-			<ResponsiveContainer width='100%'  minHeight={props.height} minWidth={1200}>
+			<ResponsiveContainer width='90%'  minHeight={props.height} minWidth={1200}>
 				<LineChart data={props.modelData}>
 					<XAxis dataKey='year'>
 						<Label value='Year' offset={-5} position={'bottom'} />

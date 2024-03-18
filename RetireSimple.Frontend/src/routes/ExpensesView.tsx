@@ -31,7 +31,6 @@ export const ExpenseView = () => {
 			.map(([key, value]) => [key, value.toString()])
 			.forEach(([key, value]) => (expense[key] = value));
 		expense["id"] = expenseData.id;
-		console.log(expense);
 		updateExpense(expense, expenseData.id).then(() => {
 			enqueueSnackbar('Expense updated successfully.', {variant: 'success'});
 		}).catch((error) => {
