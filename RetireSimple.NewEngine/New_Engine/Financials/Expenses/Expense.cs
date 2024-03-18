@@ -44,6 +44,10 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.Expenses {
 			await this.Service.HandleGetAsync(id);
 		}
 
+		public bool Equals(string id) {
+			return base.id == id;
+		}
+
 
 	}
 }

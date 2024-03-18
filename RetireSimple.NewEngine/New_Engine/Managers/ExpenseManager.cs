@@ -69,10 +69,13 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 		public async Task UpdateExpense(string id, ExpenseInfoModel info) {
 			//await this.service.HandleUpdateAsync(id, info);
+			await this.LoadExpenses();
 			int index = -1;
+			Console.WriteLine(this.expenses.Count);
 			for(int i = 0; i < this.expenses.Count; i++) {
 				if (this.expenses[i].Equals(id)) {
 					index = i;
+					Console.WriteLine(this.expenses[i]);
 				}
 			}
 			if (index != -1) {
@@ -115,5 +118,8 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			}
 			return projection;
 		}
+
+
+		
 	}
 }

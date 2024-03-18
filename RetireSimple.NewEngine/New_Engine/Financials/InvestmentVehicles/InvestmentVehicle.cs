@@ -74,7 +74,7 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 		{
 			InvestmentVehicleInfoModel info = await this.service.HandleGetAsync(this.id);
 
-			Console.WriteLine("Testing IV");
+			//Console.WriteLine("Testing IV");
 
 			return this.growthModel.GenerateProjection(info.Value, years, info);
 		}
