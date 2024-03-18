@@ -231,11 +231,12 @@ export const ConfirmDeleteExpense = (props: ConfirmDeleteExpenseProps) => {
 	const handleConfirm = () => {
 		deleteExpense(props.expenseId).then(() => {
 			enqueueSnackbar('Expense deleted successfully.', {variant: 'success'});
+			navigate(`/ExpensesPage/`);
 		}).catch((error) => {
 			enqueueSnackbar(`Failed to delete expense: ${error.message}`, {variant: 'error'});
 		});
 		props.onClose();
-		navigate(`/ExpensesPage/`);
+		
 	};
 
 	return (
