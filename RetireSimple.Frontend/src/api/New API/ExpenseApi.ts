@@ -27,6 +27,7 @@ export const createExpense = async(data : {[key: string]: string}, type : string
 }
 
 export const updateExpense = async(data : {[key: string]: string}, id : string) => {
+	console.log("Updating");
 	const response = await fetch(`https://localhost:7199/api/Expenses?Id=${id}`, {
 		method: 'PUT',
 		body: JSON.stringify(data),
