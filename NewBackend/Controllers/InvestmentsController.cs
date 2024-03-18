@@ -35,10 +35,10 @@ public class InvestmentsController : ControllerBase {
 
 	//Initialization
 	[HttpPost]
-	public async Task<IActionResult> Post(InvestmentInfoModel newInvestments, string type) {
+	public async Task<IActionResult> Post(InvestmentInfoModel newInvestments) {
 		//await _InvestmentService.CreateAsync(newInvestments);
 
-		await newEngineMain.HandleCreateInvestment(newInvestments, type);
+		await newEngineMain.HandleCreateInvestment(newInvestments);
 
 		return CreatedAtAction(nameof(Get), new { id = newInvestments.Id }, newInvestments);
 	}

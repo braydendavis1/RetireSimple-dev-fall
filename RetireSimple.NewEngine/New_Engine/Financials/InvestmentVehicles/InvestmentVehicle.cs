@@ -53,7 +53,7 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 		}
 
 		public void AddInvestment(Investment investment) {
-			//this.investments.Add(investment);
+			this.investments.Add(investment);
 		}
 
 		public void UpdateInvestment(string id, Investment investment) {

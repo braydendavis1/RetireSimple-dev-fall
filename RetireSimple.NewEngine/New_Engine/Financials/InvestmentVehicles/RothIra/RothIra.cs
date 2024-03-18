@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.RothIra {
 	public class RothIra : InvestmentVehicle {
-		public RothIra(string id, float value, InvestmentVehicleInfo info) : base(id, FinCategories.INVESTMENT_VEHICLE, new RothIraGrowth()) {
+		public RothIra(string id) : base(id, FinCategories.INVESTMENT_VEHICLE, new RothIraGrowth()) {
 		}
 	}
 }

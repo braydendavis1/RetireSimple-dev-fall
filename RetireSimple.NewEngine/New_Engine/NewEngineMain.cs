@@ -109,8 +109,8 @@ namespace RetireSimple.NewEngine.New_Engine {
 			await this.user.DeleteExpense(id);
 		}
 
-		public async Task HandleCreateInvestment(InvestmentInfoModel info, string type) {
-			await this.user.CreateInvestment(info, type);
+		public async Task HandleCreateInvestment(InvestmentInfoModel info) {
+			await this.user.CreateInvestment(info);
 
 		}
 
