@@ -145,8 +145,8 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			await this.expenseManager.DeleteExpenseInfoModel(id);
 		}
 
-		public async Task CreateInvestment(InvestmentInfoModel info, string type) {
-			await this.portfolioManager.CreateInvestment(info, type);
+		public async Task CreateInvestment(InvestmentInfoModel info) {
+			await this.portfolioManager.CreateInvestment(info);
 		}
 
 		public async Task UpdateInvestment(string id, InvestmentInfoModel info) {

@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 namespace RetireSimple.NewEngine.New_Engine.Investments {
 	public class Bond : Investment {
 
-		public Bond(string symbol, string name, double price, double quantity)
-		: base(symbol, name, price, quantity) {
+		private double BondLength;
+
+		public Bond(string id, string name, double price, double quantity)
+		: base(id, name, price, quantity) {
 
 		}
 

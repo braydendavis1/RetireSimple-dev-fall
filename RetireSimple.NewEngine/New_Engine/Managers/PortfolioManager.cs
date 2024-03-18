@@ -12,19 +12,23 @@ using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles._401k;
 using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.Engine.New_Engine;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
+using RetireSimple.NewEngine.New_Engine.Financials.Expenses;
 
 namespace RetireSimple.NewEngine.New_Engine.Managers {
 	public class PortfolioManager  {
 
 
 		public List<InvestmentVehicle> investmentVehicles;
+		public List<Investment> investments;
 		private Service<InvestmentVehicleInfoModel> service;
-		
+		protected Service<InvestmentInfoModel> investmentService;
+
 
 		public PortfolioManager() {
 			this.service = new Service<InvestmentVehicleInfoModel>("InvestmentVehicles", new MongoService<InvestmentVehicleInfoModel>());
-
+			this.investmentService = new Service<InvestmentInfoModel>("Investments", new MongoService<InvestmentInfoModel>());
 			this.investmentVehicles = new List<InvestmentVehicle>();
+			this.investments = new List<Investment>();
 
 			
 		}
@@ -39,6 +43,8 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 
 		public async Task<List<InvestmentVehicleInfoModel>> GetInvestmentVehicleInfoModels() {
+
+
 
 			return await this.service.HandleGetAsync();
 
@@ -101,11 +107,42 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			return projection;
 		}
 
-		internal Task CreateInvestment(InvestmentInfoModel info, string type) => throw new NotImplementedException();
-		internal Task UpdateInvestment(string id, InvestmentInfoModel info) => throw new NotImplementedException();
-		internal Task<InvestmentInfoModel> GetInvestment(string id) => throw new NotImplementedException();
-		internal Task<List<InvestmentInfoModel>> GetAllInvestments() => throw new NotImplementedException();
-		internal Task DeleteInvestment(string id) => throw new NotImplementedException();
+		public async Task CreateInvestment(InvestmentInfoModel info) {
+			Investment investment;
+			if (info.Type.ToLower().Equals("bond")) {
+				investment = new Bond(info.Id, info.Name, info.Price, info.Quantity);
+
+			} else {
+				investment = new Stock(info.Id, info.Name, info.Price, info.Quantity);
+
+			}
+			this.investments.Add(investment);
+			//Console.WriteLine(info.Id);
+			await this.investmentService.HandleCreateAsync(info);
+		}
+		public async Task UpdateInvestment(string id, InvestmentInfoModel info) {
+			await this.investmentService.HandleUpdateAsync(id, info);
+		}
+		public async Task<InvestmentInfoModel> GetInvestment(string id) {
+			return await this.investmentService.HandleGetAsync(id);
+		}
+		public async Task<List<InvestmentInfoModel>> GetAllInvestments() {
+			return await this.investmentService.HandleGetAsync();
+
+		}
+		public async Task DeleteInvestment(string id) {
+			int index = -1;
+			for (int i = 0; i < this.investments.Count; i++) {
+				if (this.investments[i].Id.Equals(id)) {
+					index = i;
+				}
+			}
+			if (index != -1) {
+				this.investments.RemoveAt(index);
+			}
+
+			await this.investmentService.HandleDeleteAsync(id);
+		}
 	}
 
 	
