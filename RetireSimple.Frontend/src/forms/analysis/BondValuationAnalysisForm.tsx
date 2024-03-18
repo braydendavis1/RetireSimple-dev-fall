@@ -15,8 +15,7 @@ export const BondValuationAnalysisForm = () => {
 			label='Analysis Length'
 			control={formContext.control}
 			errorField={errors.analysis_analysisLength}
-			tooltip='The number of months starting from today to run the analysis for.'
-		/>
+			tooltip='The number of months starting from today to run the analysis for.' defaultValue={''}		/>
 	);
 	const analysisIsAnnualField = (
 		<FormSelectField
@@ -24,8 +23,8 @@ export const BondValuationAnalysisForm = () => {
 			label='Is Annual'
 			control={formContext.control}
 			options={[
-				{value: 'true', label: 'Annual'},
-				{value: 'false', label: 'Semi Annual'},
+				{value: 'true', label: 'Annual', tooltip: "Annual"},
+				{value: 'false', label: 'Semi Annual', tooltip: "Semi annual"},
 			]}
 			defaultOption={'true'}
 			disable={false}

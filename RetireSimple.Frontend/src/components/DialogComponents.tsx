@@ -169,12 +169,13 @@ export const ConfirmDeleteDialog = (props: ConfirmDeleteDialogProps) => {
 	const handleConfirm = () => {
 		deleteInvestmentVehicle(props.vehicleId).then(() => {
 			enqueueSnackbar('Vehicle deleted successfully.', {variant: 'success'});
+			navigate(`/VehiclesPage/`);
 		}).catch((error) => {
 			enqueueSnackbar(`Failed to delete vehicle: ${error.message}`, {variant: 'error'});
 		});
 		props.onClose();
 		
-		navigate(`/VehiclesPage/`);
+		
 	};
 
 	return (
@@ -199,12 +200,12 @@ export const ConfirmDeleteInvestment = (props: ConfirmDeleteInvestmentProps) => 
 	const handleConfirm = () => {
 		deleteInvestment(props.id).then(() => {
 			enqueueSnackbar('Investment deleted successfully.', {variant: 'success'});
+			navigate(`/InvestmentPage/`);
 		}).catch((error) => {
 			enqueueSnackbar(`Failed to delete investment: ${error.message}`, {variant: 'error'});
 		});
 		props.onClose();
 		
-		navigate(`/InvestmentPage/`);
 	};
 
 	return (

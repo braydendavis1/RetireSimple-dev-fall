@@ -17,25 +17,25 @@ import {
 import { getInvestmentVehicleProjection } from './New API/InvestmentVehicleApi';
 
 //Flattens API Investment object for form use
-export const flattenApiInvestment = (investment: Investment): ApiFormData => {
-	const result: ApiFormData = {};
+// export const flattenApiInvestment = (investment: Investment): ApiFormData => {
+// 	const result: ApiFormData = {};
 
-	result['investmentId'] = investment.investmentId.toString();
-	result['investmentName'] = investment.investmentName;
-	result['investmentType'] = investment.investmentType;
-	result['analysisType'] = investment.analysisType?.toString() ?? '';
+// 	result['investmentId'] = investment.investmentId.toString();
+// 	result['investmentName'] = investment.investmentName;
+// 	result['investmentType'] = investment.investmentType;
+// 	result['analysisType'] = investment.analysisType?.toString() ?? '';
 
-	Object.assign(result, investment.investmentData);
+// 	Object.assign(result, investment.investmentData);
 
-	const renamedOverrides = Object.keys(investment.analysisOptionsOverrides).reduce((acc, key) => {
-		acc[`analysis_${key}`] = investment.analysisOptionsOverrides[key];
-		return acc;
-	}, {} as {[key: string]: any});
+// 	const renamedOverrides = Object.keys(investment.analysisOptionsOverrides).reduce((acc, key) => {
+// 		acc[`analysis_${key}`] = investment.analysisOptionsOverrides[key];
+// 		return acc;
+// 	}, {} as {[key: string]: any});
 
-	Object.assign(result, renamedOverrides);
+// 	Object.assign(result, renamedOverrides);
 
-	return result;
-};
+// 	return result;
+// };
 
 //Converts InvestmentModel Data for use with Recharts
 export const convertInvestmentModelData = (model: InvestmentModel) => {
