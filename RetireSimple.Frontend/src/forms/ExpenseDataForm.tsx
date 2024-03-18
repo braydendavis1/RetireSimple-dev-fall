@@ -30,7 +30,7 @@ export const ExpenseDataForm = (props: ExpenseDataFormProps) => {
 			name='amount'
 			label='Expense Amount'
 			errorField={undefined} 
-			defaultValue={''}		/>
+			defaultValue={props.defaultValues ? props.defaultValues.amount : ''}		/>
 	);
 
 	const expenseTypeField = (
@@ -42,7 +42,7 @@ export const ExpenseDataForm = (props: ExpenseDataFormProps) => {
 				{value: 'OneTime', label: 'One Time', tooltip: ''},
 				{value: 'Monthly', label: 'Monthly', tooltip: ''},
 			]}
-			defaultOption='OneTime'
+			defaultOption={props.defaultValues ? props.defaultValues.type : ''}
 			errorField={undefined}
 			disable={false}
 		/>
@@ -54,7 +54,7 @@ export const ExpenseDataForm = (props: ExpenseDataFormProps) => {
 			name='name'
 			label='Name'
 			errorField={undefined} 
-			defaultValue={''}		/>
+			defaultValue={props.defaultValues ? props.defaultValues.name : ''}		/>
 	);
     
 	const startField = (
@@ -63,7 +63,7 @@ export const ExpenseDataForm = (props: ExpenseDataFormProps) => {
 			name='start'
 			label='Starting Age'
 			errorField={undefined} 
-			defaultValue={''}		/>
+			defaultValue={props.defaultValues ? props.defaultValues.start : ''}		/>
 	);
 	const endField = (
 		<FormTextField
@@ -71,7 +71,7 @@ export const ExpenseDataForm = (props: ExpenseDataFormProps) => {
 			name='end'
 			label='Ending Age'
 			errorField={undefined} 
-			defaultValue={''}		/>
+			defaultValue={props.defaultValues ? props.defaultValues.end : ''}		/>
 	);
 
 	return (
