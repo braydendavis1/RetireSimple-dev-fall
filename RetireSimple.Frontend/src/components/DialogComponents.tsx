@@ -268,14 +268,20 @@ export const AddExpenseDialog = (props: AddExpenseDialogProps) => {
 
 
 	const handleExpenseAdd = (data: FieldValues) => { 
-		const expense: Expense = {
-			id: "",
-			name: data.name,
-			amount: data.amount,
-			start: data.start,
-			end: data.end,
-			type: data.expenseType,
-		}
+		// const expense: Expense = {
+		// 	id: "",
+		// 	name: data.name,
+		// 	amount: data.amount,
+		// 	start: data.start,
+		// 	end: data.end,
+		// 	type: data.expenseType,
+		// }
+		const expense: {[key: string]: string} = {};
+		Object.entries(data)
+			.map(([key, value]) => [key, value.toString()])
+			.forEach(([key, value]) => (expense[key] = value));
+		expense['type'] = "Monthly";
+		expense["id"] = '';
 		createExpense(expense, data.expenseType).then ( () => {
 			props.onClose();
 			props.loadExpenses();

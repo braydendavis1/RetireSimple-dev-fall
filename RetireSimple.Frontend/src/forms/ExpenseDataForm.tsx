@@ -36,7 +36,7 @@ export const ExpenseDataForm = (props: ExpenseDataFormProps) => {
 	const expenseTypeField = (
 		<FormSelectField
 			control={formContext.control}
-			name='expenseType'
+			name='type'
 			label='Expense Type'
 			options={[
 				{value: 'OneTime', label: 'One Time', tooltip: ''},

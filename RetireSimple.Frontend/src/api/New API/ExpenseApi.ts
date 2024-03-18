@@ -15,7 +15,7 @@ export const getExpense = async (id : String) : Promise<Expense> => {
 	return await response.json()
 }
 
-export const createExpense = async(data : Expense, type : string) => {
+export const createExpense = async(data : {[key: string]: string}, type : string) => {
 	const response = await fetch(`https://localhost:7199/api/Expenses?type=${type}`,{
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -26,7 +26,7 @@ export const createExpense = async(data : Expense, type : string) => {
 	}).catch(err => console.log(err));
 }
 
-export const updateExpense = async(data : Expense, id : string) => {
+export const updateExpense = async(data : {[key: string]: string}, id : string) => {
 	const response = await fetch(`https://localhost:7199/api/Expenses?Id=${id}`, {
 		method: 'PUT',
 		body: JSON.stringify(data),

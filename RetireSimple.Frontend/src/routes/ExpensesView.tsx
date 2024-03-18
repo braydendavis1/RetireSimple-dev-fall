@@ -26,14 +26,12 @@ export const ExpenseView = () => {
 	}, [reset, expenseData]);
 
 	const handleUpdate = handleSubmit((data: FieldValues) => {
-		const expense: Expense = {
-			id: expenseData.id,
-			name: data.name,
-			amount: data.amount,
-			start: data.start,
-			end: data.end,
-			type: data.expenseType,
-		}
+		const expense: {[key: string]: string} = {};
+		Object.entries(data)
+			.map(([key, value]) => [key, value.toString()])
+			.forEach(([key, value]) => (expense[key] = value));
+		expense["id"] = expenseData.id;
+		console.log(expense);
 		updateExpense(expense, expenseData.id).then(() => {
 			enqueueSnackbar('Expense updated successfully.', {variant: 'success'});
 		}).catch((error) => {
