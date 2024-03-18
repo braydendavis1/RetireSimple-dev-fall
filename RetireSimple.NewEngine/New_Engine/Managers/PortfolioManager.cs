@@ -13,6 +13,8 @@ using RetireSimple.NewEngine.New_Engine.Database.Services;
 using RetireSimple.Engine.New_Engine;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
 using RetireSimple.NewEngine.New_Engine.Financials.Expenses;
+using static System.Net.Mime.MediaTypeNames;
+using SharpCompress.Common;
 
 namespace RetireSimple.NewEngine.New_Engine.Managers {
 	public class PortfolioManager  {
@@ -37,9 +39,10 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			List<InvestmentVehicleInfoModel> investmentVehiclesInfo = await this.service.HandleGetAsync();
 
 			this.investmentVehicles = new List<InvestmentVehicle>();
-	
+			Console.WriteLine("Loading Vehicles");
 			for (int i = 0; i < investmentVehiclesInfo.Count; i++) {
 				this.investmentVehicles.Add(InvestmentVehicleLoader.Load(investmentVehiclesInfo[i]));
+				Console.WriteLine(i);
 			}
 		}
 
@@ -101,11 +104,18 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 		}
 
 		public async Task<Projection> CacluatePortfolioPorjection(int years) {
+
+
+
+			string filePath = "output.txt";
+
 			//await this.LoadInvestmentVehicles();
 			Projection projection = new Projection(new List<double>(), 0);
 			for (int i = 0; i < this.investmentVehicles.Count; i++) {
 				projection = projection.Add(await this.investmentVehicles[i].Calculate(years));
 				Console.WriteLine(this.investmentVehicles[i].id);
+
+
 			}
 			return projection;
 		}
