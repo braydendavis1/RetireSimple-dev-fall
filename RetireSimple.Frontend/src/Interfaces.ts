@@ -1,5 +1,5 @@
 export interface Investment {
-	investmentId: string | null;
+	id: string | null;
 	investmentName: string | null;
 	investmentType: string | null;
 	vehicleId: string | null;
@@ -8,6 +8,7 @@ export interface Investment {
 	cost: number | null;
 	rate: number | null;
 	bondLength: number | null;
+	bondQuantity: number | null;
 }
 
 export interface InvestmentModel {

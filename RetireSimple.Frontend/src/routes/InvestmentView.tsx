@@ -27,11 +27,15 @@ export const InvestmentView = () => {
 
 	const handleUpdate = handleSubmit((data: FieldValues) => {
 		const investment: {[key: string]: string} = {};
+		investment["bondLength"] = "0";
+		investment["bondQuantity"] = "0";
+		investment["id"] = "";
+		investment["vehicleId"] = "";
 		Object.entries(data)
 			.map(([key, value]) => [key, value.toString()])
 			.forEach(([key, value]) => (investment[key] = value));
-		investment["investmentId"] = investmentData.investmentId;
-		updateInvestment(investment, investment.investmentId).then(() => {
+		investment["id"] = investmentData.id;
+		updateInvestment(investment, investment.id).then(() => {
 			enqueueSnackbar('Investment updated successfully.', {variant: 'success'});
 		}).catch((error) => {
 			enqueueSnackbar(`Failed to update investment: ${error.message}`, {variant: 'error'});
@@ -71,7 +75,7 @@ export const InvestmentView = () => {
 				open={showDelete}
 				onClose={() => setShowDelete(false)}
 				onConfirm={() => submit(null, {action: deleteAction, method: 'delete'})}
-				investmentId={investmentData.investmentId} />
+				id={investmentData.id} />
 		</Box>
 		</>
 	);

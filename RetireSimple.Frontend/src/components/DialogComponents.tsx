@@ -64,7 +64,7 @@ export interface ConfirmDeleteInvestmentProps {
 	open: boolean;
 	onClose: () => void;
 	onConfirm: () => void;
-	investmentId: string;
+	id: string;
 }
 
 export const AddInvestmentDialog = (props: AddInvestmentDialogProps) => {
@@ -82,13 +82,19 @@ export const AddInvestmentDialog = (props: AddInvestmentDialogProps) => {
 
 	
 	const handleAdd = (data: FieldValues) => {
-		console.log("ADDING " + data.type);
 		const investment: {[key: string]: string} = {};
+		
+		investment["bondLength"] = "0";
+		investment["bondQuantity"] = "0";
+		investment["id"] = "";
+		investment["vehicleId"] = "";
+
 		Object.entries(data)
 			.map(([key, value]) => [key, value.toString()])
 			.forEach(([key, value]) => (investment[key] = value));
 
-		createInvestment(investment, data.type).then(() => {
+
+		createInvestment(investment, data.investmentType).then(() => {
 			props.onClose();
 			props.loadInvestments();
 			enqueueSnackbar('Investment added successfully.', {variant: 'success'});
@@ -182,7 +188,6 @@ export const AddVehicleDialog = (props: AddVehicleDialogProps) => {
 	});
 
 	const handleVehicleAdd = (data: FieldValues) => {
-		console.log("ADDING " + data.type);
 		const vehicle: {[key: string]: string} = {};
 		Object.entries(data)
 			.map(([key, value]) => [key, value.toString()])
@@ -250,7 +255,7 @@ export const ConfirmDeleteInvestment = (props: ConfirmDeleteInvestmentProps) => 
 	const {enqueueSnackbar} = useSnackbar();
 	const navigate = useNavigate();
 	const handleConfirm = () => {
-		deleteInvestment(props.investmentId).then(() => {
+		deleteInvestment(props.id).then(() => {
 			enqueueSnackbar('Investment deleted successfully.', {variant: 'success'});
 		}).catch((error) => {
 			enqueueSnackbar(`Failed to delete investment: ${error.message}`, {variant: 'error'});

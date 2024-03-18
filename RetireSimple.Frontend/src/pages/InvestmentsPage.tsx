@@ -26,8 +26,9 @@ export const InvestmentsPage = () => {
 	};
 
 	const navigatePage = (id: string) => {
-		navigate(`/Investment/${id}`);
+		navigate(`/InvestmentPage/${id}`);
 	};
+
 
 	return <div><PresetContext.Provider value={presetData}><h2>Investments</h2>
 		<Button onClick={() => setInvAddDialogOpen(true)}>
@@ -40,7 +41,7 @@ export const InvestmentsPage = () => {
 		{investmentList.map((investment: Investment) => 
 			(InvestmentComponent(
 				investment, 
-				() => {navigatePage(investment.investmentId!)},
+				() => {navigatePage(investment.id!)},
 				() => {loadInvestments()},
 			)		
 			))

@@ -10,16 +10,14 @@ namespace RetireSimple.NewEngine.New_Engine.Database.InfoModels {
 		
 
 		//name for the investment
-		public string Name { get; set; }
+		public string investmentName { get; set; }
 
 		//individual price of the investment (price of one stock/bond)
-		public double Price { get; set; }
+		public double currentValue { get; set; }
 
-		public string Type { get; set;  }
+		public string investmentType { get; set;  }
 
 		public string vehicleId { get; set; }
-
-		public double currentValue { get; set; }
 
 		public double cost { get; set; }
 
@@ -27,12 +25,9 @@ namespace RetireSimple.NewEngine.New_Engine.Database.InfoModels {
 
 		public double bondLength { get; set; }
 
-		// total number of investment
-		public double Quantity { get; set; }
+		public double bondQuantity {get; set; }
 
 		private DateTime LastUpdated { get; set; }
-
-
 
 	}
 }

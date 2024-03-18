@@ -109,11 +109,11 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 		public async Task CreateInvestment(InvestmentInfoModel info) {
 			Investment investment;
-			if (info.Type.ToLower().Equals("bond")) {
-				investment = new Bond(info.Id, info.Name, info.Price, info.Quantity);
+			if (info.investmentType.ToLower().Equals("bond")) {
+				investment = new Bond(info.Id, info.investmentName, info.cost, info.bondQuantity);
 
 			} else {
-				investment = new Stock(info.Id, info.Name, info.Price, info.Quantity);
+				investment = new Stock(info.Id, info.investmentName, info.currentValue, info.rate);
 
 			}
 			this.investments.Add(investment);

@@ -4,7 +4,6 @@ import {
 	FormSelectField,
 	FormTextField,
 	FormTextFieldCurrency,
-	FormTextFieldMonthUnits,
 	FormTextFieldPercent,
 } from '../components/InputComponents';
 import React from 'react';
@@ -74,11 +73,6 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 		});
 	
 		const {errors} = formContext.formState;
-	
-		//==============================================
-		//Field definitions (To reduce indent depth)
-		//==============================================
-	
 		const salaryField = (
 			<FormTextFieldCurrency
 				name='salary'

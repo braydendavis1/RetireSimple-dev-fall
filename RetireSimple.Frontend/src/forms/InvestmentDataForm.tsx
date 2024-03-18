@@ -24,8 +24,6 @@ export const InvestmentDataForm = (props: InvestmentDataFormProps) => {
 	});
 	const {errors} = formContext.formState;
 
-	console.log(props.selectedInvestment?.investmentName);
-
 	const investmentNameField = (
 		<FormTextField
 			name='investmentName'
