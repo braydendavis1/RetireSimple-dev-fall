@@ -57,18 +57,6 @@ export const MonteCarloAnalysisForm = (props: MonteCarloProps) => {
 			defaultValue={props.analysisLength}		/>
 	);
 
-	const analysisPresetField = (
-		<FormSelectField
-			name='analysis_analysisPreset'
-			label='Analysis Preset'
-			control={formContext.control}
-			errorField={errors.analysis_analysisPreset}
-			tooltip='A preset to use for the analysis.'
-			options={presetOptions}
-			defaultOption={props.analysisPreset}
-			disable={false}
-		/>
-	);
 
 	const simCountField = (
 		<FormTextField
@@ -182,7 +170,6 @@ export const MonteCarloAnalysisForm = (props: MonteCarloProps) => {
 				{analysisLengthField}
 			</Grid>
 			<Grid item xs={4}>
-				{analysisPresetField}
 			</Grid>
 			{!showAdvanced && (
 				<>

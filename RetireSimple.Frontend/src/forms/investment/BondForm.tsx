@@ -27,15 +27,12 @@ export const BondForm = (props: BondFormProps) => {
 			label='Ticker'
 			control={formContext.control}
 			errorField={errors.bondTicker}
-			tooltip={
-				<>
-					<Typography variant='inherit'>The ticker symbol for this bond.</Typography>
-					<Typography variant='inherit'>
-						This is primarily used as another identifier for the bond.
-					</Typography>
-				</>
-			}
-		/>
+			tooltip={<>
+				<Typography variant='inherit'>The ticker symbol for this bond.</Typography>
+				<Typography variant='inherit'>
+					This is primarily used as another identifier for the bond.
+				</Typography>
+			</>} defaultValue={''}		/>
 	);
 
 	const bondCouponRateField = (
@@ -44,16 +41,13 @@ export const BondForm = (props: BondFormProps) => {
 			label='Coupon Rate'
 			control={formContext.control}
 			errorField={errors.bondCouponRate}
-			tooltip={
-				<>
-					<Typography variant='inherit'>The coupon rate for this bond. </Typography>
-					<Typography variant='inherit'>
-						This is the annual interest rate that the bond issuer pays to the bond
-						holder.'
-					</Typography>
-				</>
-			}
-		/>
+			tooltip={<>
+				<Typography variant='inherit'>The coupon rate for this bond. </Typography>
+				<Typography variant='inherit'>
+					This is the annual interest rate that the bond issuer pays to the bond
+					holder.'
+				</Typography>
+			</>} defaultValue={''}		/>
 	);
 
 	const bondYTMField = (
@@ -62,16 +56,13 @@ export const BondForm = (props: BondFormProps) => {
 			label='Yield to Maturity'
 			control={formContext.control}
 			errorField={errors.bondYieldToMaturity}
-			tooltip={
-				<>
-					<Typography variant='inherit'>The yield to maturity for this bond.</Typography>
-					<Typography variant='inherit'>
-						This is the annual interest rate that the bond issuer pays to the bond
-						holder.
-					</Typography>
-				</>
-			}
-		/>
+			tooltip={<>
+				<Typography variant='inherit'>The yield to maturity for this bond.</Typography>
+				<Typography variant='inherit'>
+					This is the annual interest rate that the bond issuer pays to the bond
+					holder.
+				</Typography>
+			</>} defaultValue={''}		/>
 	);
 
 	const bondMaturityDateField = (
@@ -99,8 +90,7 @@ export const BondForm = (props: BondFormProps) => {
 			label='Face Value'
 			control={formContext.control}
 			errorField={errors.bondFaceValue}
-			tooltip='The face value of the bond.'
-		/>
+			tooltip='The face value of the bond.' defaultValue={''}		/>
 	);
 
 	const bondPurchaseDateField = (
@@ -120,8 +110,7 @@ export const BondForm = (props: BondFormProps) => {
 			label='Current Price'
 			control={formContext.control}
 			errorField={errors.bondCurrentPrice}
-			tooltip='The current price of the bond.'
-		/>
+			tooltip='The current price of the bond.' defaultValue={''}		/>
 	);
 
 	return (

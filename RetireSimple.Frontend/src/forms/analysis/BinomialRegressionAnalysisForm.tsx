@@ -49,22 +49,10 @@ export const BinomialRegressionAnalysisForm = () => {
 			label='Analysis Length'
 			control={formContext.control}
 			errorField={errors.analysisLength}
-			tooltip='The number of months from today to run the analysis for.'
-		/>
+			tooltip='The number of months from today to run the analysis for.' defaultValue={''}		/>
 	);
 
-	const analysisPresetField = (
-		<FormSelectField
-			name='analysis_analysisPreset'
-			label='Analysis Preset'
-			control={formContext.control}
-			errorField={errors.analysis_analysisPreset}
-			tooltip='A preset to use for the analysis.'
-			options={presetOptions}
-			defaultOption={''}
-			disable={false}
-		/>
-	);
+	
 
 	const percentGrowthField = (
 		<FormTextFieldPercent
@@ -72,8 +60,7 @@ export const BinomialRegressionAnalysisForm = () => {
 			label='Percent Growth'
 			control={formContext.control}
 			errorField={errors.analysis_percentGrowth}
-			tooltip='The percent growth to use for the analysis.'
-		/>
+			tooltip='The percent growth to use for the analysis.' defaultValue={''}		/>
 	);
 
 	const uncertaintyField = (
@@ -82,8 +69,7 @@ export const BinomialRegressionAnalysisForm = () => {
 			label='Uncertainty'
 			control={formContext.control}
 			errorField={errors.analysis_uncertainty}
-			tooltip='The uncertainty to use for the analysis.'
-		/>
+			tooltip='The uncertainty to use for the analysis.' defaultValue={''}		/>
 	);
 
 	const getPresetValues = (field: string) => {
@@ -98,7 +84,6 @@ export const BinomialRegressionAnalysisForm = () => {
 				{analysisLengthField}
 			</Grid>
 			<Grid item xs={4}>
-				{analysisPresetField}
 			</Grid>
 			{!showAdvanced && (
 				<>

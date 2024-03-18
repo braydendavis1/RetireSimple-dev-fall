@@ -47,17 +47,14 @@ export const PensionForm = (props: PensionFormProps) => {
 			label='Initial Monthly Payment'
 			control={formContext.control}
 			errorField={errors.pensionInitialMonthlyPayment}
-			tooltip={
-				<>
-					<Typography variant='inherit'>
-						The initial monthly payment from the pension.
-					</Typography>
-					<Typography variant='inherit'>
-						This is the amount that will be paid out each month from the pension.
-					</Typography>
-				</>
-			}
-		/>
+			tooltip={<>
+				<Typography variant='inherit'>
+					The initial monthly payment from the pension.
+				</Typography>
+				<Typography variant='inherit'>
+					This is the amount that will be paid out each month from the pension.
+				</Typography>
+			</>} defaultValue={''}		/>
 	);
 
 	const pensionYearlyIncreaseField = (
@@ -66,17 +63,14 @@ export const PensionForm = (props: PensionFormProps) => {
 			label='Yearly Increase'
 			control={formContext.control}
 			errorField={errors.pensionYearlyIncrease}
-			tooltip={
-				<>
-					<Typography variant='inherit'>
-						The yearly increase in the pension payment.
-					</Typography>
-					<Typography variant='inherit'>
-						This is the yearly increase in the pension payment.
-					</Typography>
-				</>
-			}
-		/>
+			tooltip={<>
+				<Typography variant='inherit'>
+					The yearly increase in the pension payment.
+				</Typography>
+				<Typography variant='inherit'>
+					This is the yearly increase in the pension payment.
+				</Typography>
+			</>} defaultValue={''}		/>
 	);
 
 	const pensionStartDateField = (

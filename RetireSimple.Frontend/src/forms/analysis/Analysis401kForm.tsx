@@ -46,9 +46,9 @@ export const Analysis401kForm = () => {
 			errorField={errors.analysis_payFrequency}
 			defaultOption='biweekly'
 			options={[
-				{value: 'biweekly', label: 'Biweekly'},
-				{value: 'weekly', label: 'Weekly'},
-				{value: 'monthly', label: 'Monthly'},
+				{value: 'biweekly', label: 'Biweekly',tooltip: "Biweekly"},
+				{value: 'weekly', label: 'Weekly', tooltip: "Weekly"},
+				{value: 'monthly', label: 'Monthly', tooltip: "Monthly"},
 			]}
 			disable={false}
 			tooltip={
@@ -111,8 +111,8 @@ export const Analysis401kForm = () => {
 			errorField={errors.analysis_userContributionType}
 			defaultOption='percentage'
 			options={[
-				{value: 'percentage', label: 'Paycheck Percentage'},
-				{value: 'fixed', label: 'Fixed Amount'},
+				{value: 'percentage', label: 'Paycheck Percentage', tooltip: "Paycheck Percentage"},
+				{value: 'fixed', label: 'Fixed Amount', tooltip: "Fixed Amount"},
 			]}
 			disable={false}
 			tooltip={
@@ -140,8 +140,7 @@ export const Analysis401kForm = () => {
 						label='User Contribution'
 						control={formContext.control}
 						errorField={errors.analysis_userContributionPercentage}
-						tooltip='The percentage of the a paycheck used to contribute to a vehicle.'
-					/>
+						tooltip='The percentage of the a paycheck used to contribute to a vehicle.' defaultValue={''}					/>
 				);
 			case 'fixed':
 				return (
@@ -150,8 +149,7 @@ export const Analysis401kForm = () => {
 						label='User Contribution'
 						control={formContext.control}
 						errorField={errors.analysis_userContributionAmount}
-						tooltip='The amount of money contributed to the vehicle each month.'
-					/>
+						tooltip='The amount of money contributed to the vehicle each month.' defaultValue={''}					/>
 				);
 			default:
 				return null;

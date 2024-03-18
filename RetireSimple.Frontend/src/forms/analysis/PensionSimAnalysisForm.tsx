@@ -15,8 +15,7 @@ export const PensionSimAnalysisForm = () => {
 			label='Analysis Length'
 			control={formContext.control}
 			errorField={errors.analysis_analysisLength}
-			tooltip='The number of months starting from today to run the analysis for.'
-		/>
+			tooltip='The number of months starting from today to run the analysis for.' defaultValue={''}		/>
 	);
 
 	const expectedTaxRateField = (
@@ -25,14 +24,11 @@ export const PensionSimAnalysisForm = () => {
 			label='Expected Tax Rate'
 			control={formContext.control}
 			errorField={errors.expectedTaxRate}
-			tooltip={
-				<>
-					<Typography variant='inherit'>
-						The expected tax rate on the pension payments.
-					</Typography>
-				</>
-			}
-		/>
+			tooltip={<>
+				<Typography variant='inherit'>
+					The expected tax rate on the pension payments.
+				</Typography>
+			</>} defaultValue={''}		/>
 	);
 
 	return (
