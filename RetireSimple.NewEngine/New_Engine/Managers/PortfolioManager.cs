@@ -35,6 +35,8 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 		public async Task LoadInvestmentVehicles() {
 			List<InvestmentVehicleInfoModel> investmentVehiclesInfo = await this.service.HandleGetAsync();
+
+			this.investmentVehicles = new List<InvestmentVehicle>();
 	
 			for (int i = 0; i < investmentVehiclesInfo.Count; i++) {
 				this.investmentVehicles.Add(InvestmentVehicleLoader.Load(investmentVehiclesInfo[i]));
@@ -87,6 +89,7 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 
 		public async Task<Projection> GetVehicleProjection(string id, int years) {
 			int index = -1;
+			//await this.LoadInvestmentVehicles();
 			for (int i = 0; i < this.investmentVehicles.Count; i++) {
 				if (this.investmentVehicles[i].Equals(id)) {
 					InvestmentVehicle vehicle = this.investmentVehicles[i];
