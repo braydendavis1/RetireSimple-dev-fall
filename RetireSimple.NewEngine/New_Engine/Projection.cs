@@ -46,7 +46,6 @@ namespace RetireSimple.Engine.New_Engine
 
 			list.AddRange(this.yearly_projections);
 
-
 			double final_val = this.yearly_projections[this.yearly_projections.Count - 1];
 
 			for(int i = 0; i < other_proj.yearly_projections.Count; i++) {
@@ -54,6 +53,8 @@ namespace RetireSimple.Engine.New_Engine
 				list.Add(final_val);
 				Console.WriteLine(final_val);
 			}
+
+
 
 			return new Projection(list, 0);
 

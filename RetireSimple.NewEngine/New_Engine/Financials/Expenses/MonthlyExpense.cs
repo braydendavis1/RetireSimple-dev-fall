@@ -16,12 +16,16 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.Expenses {
 			this.end = end;
 		}
 
-		public override Projection GenerateProjection() 
+		public override Projection GenerateProjection(int years) 
 		{
 			List<double> values = new List<double>();
 			
 			for(int i = 0; i < this.end; i++) {
 				values.Add(base.amount * 12);
+			}
+
+			for(int i = 0; i < years - this.end; i++) {
+				values.Add(0);
 			}
 
 			return new Projection(values, base.start); 

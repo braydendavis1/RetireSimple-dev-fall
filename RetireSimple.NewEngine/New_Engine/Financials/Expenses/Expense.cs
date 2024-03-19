@@ -27,10 +27,10 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.Expenses {
 		}
 
 		public async override Task<Projection> Calculate(int years) {
-			return this.GenerateProjection();
+			return this.GenerateProjection(years);
 		}
 
-		public abstract Projection GenerateProjection();
+		public abstract Projection GenerateProjection(int years);
 
 		public async Task SetInfo(ExpenseInfoModel info) {
 			await this.Service.HandleCreateAsync(info);
