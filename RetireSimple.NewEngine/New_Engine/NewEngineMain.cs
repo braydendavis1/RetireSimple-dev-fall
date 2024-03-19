@@ -135,6 +135,7 @@ namespace RetireSimple.NewEngine.New_Engine {
 
 		public async Task HandleLoadPortfolio() {
 			await this.user.LoadPortfolioManager();
+			await this.user.LoadExpenseManager();
 		}
 
 	}

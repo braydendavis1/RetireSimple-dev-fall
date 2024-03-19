@@ -33,6 +33,8 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 		public async Task LoadExpenses() {
 			List<ExpenseInfoModel> ExpensesInfo = await this.service.HandleGetAsync();
 
+			this.expenses = new List<Expense>();
+
 			for (int i = 0; i < ExpensesInfo.Count; i++) {
 				this.expenses.Add(ExpenseLoader.Load(ExpensesInfo[i]));
 			}

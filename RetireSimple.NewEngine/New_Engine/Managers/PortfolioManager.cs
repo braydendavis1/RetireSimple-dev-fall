@@ -42,7 +42,7 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			Console.WriteLine("Loading Vehicles");
 			for (int i = 0; i < investmentVehiclesInfo.Count; i++) {
 				this.investmentVehicles.Add(InvestmentVehicleLoader.Load(investmentVehiclesInfo[i]));
-				Console.WriteLine(i);
+				//Console.WriteLine(i);
 			}
 		}
 

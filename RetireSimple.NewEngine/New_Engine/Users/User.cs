@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Amazon.Runtime.Internal;
+
+using Microsoft.Extensions.Options;
 
 using RetireSimple.Engine.New_Engine;
 using RetireSimple.NewEngine.New_Engine.Database;
@@ -64,6 +66,10 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			await this.portfolioManager.LoadInvestmentVehicles();
 		}
 
+		public async Task LoadExpenseManager() {
+			await this.expenseManager.LoadExpenses();
+		}
+
 		
 	
 		public void AddTax(ITax tax) {
@@ -113,9 +119,16 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 		public async Task<Projection> GetPortfolioProjection() {
 			UserInfoModel userInfo = await GetInfo();
 
-			int years = userInfo.RetirementAge - userInfo.Age;
+			int work_years = userInfo.RetirementAge - userInfo.Age;
 
-			return await this.portfolioManager.CacluatePortfolioPorjection(years);
+			//goes to 100
+			int ret_years = 100 - userInfo.RetirementAge;
+
+			Projection portfolio_projection =  await this.portfolioManager.CacluatePortfolioPorjection(work_years);
+			Projection expenses_projection = await this.expenseManager.CacluatePortfolioPorjection(ret_years);
+
+			return portfolio_projection.AddExpenses(expenses_projection);
+
 		}
 
 		public async Task<Projection> GetVehicleProjection(string id) {

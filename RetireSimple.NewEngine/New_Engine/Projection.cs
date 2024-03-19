@@ -14,7 +14,7 @@ namespace RetireSimple.Engine.New_Engine
 			current = 0;
 		}
 
-		public  Projection Add(Projection other_proj) {
+		public Projection Add(Projection other_proj) {
 			List<double> list = new List<double>();
 
 			int count;
@@ -35,11 +35,28 @@ namespace RetireSimple.Engine.New_Engine
 					list.Add(this.GetNext());
 				}
 
-
 			}
 			this.ResetCount();
 			other_proj.ResetCount();
 			return new Projection(list, 0);
+		}
+
+		public Projection AddExpenses(Projection other_proj) {
+			List<double> list = new List<double>();
+
+			list.AddRange(this.yearly_projections);
+
+
+			double final_val = this.yearly_projections[this.yearly_projections.Count - 1];
+
+			for(int i = 0; i < other_proj.yearly_projections.Count; i++) {
+				final_val = final_val - other_proj.yearly_projections[i];
+				list.Add(final_val);
+				Console.WriteLine(final_val);
+			}
+
+			return new Projection(list, 0);
+
 		}
 
     

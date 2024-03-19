@@ -21,7 +21,7 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.Expenses {
 			List<double> values = new List<double>();
 			
 			for(int i = 0; i < years; i++) {
-				values.Add(base.amount);
+				values.Add(base.amount * 12);
 			}
 
 			return new Projection(values, base.start); 
