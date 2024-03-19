@@ -111,7 +111,7 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			return null;
 		}
 
-		public async Task<Projection> CacluatePortfolioPorjection(int years) {
+		public async Task<Projection> CalculatePortfolioProjection(int years) {
 			//await this.LoadExpenses();
 			Projection projection = new Projection(new List<double>(), 0);
 			for (int i = 0; i < this.expenses.Count; i++) {
