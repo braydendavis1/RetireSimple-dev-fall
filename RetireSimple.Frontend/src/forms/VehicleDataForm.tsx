@@ -20,7 +20,7 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 	const investmentVehicleType = useWatch({
 		name: 'investmentVehicleType',
 		control: formContext.control,
-		defaultValue: 'Vehicle401k',
+		defaultValue: '401k',
 	});
 
 	const {errors} = formContext.formState;
@@ -41,7 +41,7 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 			label='Vehicle Type'
 			control={formContext.control}
 			errorField={errors.type}
-			defaultOption='401k'
+			defaultOption={props.defaultValues ? props.defaultValues.type : '401k'}
 			options={[
 				{ value: '401k', label: '401k', tooltip: '' },
 				// { value: 'IRA', label: 'IRA', tooltip: '' },
@@ -49,9 +49,8 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 				// { value: '403b', label: '403b', tooltip: '' },
 				// { value: '457', label: '457', tooltip: '' },
 			]}
-			// disable={props.disableTypeSelect ?? false}
-			tooltip='The type of vehicle this is. This does alter how we determine the tax-applied model.' 
-			disable={false}		/>
+			disable={props.disableTypeSelect ?? false}
+			tooltip='The type of vehicle this is. This does alter how we determine the tax-applied model.' 		/>
 	);
 
 	const cashHoldingField = (
@@ -231,7 +230,7 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 
 	const analysisSubform = React.useMemo(() => {
 		switch (investmentVehicleType) {
-			case 'Vehicle401k':
+			case '401k':
 			case 'Vehicle403b':
 			case 'Vehicle457':
 				return <Analysis401kForm />;
@@ -248,7 +247,8 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 					</Grid>
 				);
 		}
-	}, [errors.analysis_userContributionFixed, formContext.control, investmentVehicleType, props.defaultValues]);
+	}, [errors.analysis_userContributionFixed, 
+		formContext.control, investmentVehicleType, props.defaultValues]);
 
 	return (
 		<>

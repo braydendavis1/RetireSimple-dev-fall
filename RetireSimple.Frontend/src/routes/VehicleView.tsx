@@ -31,20 +31,6 @@ export const VehicleView = () => {
 			.map(([key, value]) => [key, value.toString()])
 			.forEach(([key, value]) => (vehicle[key] = value));
 		vehicle["id"] = vehicleData.id;
-		// const vehicle: InvestmentVehicleInfo = {
-		// 	id: vehicleData.id,
-		// 	name: data.investmentVehicleName,
-		// 	value: data.cashHoldings,
-		// 	contributions: data.analysis_userContributionPercentage,
-		// 	contributionType: data.analysis_userContributionType,
-		// 	salary: data.analysis_salary,
-		// 	salaryIncrease: data.analysis_salaryIncrease,
-		// 	rate: data.analysis_rate,
-		// 	type: data.investmentVehicleType,
-		// 	employerMatch: data.analysis_employerMatchPercentage,
-		// 	employerMatchCap: data.analysis_employerMatchCap,
-		// 	projection: null,
-		// };
 		updateInvestmentVehicle(vehicle, vehicleData.id).then(() => {
 			enqueueSnackbar('Vehicle updated successfully.', {variant: 'success'});
 		}).catch((error) => {
@@ -75,9 +61,12 @@ export const VehicleView = () => {
 						</Box>
 					</VehicleDataForm>
 				</FormProvider>
-			</Box><Box sx={{ width: '100%', height: '100%' }}>
-				<VehicleModelGraph vehicleId={vehicleData.investmentVehicleId} />
-			</Box><ConfirmDeleteDialog
+			</Box>
+			
+			<Box sx={{ width: '100%', height: '100%' }}>
+				<VehicleModelGraph vehicleId={vehicleData.id} />
+			</Box>
+			<ConfirmDeleteDialog
 				open={showDelete}
 				onClose={() => setShowDelete(false)}
 				onConfirm={() => submit(null, {action: deleteAction, method: 'delete'})}

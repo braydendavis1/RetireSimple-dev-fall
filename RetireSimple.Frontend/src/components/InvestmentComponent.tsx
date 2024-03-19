@@ -5,7 +5,7 @@ export const InvestmentComponent = (investment: Investment,
 	navigate: Function, 
 	loadInvestments: Function) => {
 	
-	return <body style={{backgroundColor: 'white', margin: '15px', outline: '5px solid black'}}>
+	return <div style={{backgroundColor: 'white', margin: '15px', outline: '5px solid black'}}>
 		<div style={{width: '900px', paddingLeft: '10px', paddingBottom: '10px', paddingRight: '0px'}}>
 			<div onClick={() => navigate()}>
 				<span>
@@ -19,5 +19,5 @@ export const InvestmentComponent = (investment: Investment,
 				<InvestmentModelGraph  investmentId={investment.investmentId!} />
 			</div> */}
 		</div>
-	</body>
+	</div>
 }

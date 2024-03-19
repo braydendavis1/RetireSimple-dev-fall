@@ -12,10 +12,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetireSimple.Backend", "RetireSimple.Backend\RetireSimple.Backend.csproj", "{77B482C9-9710-4AD6-A8C2-7A43A2AF1BB8}"
 	ProjectSection(ProjectDependencies) = postProject
+		{044C0F67-E41B-47D9-AADA-3DCC0303C3C3} = {044C0F67-E41B-47D9-AADA-3DCC0303C3C3}
 		{F6C70AA5-3787-43B0-8AE8-1C400294A696} = {F6C70AA5-3787-43B0-8AE8-1C400294A696}
 	EndProjectSection
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "RetireSimple.Frontend", "RetireSimple.Frontend\RetireSimple.Frontend.esproj", "{7C2F73A2-51C4-44C4-A5ED-BFAD4B5AA058}"
+	ProjectSection(ProjectDependencies) = postProject
+		{044C0F67-E41B-47D9-AADA-3DCC0303C3C3} = {044C0F67-E41B-47D9-AADA-3DCC0303C3C3}
+		{CD458BA9-C558-41DD-B7BD-71CD363680A6} = {CD458BA9-C558-41DD-B7BD-71CD363680A6}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RetireSimple.Tests", "RetireSimple.Tests\RetireSimple.Tests.csproj", "{EF18802F-4E8F-4A64-85EF-9D719084C8FA}"
 	ProjectSection(ProjectDependencies) = postProject

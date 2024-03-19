@@ -41,6 +41,7 @@ export function VehiclesPage() {
 		
 		{vehicleList.map((vehicle: InvestmentVehicleInfo) => 
 			(VehicleComponent(
+				vehicle.id!,
 				vehicle, 
 				() => {navigatePage(vehicle.id!)},
 				() => {loadVehicles()},
