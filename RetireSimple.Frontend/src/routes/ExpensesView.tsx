@@ -7,8 +7,9 @@ import {useSnackbar} from 'notistack';
 import { ExpenseDataForm } from '../forms/ExpenseDataForm';
 import { updateExpense } from '../api/New API/ExpenseApi';
 import { Expense } from '../Interfaces';
+import { Int32 } from 'bson';
 
-export const ExpenseView = () => {
+export const ExpenseView = (yearOffset: number | undefined) => {
 	const [showDelete, setShowDelete] = React.useState(false);
 	const expenseData = useLoaderData() as any;
 	const submit = useSubmit();
@@ -27,9 +28,11 @@ export const ExpenseView = () => {
 
 	const handleUpdate = handleSubmit((data: FieldValues) => {
 		const expense: {[key: string]: string} = {};
+		
 		Object.entries(data)
 			.map(([key, value]) => [key, value.toString()])
 			.forEach(([key, value]) => (expense[key] = value));
+		//expense['start'] = (Int32.valueOf(expense['start']) - yearOffset!).toString();
 		expense["id"] = expenseData.id;
 		updateExpense(expense, expenseData.id).then(() => {
 			enqueueSnackbar('Expense updated successfully.', {variant: 'success'});

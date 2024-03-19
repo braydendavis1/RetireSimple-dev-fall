@@ -201,7 +201,9 @@ export const PortfolioAggregateGraph = (props: {modelData: any[], height: number
 			<Typography variant='h6'>Portfolio Model</Typography>
 			<ResponsiveContainer width='90%'  minHeight={props.height} minWidth={1200}>
 				<LineChart data={props.modelData}>
-					<XAxis dataKey='year' tickFormatter={(value) => value + (props.yearOffset ?? 0)}>
+					<XAxis dataKey='year' 
+						tickFormatter={(value) => value + (props.yearOffset ?? 0)}
+					>
 						<Label value='Age' offset={-5} position={'bottom'} />
 					</XAxis>
 					<YAxis

@@ -39,7 +39,7 @@ export const ExpenseDataForm = (props: ExpenseDataFormProps) => {
 			name='type'
 			label='Expense Type'
 			options={[
-				{value: 'OneTime', label: 'One Time', tooltip: ''},
+				// {value: 'OneTime', label: 'One Time', tooltip: ''},
 				{value: 'Monthly', label: 'Monthly', tooltip: ''},
 			]}
 			defaultOption={props.defaultValues ? props.defaultValues.type : ''}
@@ -61,7 +61,8 @@ export const ExpenseDataForm = (props: ExpenseDataFormProps) => {
 		<FormTextField
 			control={formContext.control}
 			name='start'
-			label='Starting Age'
+			label='Starting Year After Retirement'
+			tooltip='For example, if you want the expense to start the year you retire, input 0'
 			errorField={undefined} 
 			defaultValue={props.defaultValues ? props.defaultValues.start : ''}		/>
 	);
@@ -69,7 +70,7 @@ export const ExpenseDataForm = (props: ExpenseDataFormProps) => {
 		<FormTextField
 			control={formContext.control}
 			name='end'
-			label='Ending Age'
+			label='Duration'
 			errorField={undefined} 
 			defaultValue={props.defaultValues ? props.defaultValues.end : ''}		/>
 	);
