@@ -15,6 +15,7 @@ using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
 using RetireSimple.NewEngine.New_Engine.Financials.Expenses;
 using static System.Net.Mime.MediaTypeNames;
 using SharpCompress.Common;
+using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.RothIra;
 
 namespace RetireSimple.NewEngine.New_Engine.Managers {
 	public class PortfolioManager  {
@@ -67,6 +68,11 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 				this.investmentVehicles.Add(vehicle);
 				await vehicle.SetInfo(info);
 			}
+			else if (type.Equals("Roth")) {
+				RothIra vehicle = new RothIra(info.Id);
+				this.investmentVehicles.Add(vehicle);
+				await vehicle.SetInfo(info);
+			}
 
 
 		}
@@ -106,14 +112,11 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 		public async Task<Projection> CalculatePortfolioProjection(int years) {
 
 
-
-			string filePath = "output.txt";
-
 			//await this.LoadInvestmentVehicles();
 			Projection projection = new Projection(new List<double>(), 0);
 			for (int i = 0; i < this.investmentVehicles.Count; i++) {
 				projection = projection.Add(await this.investmentVehicles[i].Calculate(years));
-				Console.WriteLine(this.investmentVehicles[i].id);
+				Console.WriteLine(this.investmentVehicles[i].GetId());
 
 
 			}

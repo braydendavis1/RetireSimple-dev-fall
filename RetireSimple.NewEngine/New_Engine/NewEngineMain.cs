@@ -30,7 +30,7 @@ namespace RetireSimple.NewEngine.New_Engine {
 	
 
 		public async Task HandleCreateUser(UserInfoModel info) {
-			await this.user.CreateInfo(info);
+			await this.user.SetInfo(info);
 			
 		}
 
@@ -40,7 +40,7 @@ namespace RetireSimple.NewEngine.New_Engine {
 		}
 
 		public async Task HandleUpdateUser(string id, UserInfoModel info) {
-			await this.user.UpdateInfo(id, info);
+			await this.user.UpdateInfo(info);
 			
 		}
 

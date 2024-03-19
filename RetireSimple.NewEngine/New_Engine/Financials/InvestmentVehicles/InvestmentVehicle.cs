@@ -14,9 +14,10 @@ using System.Text;
 using System.Threading.Tasks;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 using System.Runtime.InteropServices;
+using RetireSimple.NewEngine.New_Engine.Database;
 
 namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
-	public abstract class InvestmentVehicle : Financial{
+	public abstract class InvestmentVehicle : DatabaseObject<InvestmentVehicleInfoModel> {
 
 		private IGrowthModel growthModel;
 
@@ -24,28 +25,26 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 
 		private InvestmentVehicleInfoModel info;
 
-		protected Service<InvestmentVehicleInfoModel> service;
+		
+		//protected Service<InvestmentVehicleInfoModel> service;
+		
 
 		protected Service<InvestmentInfoModel> investmentService;
 
 
-		public InvestmentVehicle(string id, FinCategories category, IGrowthModel growthModel) : base(id, FinCategories.INVESTMENT_VEHICLE)
+		public InvestmentVehicle(string id, FinCategories category, IGrowthModel growthModel) : base(id, new Service<InvestmentVehicleInfoModel>("InvestmentVehicles", new MongoService<InvestmentVehicleInfoModel>()))
 		{
 			this.growthModel = growthModel;
-			this.service = new Service<InvestmentVehicleInfoModel>("InvestmentVehicles", new MongoService<InvestmentVehicleInfoModel>());
+			//this.service = new Service<InvestmentVehicleInfoModel>("InvestmentVehicles", new MongoService<InvestmentVehicleInfoModel>());
 			this.investmentService = new Service<InvestmentInfoModel>("Investments", new MongoService<InvestmentInfoModel>());
 			this.investments = new List<Investment>();
 		}
 
-		public async Task UpdateInfo(InvestmentVehicleInfoModel info) {
-
-			await this.service.HandleUpdateAsync(base.id, info);
-
-		}
-
+		/*
 		public bool Equals(string id) {
 			return base.id == id;
 		}
+		*/
 		
 
 		public List<Investment> GetInvestments() {
@@ -56,10 +55,21 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 			this.investments.Add(investment);
 		}
 
+
+
+
+
 		public void UpdateInvestment(string id, Investment investment) {
 
 		}
-		
+
+		/*
+		public async Task UpdateInfo(InvestmentVehicleInfoModel info) {
+
+			await this.service.HandleUpdateAsync(base.id, info);
+
+		}
+
 
 		public async Task SetInfo(InvestmentVehicleInfoModel info) {
 
@@ -69,10 +79,11 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 		public async Task<InvestmentVehicleInfoModel> GetInfo() {
 			return await this.service.HandleGetAsync(base.id);
 		}
+		*/
 
-		public async override Task<Projection> Calculate(int years) 
+		public async Task<Projection> Calculate(int years) 
 		{
-			InvestmentVehicleInfoModel info = await this.service.HandleGetAsync(this.id);
+			InvestmentVehicleInfoModel info = await base.GetInfo();
 
 			//Console.WriteLine("Testing IV");
 

@@ -21,40 +21,21 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace RetireSimple.NewEngine.New_Engine.Users {
-	public class User {
+	public class User : DatabaseObject<UserInfoModel> {
 
 		private ITax tax;
 
 		public PortfolioManager portfolioManager;
 		public ExpenseManager expenseManager;
 
-		private Service<UserInfoModel> userService;
+		//private Service<UserInfoModel> userService;
 
-		private string id;
-
-		public User(UserInfo userInfo, string id) {
-
-			this.id = id;
-
-			this.tax = new NullTax();
-
-			this.portfolioManager = new PortfolioManager();
-			this.expenseManager = new ExpenseManager();
-		}
+		//private string id;
 
 
-
-		public User() {
-			this.id = "id here";
-			this.tax = new NullTax();
-			this.portfolioManager = new PortfolioManager();
-			this.expenseManager = new ExpenseManager();
-
-		}
-
-		public User( string id) {
-			this.userService = new Service<UserInfoModel>("Users", new MongoService<UserInfoModel>());
-			this.id = id;
+		public User( string id) : base(id, new Service<UserInfoModel>("Users", new MongoService<UserInfoModel>())) {
+			//this.userService = new Service<UserInfoModel>("Users", new MongoService<UserInfoModel>());
+			//this.id = id;
 			this.tax = new NullTax();
 			this.portfolioManager = new PortfolioManager();
 			this.expenseManager = new ExpenseManager();
@@ -76,17 +57,20 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			this.tax = tax;
 		}
 
-		public async Task UpdateInfo(string id, UserInfoModel userInfo) {
-			await this.userService.HandleUpdateAsync(id, userInfo);
+
+		/*
+		public async Task UpdateInfo(UserInfoModel userInfo) {
+			await this.userService.HandleUpdateAsync(this.id, userInfo);
 		}
 
 		public async Task<UserInfoModel> GetInfo() {
 			return await this.userService.HandleGetAsync(this.id);
 		}
 
-		public async Task CreateInfo(UserInfoModel userInfo) {
+		public async Task SetInfo(UserInfoModel userInfo) {
 			await this.userService.HandleCreateAsync(userInfo);
 		}
+		*/
 		
 
 
