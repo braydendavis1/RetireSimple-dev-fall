@@ -124,8 +124,8 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			//goes to 100
 			int ret_years = 100 - userInfo.RetirementAge;
 
-			Projection portfolio_projection =  await this.portfolioManager.CacluatePortfolioPorjection(work_years);
-			Projection expenses_projection = await this.expenseManager.CacluatePortfolioPorjection(ret_years);
+			Projection portfolio_projection =  await this.portfolioManager.CalculatePortfolioProjection(work_years);
+			Projection expenses_projection = await this.expenseManager.CalculatePortfolioProjection(ret_years);
 
 			return portfolio_projection.AddExpenses(expenses_projection);
 

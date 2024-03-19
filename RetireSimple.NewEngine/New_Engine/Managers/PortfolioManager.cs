@@ -103,7 +103,7 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			return null;
 		}
 
-		public async Task<Projection> CacluatePortfolioPorjection(int years) {
+		public async Task<Projection> CalculatePortfolioProjection(int years) {
 
 
 
