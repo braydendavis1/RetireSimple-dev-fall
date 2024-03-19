@@ -68,9 +68,10 @@ export const InvestmentView = () => {
 						</Box>
 					</InvestmentDataForm>
 				</FormProvider>
-			</Box><Box sx={{ width: '100%', height: '100%' }}>
-				<InvestmentModelGraph investmentId={investmentData.investmentId} />
 			</Box>
+			{/* <Box sx={{ width: '100%', height: '100%' }}>
+				<InvestmentModelGraph investmentId={investmentData.investmentId} />
+			</Box> */}
 			<ConfirmDeleteInvestment
 				open={showDelete}
 				onClose={() => setShowDelete(false)}

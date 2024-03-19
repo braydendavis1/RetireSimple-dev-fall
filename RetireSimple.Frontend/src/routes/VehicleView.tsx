@@ -61,9 +61,12 @@ export const VehicleView = () => {
 						</Box>
 					</VehicleDataForm>
 				</FormProvider>
-			</Box><Box sx={{ width: '100%', height: '100%' }}>
-				<VehicleModelGraph vehicleId={vehicleData.investmentVehicleId} />
-			</Box><ConfirmDeleteDialog
+			</Box>
+			
+			<Box sx={{ width: '100%', height: '100%' }}>
+				<VehicleModelGraph vehicleId={vehicleData.id} />
+			</Box>
+			<ConfirmDeleteDialog
 				open={showDelete}
 				onClose={() => setShowDelete(false)}
 				onConfirm={() => submit(null, {action: deleteAction, method: 'delete'})}
