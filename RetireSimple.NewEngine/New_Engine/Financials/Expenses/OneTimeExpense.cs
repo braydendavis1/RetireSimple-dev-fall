@@ -12,13 +12,13 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.Expenses {
 		public OneTimeExpense(string id, double amount, int start, string name) : base( id, amount, start, name) {
 		}
 
-		public override Projection GenerateProjection(int years) 
+		public override Projection GenerateProjection() 
 		{
 			List<double> values = new List<double>();
-			if( years > 0 ) {
+			if( 1 > 0 ) {
 				values.Add(base.amount);
 			}
-			for(int i = 1; i < years; i++) {
+			for(int i = 1; i < 1; i++) {
 				values.Add(0);
 			}
 
