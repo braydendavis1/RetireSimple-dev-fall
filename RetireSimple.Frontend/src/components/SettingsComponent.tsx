@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { getUserInfo } from '../api/New API/UserAPI'
+import { getUserInfo, saveUserInfo } from '../api/New API/UserAPI'
 import { UserInfo } from '../Interfaces';
 import CurrencyInput from 'react-currency-input-field';
+import { enqueueSnackbar } from 'notistack';
 
 
 
@@ -70,13 +71,11 @@ export const SettingsForm = (settingsInfo: SettingsInfo) => {
 	};
 
 	const handleSave = () => {
-		console.log("save");
-
-	
-
-		settingsInfo.setUserInfo(settings);
-		
-		// saveDataToDatabase();
+		saveUserInfo(settings).then ( () => {
+			enqueueSnackbar('Settings saved successfully.', {variant: 'success'});
+		}).catch((error: { message: any; }) => {
+			enqueueSnackbar(`Failed to save: ${error.message}`, {variant: 'error'});
+		});
 	};
 
 
@@ -113,7 +112,7 @@ export const SettingsForm = (settingsInfo: SettingsInfo) => {
 					// 	handleInputChange('retirementGoal', value)}
 				/>
 			</label>
-			<br /> 
+			{/* <br /> 
 			<label>
 				Filing Status:
 				<select
@@ -127,7 +126,7 @@ export const SettingsForm = (settingsInfo: SettingsInfo) => {
 						</option>
 					))}
 				</select>
-			</label>
+			</label> */}
 			<br />
 			<button style={{ float: 'right' }} onClick={handleSave}>
 				Save

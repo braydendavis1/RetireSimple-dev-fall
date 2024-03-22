@@ -7,6 +7,8 @@ import {VehicleModelGraph} from '../components/GraphComponents';
 import {VehicleDataForm} from '../forms/VehicleDataForm';
 import {useSnackbar} from 'notistack';
 import { updateInvestmentVehicle } from '../api/New API/InvestmentVehicleApi';
+import { getUserInfo } from '../api/New API/UserAPI';
+import { UserInfo } from '../Interfaces';
 
 export const VehicleView = () => {
 	const [showDelete, setShowDelete] = React.useState(false);
@@ -20,9 +22,13 @@ export const VehicleView = () => {
 	const {reset, control, handleSubmit} = formContext;
 	const {isDirty, dirtyFields} = useFormState({control});
 	const {enqueueSnackbar} = useSnackbar();
+	const [userInfo, setUserInfo] = React.useState<UserInfo>();
 
 	React.useEffect(() => {
 		reset(vehicleData, {keepErrors: true});
+		getUserInfo().then((data) => {
+			setUserInfo(data);
+		});
 	}, [reset, vehicleData]);
 
 	const handleUpdate = handleSubmit((data: FieldValues) => {
@@ -64,7 +70,7 @@ export const VehicleView = () => {
 			</Box>
 			
 			<Box sx={{ width: '100%', height: '100%' }}>
-				<VehicleModelGraph vehicleId={vehicleData.id} />
+				<VehicleModelGraph vehicleId={vehicleData.id} yearOffset={userInfo?.age} />
 			</Box>
 			<ConfirmDeleteDialog
 				open={showDelete}

@@ -47,12 +47,12 @@ const loadIndicator = (
 	</Box>
 );
 
-export const MinMaxAvgGraph = (props: {modelData: any[]}) => {
+export const MinMaxAvgGraph = (props: {modelData: any[], yearOffset: number | undefined}) => {
 	return (
 		<ResponsiveContainer width={300} height={200}>
 			<LineChart data={props.modelData}>
-				<XAxis dataKey='year'>
-					<Label value='Years' offset={-5} position={'bottom'} />
+				<XAxis dataKey='year' tickFormatter={(value) => value + (props.yearOffset ?? 0)}>
+					<Label value='Age' offset={-5} position={'bottom'} />
 				</XAxis>
 				<YAxis
 					tickCount={10}
@@ -105,12 +105,13 @@ export const InvestmentModelGraph = (props: {investmentId: string}) => {
 				Get Model Data
 			</Button> */}
 			{loading && loadIndicator}
-			{modelData ? <MinMaxAvgGraph modelData={modelData} /> : <div></div>}
+			{modelData ? <MinMaxAvgGraph modelData={modelData} yearOffset={undefined} 
+			/> : <div></div>}
 		</div>
 	);
 };
 
-export const VehicleModelGraph = (props: {vehicleId: string}) => {
+export const VehicleModelGraph = (props: {vehicleId: string, yearOffset: number | undefined}) => {
 	const [modelData, setModelData] = React.useState<any[] | undefined>(undefined);
 	const [loading, setLoading] = React.useState<boolean>(false);
 
@@ -129,8 +130,8 @@ export const VehicleModelGraph = (props: {vehicleId: string}) => {
 		getInvestmentVehicleProjection(props.vehicleId, 50)
 			.then((data: ProjectionInfo) => {
 				setModelData(convertProjectionData(data.yearly_projections));
-				console.log(data.yearly_projections);
-				console.log(modelData);
+				// console.log(data.yearly_projections);
+				// console.log(modelData);
 			})
 			.then(() => setLoading(false));
 	};
@@ -140,7 +141,8 @@ export const VehicleModelGraph = (props: {vehicleId: string}) => {
 			<Button style={{width: '150px'}} onClick={getModelData} disabled={modelData !== undefined}>
 				Get Model Data
 			</Button>
-			{modelData ? <MinMaxAvgGraph modelData={modelData} /> : <div></div>}
+			{modelData ? <MinMaxAvgGraph modelData={modelData} 
+				yearOffset={props.yearOffset} /> : <div></div>}
 		</div>
 	);
 };
@@ -201,9 +203,7 @@ export const PortfolioAggregateGraph = (props: {modelData: any[], height: number
 			<Typography variant='h6'>Portfolio Model</Typography>
 			<ResponsiveContainer width='90%'  minHeight={props.height} minWidth={1200}>
 				<LineChart data={props.modelData}>
-					<XAxis dataKey='year' 
-						tickFormatter={(value) => value + (props.yearOffset ?? 0)}
-					>
+					<XAxis dataKey='year' tickFormatter={(value) => value + (props.yearOffset ?? 0)}>
 						<Label value='Age' offset={-5} position={'bottom'} />
 					</XAxis>
 					<YAxis

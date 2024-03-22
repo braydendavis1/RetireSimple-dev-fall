@@ -9,7 +9,7 @@ import { updateExpense } from '../api/New API/ExpenseApi';
 import { Expense } from '../Interfaces';
 import { Int32 } from 'bson';
 
-export const ExpenseView = (yearOffset: number | undefined) => {
+export const ExpenseView = () => {
 	const [showDelete, setShowDelete] = React.useState(false);
 	const expenseData = useLoaderData() as any;
 	const submit = useSubmit();

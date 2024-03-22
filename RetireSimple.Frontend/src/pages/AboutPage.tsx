@@ -8,10 +8,6 @@ export function AboutPage() {
 		<SettingsNav />
 		<h1>About RetireSimple</h1>
 		<Box sx={{padding: '2rem'}}>
-			<Typography variant='body1'>RetireSimple v1.3.0</Typography>
-			<Typography variant='body1'>
-				© 2022-2023 Alex Westerman, Ryan Nikolic, All Rights Reserved
-			</Typography>
 			<br />
 			<Typography variant='body1'>
 				This software and its source code is licensed under and subject to the terms of
@@ -19,36 +15,7 @@ export function AboutPage() {
 			</Typography>
 			<Typography variant='body1'>
 				Source Code is available on{' '}
-				<Link to='https://github.com/RetireSimple/RetireSimple'>GitHub</Link>.
-			</Typography>
-			<br />
-			<Typography variant='body1'>
-				The RetireSimple Logo is based on multiple icons from the FontAwesome free icon
-				set. These icons are licensed under the Creative Commons BY 4.0 License as
-				stated <Link to='https://fontawesome.com/license/free'>here</Link>.
-			</Typography>
-			<br />
-			<Typography variant='body1'>
-				The following libraries are used by the RetireSimple Engine and are subject to
-				their respective licenses:
-				<ul>
-					<li>
-						{<Link to='https://github.com/dotnet/runtime'>.NET 6</Link> }
-						(MIT License)
-					</li>
-					<li>
-						<Link to='https://github.com/dotnet/efcore'>
-							entity framework core 6
-						</Link>{' '}
-						(MIT License)
-					</li>
-					<li>
-						<Link to='https://github.com/mathnet/mathnet-numerics'>
-							math.net numerics
-						</Link>{' '}
-						(MIT License)
-					</li>
-				</ul>
+				<Link to='https://github.com/braydendavis1/RetireSimple-dev-fall'>GitHub</Link>.
 			</Typography>
 			<br />
 			<Typography variant='h6'>DISCLAIMER</Typography>

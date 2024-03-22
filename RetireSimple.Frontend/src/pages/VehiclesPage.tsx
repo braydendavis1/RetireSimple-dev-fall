@@ -1,6 +1,6 @@
 import {Button, Icon, Typography} from '@mui/material';
 import React, { useState } from 'react';
-import {ApiPresetData,InvestmentVehicleInfo, ProjectionInfo} from '../Interfaces';
+import {ApiPresetData,InvestmentVehicleInfo, ProjectionInfo, UserInfo} from '../Interfaces';
 import { AddVehicleDialog } from '../components/DialogComponents';
 import { PresetContext } from '../Layout';
 import { VehicleComponent } from '../components/VehicleComponent';
@@ -8,16 +8,21 @@ import { VehicleComponent } from '../components/VehicleComponent';
 import {  getInvestmentVehicles } from '../api/New API/InvestmentVehicleApi';
 import { convertInvestmentVehiclesInfo } from '../api/ApiMapper';
 import { useNavigate } from 'react-router-dom';
+import { getUserInfo } from '../api/New API/UserAPI';
 
   
 export function VehiclesPage() { 
 	const [vehicleList, setVehicleList] = useState<InvestmentVehicleInfo[]>([]);
 	const [presetData, setPresetData] = React.useState<ApiPresetData | undefined>(undefined);
 	const [vehicleAddDialogOpen, setVehicleAddDialogOpen] = React.useState(false);
+	const [userInfo, setUserInfo] = React.useState<UserInfo>();
 	const navigate = useNavigate();
 
 	React.useEffect(() => {
 		loadVehicles();
+		getUserInfo().then((data) => {
+			setUserInfo(data);
+		});
 	}, [presetData]);
 	
 	const loadVehicles = () => {
@@ -45,6 +50,7 @@ export function VehiclesPage() {
 				vehicle, 
 				() => {navigatePage(vehicle.id!)},
 				() => {loadVehicles()},
+				userInfo?.age,
 			)		
 			))
 		}
