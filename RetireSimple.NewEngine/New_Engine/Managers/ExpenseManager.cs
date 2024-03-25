@@ -119,11 +119,13 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			Projection projection = new Projection(new List<double>(), 0);
 			for (int i = 0; i < this.expenses.Count; i++) {
 				projection = projection.Add(await this.expenses[i].Calculate(years));
+
 				List<double> calc = this.expenses[i].Calculate(years).Result.yearly_projections;
 				Console.WriteLine(this.expenses[i].id + "here");
 				for(int j = 0; j < calc.Count; j++) {
 					Console.Write(calc[i] + ", ");
 				}
+
 			}
 			return projection;
 		}

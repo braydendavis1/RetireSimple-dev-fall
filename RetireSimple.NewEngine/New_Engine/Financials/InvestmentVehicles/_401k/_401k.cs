@@ -16,7 +16,7 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles._401k 
 	public class _401k : InvestmentVehicle {
 		public _401k(string id) : base(id, FinCategories.INVESTMENT_VEHICLE, new _401kGrowth()) {
 
-			base.service = new Service<InvestmentVehicleInfoModel>("InvestmentVehicles", new  MongoService<InvestmentVehicleInfoModel>());
+			//base.service = new Service<InvestmentVehicleInfoModel>("InvestmentVehicles", new  MongoService<InvestmentVehicleInfoModel>());
 
 		}
 

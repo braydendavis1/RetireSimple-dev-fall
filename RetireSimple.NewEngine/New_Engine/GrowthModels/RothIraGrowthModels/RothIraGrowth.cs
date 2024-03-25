@@ -13,28 +13,17 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels.RothIraGrowth {
 		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfoModel info) 
 		{
 
-			return null;
-
-		}
-
-		private Projection DoGenerateProjection(double value, int years, RothIraInfo info) 
-		{
-
 			List<double> values = new List<double>();
-
 			values.Add(value);
 
-			for(int i = 0; i < years; i++) {
-
-				double newVal = (values[i] + info.annual_contributions)* (1 + info.rate);
-
-				values.Add(newVal);
-
+			for(int i =0; i < years; i++) {
+				double newVal = (double)((values[i] + info.Annual_Contribution) * (1 * info.Rate));
+				values.Add((newVal));
 			}
 
 			return new Projection(values, 0);
 
-
 		}
+
 	}
 }
