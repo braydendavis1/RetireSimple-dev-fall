@@ -58,7 +58,10 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			if (info.Type.ToLower().Equals("monthly")) {
 				expense = new MonthlyExpense(info.Id, info.Amount, info.Start, info.Name, info.End);
 
-			} else {
+			} else if (info.Type.ToLower().Equals("annual")){
+				expense = new AnnualExpense(info.Id, info.Amount, info.Start, info.Name, info.End);
+
+			}else {
 				expense = new OneTimeExpense(info.Id, info.Amount, info.Start, info.Name);
 
 			}
@@ -116,7 +119,13 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			Projection projection = new Projection(new List<double>(), 0);
 			for (int i = 0; i < this.expenses.Count; i++) {
 				projection = projection.Add(await this.expenses[i].Calculate(years));
-				Console.WriteLine(this.expenses[i].GetId());
+
+				List<double> calc = this.expenses[i].Calculate(years).Result.yearly_projections;
+				Console.WriteLine(this.expenses[i].id + "here");
+				for(int j = 0; j < calc.Count; j++) {
+					Console.Write(calc[i] + ", ");
+				}
+
 			}
 			return projection;
 		}

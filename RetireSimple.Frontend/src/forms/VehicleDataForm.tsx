@@ -130,21 +130,49 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 				</>} 
 				defaultValue={props.defaultValues ? props.defaultValues.employerMatchCap : ''}			/>
 		);
+
+		const employerLumpSum = (
+			<FormTextFieldCurrency
+				name='employerLumpSum'
+				label='Yearly Employer Lump Sum Contribution'
+				control={formContext.control}
+				errorField={errors.employerLumpSum}
+				tooltip={<>
+					<Typography variant='inherit'>
+						Used if an employeer contribution a set amount of money each year.
+					</Typography>
+				</>} 
+				defaultValue={props.defaultValues ? props.defaultValues.employerLumpSum : ''}			/>
+		);
 	
 		const rate = (
 			<FormTextFieldPercent
 				name='rate'
-				label='Rate'
+				label='Growth Rate Before Retirement'
 				control={formContext.control}
 				errorField={errors.rate}
 				tooltip={<>
 					<Typography variant='inherit'>
-						The rate you expect the vehicle to grow.
+						The rate you expect the vehicle to grow before retirement.
 					</Typography>
 				</>} 
 				defaultValue={props.defaultValues ? props.defaultValues.rate : ''}			/>
 		);
 	
+		const rateAfterRetirement = (
+			<FormTextFieldPercent
+				name='retirementRate'
+				label='Growth Rate After Retirement'
+				control={formContext.control}
+				errorField={errors.rate}
+				tooltip={<>
+					<Typography variant='inherit'>
+						The rate you expect the vehicle to grow after you retire.
+					</Typography>
+				</>} 
+				defaultValue={props.defaultValues ? props.defaultValues.retirementRate : ''}			/>
+		);
+
 		const userContributionTypeField = (
 			<FormSelectField
 				name='contributionType'
@@ -182,7 +210,7 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 							label='User Contribution'
 							control={formContext.control}
 							errorField={errors.contributions}
-							tooltip='The percentage of the a paycheck used to contribute to a vehicle.' 
+							tooltip='The percentage of the paycheck used to contribute to a vehicle.' 
 							defaultValue={props.defaultValues ? props.defaultValues.contributions : ''}							/>
 					);
 				case 'fixed':
@@ -202,16 +230,27 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 	
 		return (
 			<>
-		
 				<Grid item xs={6} sm={4}>
 					{rate}
 				</Grid>
+				<Grid item xs={6} sm={4}>
+					{rateAfterRetirement}
+				</Grid>
+				
 				<Grid item xs={6} sm={4}>
 					{salaryField}
 				</Grid>
 				<Grid item xs={6} sm={4}>
 					{salaryIncrease}
 				</Grid>
+				
+				<Grid item xs={6} sm={4}>
+					{userContributionTypeField}
+				</Grid>
+				<Grid item xs={6} sm={4}>
+					{userContributionField}
+				</Grid>
+				
 				<Grid item xs={6} sm={4}>
 					{employerMatchField}
 				</Grid>
@@ -219,10 +258,7 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 					{employerMatchCap}
 				</Grid>
 				<Grid item xs={6} sm={4}>
-					{userContributionTypeField}
-				</Grid>
-				<Grid item xs={6} sm={4}>
-					{userContributionField}
+					{employerLumpSum}
 				</Grid>
 			</>
 		);

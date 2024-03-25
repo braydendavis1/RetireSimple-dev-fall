@@ -25,7 +25,6 @@ export interface UserInfo {
 	age: number;
 	retirementAge: number
 	retirementGoal: number
-	filingStatus: string
 }
 
 export interface InvestmentVehicleInfo{
@@ -41,6 +40,8 @@ export interface InvestmentVehicleInfo{
 	employerMatch: number | null
 	employerMatchCap: number | null
 	projection: number | null
+	employerLumpSum: number | null
+	retirementRate: number | null
 }
 
 export interface ProjectionInfo{

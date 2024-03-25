@@ -44,9 +44,9 @@ export const InvestmentDataForm = (props: InvestmentDataFormProps) => {
 			errorField={errors.investmentType}
 			defaultOption='StockInvestment'
 			options={[
-				{value: 'StockInvestment', label: 'Stock', tooltip:'A stock investment is calculated as ...'},
-				{value: 'BondInvestment', label: 'Bond', tooltip:'This is a bond'},
-				{value: 'PensionInvestment', label: 'Pension/Social Security', tooltip:'This is a pension'},
+				{value: 'StockInvestment', label: 'Stock', tooltip:''},
+				{value: 'BondInvestment', label: 'Bond', tooltip:''},
+				{value: 'PensionInvestment', label: 'Pension/Social Security', tooltip:''},
 			]}
 			disable={props.disableTypeSelect ?? false}
 			tooltip=''
@@ -81,12 +81,12 @@ export const InvestmentDataForm = (props: InvestmentDataFormProps) => {
 			<Grid item xs={4}>
 				<FormTextFieldPercent
 					name='rate'
-					label='Rate'
+					label='Growth Rate'
 					// defaultValue='default-testing'
 					defaultValue={props.defaultValues ? props.defaultValues.rate : ''}
 					control={formContext.control}
 					errorField={errors.rate}
-					tooltip='The current value of this investment.'
+					tooltip='The expected growth rate of this investment.'
 				/>
 			</Grid>
 		</>

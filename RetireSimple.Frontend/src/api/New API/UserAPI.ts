@@ -15,9 +15,6 @@ export const getUserInfo = async (): Promise <UserInfo> => {
 
 
 export const saveUserInfo = async (data: UserInfo) => {
-
-	console.log(data)
-
 	const response = await fetch(`https://localhost:7199/api/users?id=${data.id}`, {
 		method: 'PUT',
 		body: JSON.stringify(data),
@@ -26,6 +23,4 @@ export const saveUserInfo = async (data: UserInfo) => {
 			'Content-Type': 'application/json; charset=utf-8',
 		},
 	});
-
-
 }  

@@ -17,13 +17,6 @@ export function EngineInfoPage() {
 				- Capital raised by a business or corporation through the subscription of shares
 			</Typography>
 			<Typography variant='h6' sx={{flexGrow: 1, marginBottom: '0.5rem'}}>
-				Dividends
-			</Typography>
-			<Typography variant='body1' sx={{flexGrow: 1, marginBottom: '0.5rem'}}>
-				- A dividend stock is a type of stock that pays a portion of the company's earnings 
-				to its shareholders in the form of regular dividend payments
-			</Typography>
-			<Typography variant='h6' sx={{flexGrow: 1, marginBottom: '0.5rem'}}>
 				Bond
 			</Typography>
 			<Typography variant='body1' sx={{flexGrow: 1, marginBottom: '0.5rem'}}>
@@ -33,7 +26,7 @@ export function EngineInfoPage() {
 				time period
 			</Typography>
 			<Typography variant='h6' sx={{flexGrow: 1, marginBottom: '0.5rem'}}>
-				Pension
+				Pension/Social Security
 			</Typography>
 			<Typography variant='body1' sx={{flexGrow: 1, marginBottom: '0.5rem'}}>
 				- A pension is a financial arrangement in which an individual or employee 
@@ -56,9 +49,6 @@ export function EngineInfoPage() {
 				■	  Regular Payouts - After retirement,  you typically receive regular pension 
 				payments, often in the form of a monthly annuity, which continues throughout their 
 				retirement years 
-			</Typography>
-			<Typography variant='h6' sx={{flexGrow: 1, marginBottom: '0.5rem'}}>
-				Social Security
 			</Typography>
 			<Typography variant='h4' sx={{flexGrow: 1, marginBottom: '0.5rem'}}>
 				Vehicles
@@ -131,27 +121,6 @@ export function EngineInfoPage() {
 				state and local governments and some nonprofit organizations in the United States, 
 				enabling them to contribute pre-tax income for retirement purposes, with certain 
 				withdrawal restrictions.
-			</Typography>
-			<Typography variant='h4' sx={{flexGrow: 1, marginBottom: '0.5rem'}}>
-				Analysis Type
-			</Typography>
-			<Typography variant='h6' sx={{flexGrow: 1, marginBottom: '0.5rem'}}>
-				Monte Carlo
-			</Typography>
-			<Typography variant='body1' sx={{flexGrow: 1, marginBottom: '0.5rem'}}>
-				- Monte Carlo regression is a statistical modeling technique that uses random 
-				sampling (Monte Carlo simulations) to estimate the uncertainty and variability 
-				in regression model parameters and predictions, allowing for a more comprehensive 
-				assessment of model performance
-			</Typography>
-			<Typography variant='h6' sx={{flexGrow: 1, marginBottom: '0.5rem'}}>
-				Binomial Regression
-			</Typography>
-			<Typography variant='body1' sx={{flexGrow: 1, marginBottom: '0.5rem'}}>
-				- Binomial regression is a statistical method used to analyze and model binary or 
-				categorical outcome variables, such as success or failure, by considering the 
-				relationship between the predictor variables and the probability of a particular 
-				outcome occurring.
 			</Typography>
 		</Box>
 	</div>
