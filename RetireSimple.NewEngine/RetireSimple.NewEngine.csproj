@@ -12,4 +12,8 @@
     <PackageReference Include="MongoDB.Driver" Version="2.23.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="New_Engine\Logger\" />
+  </ItemGroup>
+
 </Project>

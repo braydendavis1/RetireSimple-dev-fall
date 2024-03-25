@@ -15,6 +15,8 @@ public class UsersController : ControllerBase {
 	//private readonly UserService _UserService;
 	private readonly NewEngineMain newEngineMain;
 
+	private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
 	public UsersController(NewEngineMain newEngineMain) {
 		
 		this.newEngineMain = newEngineMain;
@@ -22,26 +24,54 @@ public class UsersController : ControllerBase {
 
 	[EnableCors]
 	[HttpGet]
-	public async Task<UserInfoModel> Get() =>
-		await newEngineMain.HandleReadUser();
+	public async Task<UserInfoModel> Get() {
+
+		logger.Info("GET User");
+
+		try {
+			return await newEngineMain.HandleReadUser();
+		} catch (Exception e) {
+			BadRequest("Error: " + e.Message);
+			logger.Error("Error: {0}", e.Message);
+			return null;
+		}
+
+		
+	}
+		
 
 	//Initialization
 	[HttpPost]
 	public async Task<IActionResult> Post(UserInfoModel newUsers) {
-		//await _UserService.CreateAsync(newUsers);
 
-		await newEngineMain.HandleCreateUser(newUsers);
+		logger.Info("POST User {0}", newUsers.Id);
 
-		return CreatedAtAction(nameof(Get), new { id = newUsers.Id }, newUsers);
+		try {
+			await newEngineMain.HandleCreateUser(newUsers);
+
+			return CreatedAtAction(nameof(Get), new { id = newUsers.Id }, newUsers);
+		} catch (Exception e) 
+		{
+			logger.Error("Error: {0}", e.Message);
+			return BadRequest("Error: " + e.Message);
+		}
+	
 	}
 
 	[HttpPut]
 	public async Task<IActionResult> Update(string id, UserInfoModel updatedUsers) {
-		//var Users = await _UserService.GetAsync(id);
 
-		await newEngineMain.HandleUpdateUser(id, updatedUsers);
+		logger.Info("PUT User {0}", id);
 
-		return NoContent();
+		try {
+			await newEngineMain.HandleUpdateUser(id, updatedUsers);
+
+			return NoContent();
+		}catch (Exception e) {
+			logger.Error("Error: {0}", e.Message);
+			return BadRequest("Error: " + e.Message);
+		}
+
 	}
 
 	

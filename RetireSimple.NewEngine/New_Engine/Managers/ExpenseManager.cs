@@ -121,7 +121,7 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 				projection = projection.Add(await this.expenses[i].Calculate(years));
 
 				List<double> calc = this.expenses[i].Calculate(years).Result.yearly_projections;
-				Console.WriteLine(this.expenses[i].id + "here");
+				//Console.WriteLine(this.expenses[i].id + "here");
 				for(int j = 0; j < calc.Count; j++) {
 					Console.Write(calc[i] + ", ");
 				}

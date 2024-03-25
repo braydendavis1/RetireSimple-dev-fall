@@ -32,6 +32,7 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.Expenses {
 
 		public abstract Projection GenerateProjection(int years);
 
+		/*
 		public async Task SetInfo(ExpenseInfoModel info) {
 			await this.Service.HandleCreateAsync(info);
 		}
@@ -44,7 +45,7 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.Expenses {
 			await this.Service.HandleGetAsync(id);
 		}
 
-		/*
+		
 		public bool Equals(string id) {
 			return base.id == id;
 		}

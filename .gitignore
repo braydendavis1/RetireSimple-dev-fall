@@ -311,3 +311,7 @@ jspm_packages/
 *.diagsession
 
 build/
+
+# log file
+
+NewBackend/Logs/

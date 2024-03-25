@@ -16,6 +16,7 @@ public class ExpensesController : ControllerBase {
 	//private readonly ExpenseService _ExpenseService;
 	private readonly NewEngineMain newEngineMain;
 
+	private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 	public ExpensesController(NewEngineMain newEngineMain) {
 
 		this.newEngineMain = newEngineMain;
@@ -23,39 +24,86 @@ public class ExpensesController : ControllerBase {
 
 	[EnableCors]
 	[HttpGet]
-	public async Task<List<ExpenseInfoModel>> Get() =>
-		 await newEngineMain.HandleReadAllExpenses();
+	public async Task<List<ExpenseInfoModel>> Get() {
+
+		logger.Info("GET Expenses");
+
+		try {
+			
+			return await newEngineMain.HandleReadAllExpenses();
+		}catch (Exception e) {
+			BadRequest("Error: " + e.Message);
+			logger.Error("ERROR: {0}", e.Message);
+			return null;
+		}
+	}
+		
 
 	[EnableCors]
 	[HttpGet]
 	[Route("{id}")]
 	public async Task<ExpenseInfoModel> Get(string id) {
-		return await newEngineMain.HandleReadExpense(id);
+
+		logger.Info("GET Expense {0}", id);
+
+		try {
+			return await newEngineMain.HandleReadExpense(id);
+		}catch (Exception e) {
+			BadRequest("Error: " + e.Message);
+			logger.Error("ERROR: {0}", e.Message);
+			return null;
+		}
+	
 	}
 
 	//Initialization
 	[HttpPost]
 	public async Task<IActionResult> Post(ExpenseInfoModel newExpenses) {
-		//await _ExpenseService.CreateAsync(newExpenses);
 
-		await newEngineMain.HandleCreateExpense(newExpenses);
+		logger.Info("POST NEW Expense {0}", newExpenses.Id );
 
-		return CreatedAtAction(nameof(Get), new { id = newExpenses.Id }, newExpenses);
+		try {
+			await newEngineMain.HandleCreateExpense(newExpenses);
+
+			return CreatedAtAction(nameof(Get), new { id = newExpenses.Id }, newExpenses);
+		} catch (Exception e) {
+			logger.Error("ERROR: {0}", e.Message);
+			return BadRequest("Error: " + e.Message);
+		}
+
+
 	}
 
 	[HttpPut]
 	public async Task<IActionResult> Update(string id, ExpenseInfoModel updatedExpenses) {
-		//var Expenses = await _ExpenseService.GetAsync(id);
 
-		await newEngineMain.HandleUpdateExpense(id, updatedExpenses);
+		logger.Info("PUT Expense {0}", id);
 
-		return NoContent();
+		try {
+
+			await newEngineMain.HandleUpdateExpense(id, updatedExpenses);
+
+			return NoContent();
+		}catch (Exception e) {
+
+			logger.Error("ERROR: {0}", e.Message);
+			return BadRequest("Error: " + e.Message);
+		}
+
 	}
 
 	[HttpDelete]
 	public async Task<IActionResult> Delete(string id) {
-		await newEngineMain.HandleDeleteExpense(id);
-		return NoContent();
+
+		logger.Info("DELETE Expense {0}", id);
+
+		try {
+			await newEngineMain.HandleDeleteExpense(id);
+			return NoContent();
+		} catch(Exception e) {
+			return BadRequest("Error: " + e.Message);
+		}
+		
 	}
 
 

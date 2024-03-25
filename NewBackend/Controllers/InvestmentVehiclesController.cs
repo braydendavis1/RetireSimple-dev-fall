@@ -14,6 +14,8 @@ public class InvestmentVehiclesController : ControllerBase {
 	//private readonly UserService _UserService;
 	private readonly NewEngineMain newEngineMain;
 
+	private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
 	public InvestmentVehiclesController(NewEngineMain newEngineMain) {
 		
 		this.newEngineMain = newEngineMain;
@@ -21,60 +23,125 @@ public class InvestmentVehiclesController : ControllerBase {
 
 	[EnableCors]
 	[HttpGet]
-	public async Task<List<InvestmentVehicleInfoModel>> Get() =>
-		 await newEngineMain.HandleGetInvestmentVehicles();
+	public async Task<List<InvestmentVehicleInfoModel>> Get() {
+
+		logger.Info("GET Investment Vehicles");
+
+		try {
+			return await newEngineMain.HandleGetInvestmentVehicles();
+		}catch(Exception e) {
+			logger.Error("Error: {0}", e.Message);
+			return null;
+		}
+		
+	}
+
 
 	[EnableCors]
 	[HttpGet]
 	[Route("{id}")]
 	public async Task<InvestmentVehicleInfoModel> Get(string id) {
-		return await newEngineMain.HandleGetInvestmentVehicle(id);
+
+		logger.Info("GET Investment Vehicle {0}", id);
+
+		try {
+			return await newEngineMain.HandleGetInvestmentVehicle(id);
+		}
+		catch (Exception e) {
+			BadRequest("Error: " + e.Message);
+			logger.Error("Error: {0}", e.Message);
+			return null;
+		}
+	
 	}
 
 	[EnableCors]
 	[HttpGet]
 	[Route("PortfolioProjection/{years}")]
 	public async Task<ProjectionInfoModel> GetPortfolioProjection(int years) {
-		await newEngineMain.HandleLoadPortfolio();
-		//removed years 
-		return await newEngineMain.HandleGetPorfolioProjection();
+
+		logger.Info("GET Portfolio Projection");
+
+		try {
+			await newEngineMain.HandleLoadPortfolio();
+			//removed years 
+			return await newEngineMain.HandleGetPorfolioProjection();
+		}catch (Exception e) {
+			BadRequest("Error: "+ e.Message);
+			logger.Error("Error: {0}", e.Message);
+			return null;
+		}
+
 	}
 
 	[EnableCors]
 	[HttpGet]
 	[Route("Projection/{id}/{years}")]
 	public async Task<ProjectionInfoModel> GetVehicleProjection(string id, int years) {
-		await newEngineMain.HandleLoadPortfolio();
-		return await newEngineMain.HandleGetVehicleProjection(id);
+
+		logger.Info("GET Projection {0}", id);
+
+		try {
+			await newEngineMain.HandleLoadPortfolio();
+			return await newEngineMain.HandleGetVehicleProjection(id);
+		}catch (Exception e) {
+			BadRequest("Error: " + e.Message);
+			logger.Error("Error: {0}", e.Message);
+			return null;
+		}
+
 	}
 
 	//Initialization
 	[HttpPost]
 	public async Task<IActionResult> Post(InvestmentVehicleInfoModel vehicle, string Type) {
 
-		await newEngineMain.HandleCreateInvestmentVehicle(vehicle, Type);
+		logger.Info("POST Investment Vehicle {0}", vehicle.Id);
 
-	
+		try {
+			await newEngineMain.HandleCreateInvestmentVehicle(vehicle, Type);
+			return CreatedAtAction(nameof(Get), new { id = vehicle.Id }, vehicle);
+		}catch(Exception e) {
+			logger.Error("Error: {0}", e.Message);
+			return BadRequest("Error: "+ e.Message);
+		}
 
-		return CreatedAtAction(nameof(Get), new { id = vehicle.Id }, vehicle);
 	}
 
 
 
 	[HttpPut]
 	public async Task<IActionResult> Update(string id, InvestmentVehicleInfoModel vehicle) {
-		//var Users = await _UserService.GetAsync(id);
 
-		await newEngineMain.HandleUpdateInvestmentVehicle(id, vehicle);
+		logger.Info("PUT Investment Vehicle {0}", id);
+
+		try {
+			await newEngineMain.HandleUpdateInvestmentVehicle(id, vehicle);
 
 
-		return NoContent();
+			return NoContent();
+		}catch(Exception e) {
+			logger.Error("Error: {0}", e.Message);
+			return BadRequest("Error: " + e.Message);
+		}
+
+
 	}
 
 	[HttpDelete]
 	public async Task<IActionResult> Delete(string id) {
-		await newEngineMain.HandleDeleteInvestmentVehicle(id);
-		return NoContent();
+
+		logger.Info("DELETE Investment Vehicle {0}", id);
+
+		try {
+			await newEngineMain.HandleDeleteInvestmentVehicle(id);
+			return NoContent();
+		}
+		catch(Exception e) {
+			logger.Error("Error: {0}", e.Message);
+			return BadRequest("Error: " + e.Message);
+		}
+
 	}
 
 	

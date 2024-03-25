@@ -16,6 +16,8 @@ public class InvestmentsController : ControllerBase {
 	//private readonly InvestmentService _InvestmentService;
 	private readonly NewEngineMain newEngineMain;
 
+	private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
 	public InvestmentsController(NewEngineMain newEngineMain) {
 
 		this.newEngineMain = newEngineMain;
@@ -23,39 +25,85 @@ public class InvestmentsController : ControllerBase {
 
 	[EnableCors]
 	[HttpGet]
-	public async Task<List<InvestmentInfoModel>> Get() =>
-		 await newEngineMain.HandleReadAllInvestments();
+	public async Task<List<InvestmentInfoModel>> Get() {
+
+		logger.Info("GET Investments");
+
+		try {
+			return await newEngineMain.HandleReadAllInvestments();
+		}catch (Exception e) {
+			BadRequest("Error: " + e.Message);
+			logger.Error("Error: {0}", e.Message);
+			return null;
+		}
+		
+	}
+		
 
 	[EnableCors]
 	[HttpGet]
 	[Route("{id}")]
 	public async Task<InvestmentInfoModel> Get(string id) {
-		return await newEngineMain.HandleReadInvestment(id);
+
+		logger.Info("GET Investment {0}", id);
+
+		try {
+			return await newEngineMain.HandleReadInvestment(id);
+		}catch (Exception e) {
+			BadRequest("Error: " + e.Message);
+			logger.Error("Error: {0}", e.Message);
+			return null;
+		}
+		
 	}
 
 	//Initialization
 	[HttpPost]
 	public async Task<IActionResult> Post(InvestmentInfoModel newInvestments) {
-		//await _InvestmentService.CreateAsync(newInvestments);
 
-		await newEngineMain.HandleCreateInvestment(newInvestments);
+		logger.Info("POST New Investment {0}", newInvestments.Id);
 
-		return CreatedAtAction(nameof(Get), new { id = newInvestments.Id }, newInvestments);
+		try {
+			await newEngineMain.HandleCreateInvestment(newInvestments);
+
+			return CreatedAtAction(nameof(Get), new { id = newInvestments.Id }, newInvestments);
+		} catch (Exception e) {
+			logger.Error("Error: {0}", e.Message);
+			return BadRequest("Error: " + e.Message);
+		}
+
 	}
 
 	[HttpPut]
 	public async Task<IActionResult> Update(string id, InvestmentInfoModel updatedInvestments) {
-		//var Investments = await _InvestmentService.GetAsync(id);
 
-		await newEngineMain.HandleUpdateInvestment(id, updatedInvestments);
+		logger.Info("PUT Investment {0}", id);
 
-		return NoContent();
+		try {
+			await newEngineMain.HandleUpdateInvestment(id, updatedInvestments);
+
+			return NoContent();
+		}catch (Exception e) {
+			logger.Error("Error: {0}", e.Message);
+			return BadRequest("Error: " + e.Message);
+		}
+
+
 	}
 
 	[HttpDelete]
 	public async Task<IActionResult> Delete(string id) {
-		await newEngineMain.HandleDeleteInvestment(id);
-		return NoContent();
+
+		logger.Info("DELETE Investment {0}", id);
+
+		try {
+			await newEngineMain.HandleDeleteInvestment(id);
+			return NoContent();
+		}catch (Exception e) {
+			logger.Error("Error: {0}", e.Message);
+			return BadRequest("Error: " + e.Message);
+		}
+		
 	}
 
 
