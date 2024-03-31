@@ -36,6 +36,10 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels._401kGrowthModels {
 
 				double val = (double)(values[i] * (1 + info.Rate/100));
 
+				if (info.Annual_Contribution != null && info.Annual_Contribution >= 0) {
+					val += (double)info.Annual_Contribution;
+				}
+
 				double newVal = val + personal_contribution + employer_contribution;
 
 				//previous value + personal contribution + employer contributions
