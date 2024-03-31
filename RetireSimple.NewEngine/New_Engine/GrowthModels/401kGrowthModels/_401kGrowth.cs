@@ -53,7 +53,7 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels._401kGrowthModels {
 
 				double newValMinusExpenses = val - CalculateExpenses(expenses, i);
 
-				values.Add(newVal);
+				values.Add(newValMinusExpenses);
 			}
 
 			return new Projection(values, 0);
