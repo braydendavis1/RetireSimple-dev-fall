@@ -1,5 +1,6 @@
 ﻿using RetireSimple.Engine.New_Engine;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
+using RetireSimple.NewEngine.New_Engine.Financials.Expenses;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.InvestmentVehicleInfos;
 
 using System;
@@ -20,7 +21,7 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels._401kGrowthModels {
 		}
 
 
-		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfoModel info) {
+		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfoModel info, List<Expense> expenses) {
 			List<double> values = new List<double>();
 
 			values.Add(value);
@@ -45,6 +46,8 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels._401kGrowthModels {
 
 				//add new value to list 
 				//values.Add(newVal_withGrowth);
+
+				double newValMinusExpenses = val - CalculateExpenses(expenses, i);
 
 				values.Add(newVal);
 			}
@@ -79,6 +82,18 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels._401kGrowthModels {
 			return (double)(info.Salary * Math.Pow((double)(1 + (info.SalaryIncrease / 100)), i));
 		}
 
+		private static double CalculateExpenses(List<Expense> expenses, int year) {
+
+			double total = 0;
+
+			for(int i = 0; i < expenses.Count; i++) {
+				if (expenses[i].start >= year) {
+					total += expenses[i].amount;
+				}
+			}
+
+			return total;
+		}
 		
 	}
 }

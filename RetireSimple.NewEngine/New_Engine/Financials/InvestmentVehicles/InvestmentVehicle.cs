@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 using System.Runtime.InteropServices;
 using RetireSimple.NewEngine.New_Engine.Database;
+using RetireSimple.NewEngine.New_Engine.Financials.Expenses;
 
 namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 	public abstract class InvestmentVehicle : DatabaseObject<InvestmentVehicleInfoModel> {
@@ -24,6 +25,8 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 		private List<Investment> investments;
 
 		private InvestmentVehicleInfoModel info;
+
+		private List<Expense> expenses;
 
 		
 		//protected Service<InvestmentVehicleInfoModel> service;
@@ -57,8 +60,6 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 
 
 
-
-
 		public void UpdateInvestment(string id, Investment investment) {
 
 		}
@@ -87,7 +88,7 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 
 			//Console.WriteLine("Testing IV");
 
-			return this.growthModel.GenerateProjection(info.Value, years, info);
+			return this.growthModel.GenerateProjection(info.Value, years, info, this.expenses);
 		}
 
 
