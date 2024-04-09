@@ -1,4 +1,6 @@
-﻿using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
+﻿using MongoDB.Driver;
+
+using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
 using RetireSimple.NewEngine.New_Engine.Database.Services;
 
 using System;
@@ -27,6 +29,12 @@ namespace RetireSimple.NewEngine.New_Engine.Database {
 
 		public async Task UpdateInfo(T info) {
 			await this.service.HandleUpdateAsync(this.id, info);
+		}
+
+		public async Task UpdateNestedObject(FilterDefinition<T> filter, UpdateDefinition<T> update) {
+			Console.WriteLine(update.ToString());
+
+			await this.service.HandleUpdateOneAsync(filter, update);
 		}
 
 		//Create

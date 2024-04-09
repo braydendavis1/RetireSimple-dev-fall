@@ -16,6 +16,8 @@ using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInf
 using System.Runtime.InteropServices;
 using RetireSimple.NewEngine.New_Engine.Database;
 using RetireSimple.NewEngine.New_Engine.Financials.Expenses;
+using MongoDB.Driver;
+using static MongoDB.Driver.WriteConcern;
 
 namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 	public abstract class InvestmentVehicle : DatabaseObject<InvestmentVehicleInfoModel> {
@@ -48,6 +50,17 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 			return base.id == id;
 		}
 		*/
+
+		public async Task AddExpense(string expenseId) {
+			var filter = Builders<InvestmentVehicleInfoModel>.Filter.Eq(investmentVehicle => investmentVehicle.Id, this.id);
+
+			//Console.WriteLine(info.Id);
+			//Issue is here
+			var update = Builders<InvestmentVehicleInfoModel>.Update.Push<string>(investmentVehicle => investmentVehicle.ExpenseIds,  expenseId);
+
+			 await base.UpdateNestedObject(filter, update);
+
+		}
 		
 
 		public List<Investment> GetInvestments() {

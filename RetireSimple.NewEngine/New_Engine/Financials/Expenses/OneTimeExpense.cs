@@ -24,5 +24,7 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.Expenses {
 
 			return new Projection(values, base.start); 
 		}
+
+		public override double getOneYear() => throw new NotImplementedException();
 	}
 }

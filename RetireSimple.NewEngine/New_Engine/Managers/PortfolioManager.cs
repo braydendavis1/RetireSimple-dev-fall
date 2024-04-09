@@ -123,6 +123,20 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			return projection;
 		}
 
+		public async Task AddExpense(string id, string expenseId) {
+			int index = -1;
+			Console.WriteLine(this.investmentVehicles.Count);
+			for (int i = 0; i < this.investmentVehicles.Count; i++) {
+				if (this.investmentVehicles[i].Equals(id)) {
+					index = i;
+				}
+			}
+			if (index != -1) {
+				Console.WriteLine(index);
+				await this.investmentVehicles[index].AddExpense(expenseId);
+			}
+		}
+
 		public async Task CreateInvestment(InvestmentInfoModel info) {
 			Investment investment;
 			if (info.investmentType.ToLower().Equals("bond")) {
@@ -160,6 +174,9 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			await this.investmentService.HandleDeleteAsync(id);
 		}
 	}
+
+
+
 
 	
 

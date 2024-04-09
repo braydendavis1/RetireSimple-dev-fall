@@ -138,5 +138,9 @@ namespace RetireSimple.NewEngine.New_Engine {
 			await this.user.LoadExpenseManager();
 		}
 
+		public async Task HandleAddExpenseToInvestmentVehicle(string id, string expenseId) {
+			await this.user.AddExpenseToInvestmentVehicle(id, expenseId);
+		}
+
 	}
 }

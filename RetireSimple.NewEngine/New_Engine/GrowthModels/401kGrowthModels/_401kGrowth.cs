@@ -51,7 +51,7 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels._401kGrowthModels {
 				//add new value to list 
 				//values.Add(newVal_withGrowth);
 
-				double newValMinusExpenses = val - CalculateExpenses(expenses, i);
+				double newValMinusExpenses = newVal - CalculateExpenses(expenses, i);
 
 				values.Add(newValMinusExpenses);
 			}
@@ -90,11 +90,14 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels._401kGrowthModels {
 
 			double total = 0;
 
-			for(int i = 0; i < expenses.Count; i++) {
-				if (expenses[i].start >= year) {
-					total += expenses[i].amount;
+			if(expenses != null) {
+				for (int i = 0; i < expenses.Count; i++) {
+					if (expenses[i].start >= year) {
+						total += expenses[i].amount;
+					}
 				}
 			}
+		
 
 			return total;
 		}

@@ -27,5 +27,8 @@ namespace RetireSimple.NewEngine.New_Engine.Database.Services {
 			await collection.DeleteOneAsync(x => x.Id == id);
 
 
+		public async Task UpdateOneAsync(FilterDefinition<T> filter, UpdateDefinition<T> update, IMongoCollection<T> collection) =>
+			await collection.UpdateOneAsync(filter, update);
+
 	}
 }

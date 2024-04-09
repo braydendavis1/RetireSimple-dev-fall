@@ -32,6 +32,8 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.Expenses {
 
 		public abstract Projection GenerateProjection(int years);
 
+		public abstract double getOneYear();
+
 		/*
 		public async Task SetInfo(ExpenseInfoModel info) {
 			await this.Service.HandleCreateAsync(info);

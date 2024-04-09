@@ -138,6 +138,10 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			return await this.expenseManager.GetExpenseInfoModels();
 		}
 
+		public async Task AddExpenseToInvestmentVehicle(string id, string expenseId) {
+			await this.portfolioManager.AddExpense(id, expenseId);
+		}
+
 		public async Task DeleteExpense(string id) {
 			await this.expenseManager.DeleteExpenseInfoModel(id);
 		}

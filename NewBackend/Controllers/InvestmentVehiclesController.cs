@@ -128,6 +128,14 @@ public class InvestmentVehiclesController : ControllerBase {
 
 	}
 
+	[HttpPut]
+	[Route("AddExpenseInvestmentVehicle")]
+	public async Task<IActionResult> AddExpenseToInvestmentVehicle(string id, string expenseId) {
+		await newEngineMain.HandleLoadPortfolio();
+		await newEngineMain.HandleAddExpenseToInvestmentVehicle(id, expenseId);
+		return NoContent();
+	}
+
 	[HttpDelete]
 	public async Task<IActionResult> Delete(string id) {
 

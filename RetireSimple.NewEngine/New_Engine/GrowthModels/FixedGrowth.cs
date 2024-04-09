@@ -1,5 +1,6 @@
 ﻿using RetireSimple.Engine.New_Engine;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
+using RetireSimple.NewEngine.New_Engine.Financials.Expenses;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.InvestmentVehicleInfos;
 
 using System;
@@ -32,5 +33,7 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels {
 			return new Projection(values, 0);
 
 		}
+
+		Projection IGrowthModel.GenerateProjection(double value, int years, InvestmentVehicleInfoModel info, List<Expense> expenses) => throw new NotImplementedException();
 	}
 }

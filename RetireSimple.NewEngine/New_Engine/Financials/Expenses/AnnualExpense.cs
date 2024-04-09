@@ -33,5 +33,6 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.Expenses {
 
 		public override double getOneYear() {
 			return this.amount;
+		}
 	}
 }

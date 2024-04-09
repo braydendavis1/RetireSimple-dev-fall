@@ -45,6 +45,12 @@ namespace RetireSimple.NewEngine.New_Engine.Database.Services {
 		public async Task HandleDeleteAsync(string id) =>
 			await this.mongoService.RemoveAsync(id, this.collection);
 
+		public async Task HandleUpdateOneAsync(FilterDefinition<T> filter, UpdateDefinition<T> update) {
+			Console.WriteLine(filter.ToString());
+			await this.mongoService.UpdateOneAsync(filter, update, this.collection);
+		}
+			
+
 
 
 
