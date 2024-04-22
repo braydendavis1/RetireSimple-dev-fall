@@ -14,6 +14,7 @@ import {Layout} from './Layout';
 import {InvestmentsPage} from './pages/InvestmentsPage';
 import {VehiclesPage} from './pages/VehiclesPage';
 import {AboutPage} from './pages/AboutPage';
+import {SetUpPage} from './pages/SetUpPage';
 import './index.css';
 import { HelpPage } from './pages/HelpPage';
 import { ExpensesPage } from './pages/ExpensesPage';
@@ -161,6 +162,12 @@ const router = createBrowserRouter(
 				path='Settings/'
 				element={
 					<SettingsPage />
+				}
+			/>
+			<Route
+				path='SetUpPage/'
+				element={
+					<SetUpPage />
 				}
 			/>
 			<Route
