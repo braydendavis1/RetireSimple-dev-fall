@@ -27,6 +27,9 @@ import { getExpense } from './api/New API/ExpenseApi';
 import { ProjectionView } from './routes/ProjectionView';
 import { convertProjectionData } from './api/ApiMapper';
 import { ProjectionInfo } from './Interfaces';
+import { VehiclesInfoPage } from './pages/VehiclesInfoPage';
+import { InvestmentsInfoPage } from './pages/InvestmentsInfoPage';
+import { ExpensesInfoPage } from './pages/ExpensesInfoPage';
 
 const InvestmentView = React.lazy(() =>
 	import('./routes/InvestmentView').then((module) => ({default: module.InvestmentView})),
@@ -168,6 +171,24 @@ const router = createBrowserRouter(
 				path='SetUpPage/'
 				element={
 					<SetUpPage />
+				}
+			/>
+			<Route
+				path='InvestmentsInfoPage/'
+				element={
+					<InvestmentsInfoPage />
+				}
+			/>
+			<Route
+				path='VehiclesInfoPage/'
+				element={
+					<VehiclesInfoPage />
+				}
+			/>
+			<Route
+				path='ExpensesInfoPage/'
+				element={
+					<ExpensesInfoPage />
 				}
 			/>
 			<Route

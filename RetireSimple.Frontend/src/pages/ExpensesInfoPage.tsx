@@ -4,13 +4,14 @@ import SettingsNav from './SettingsNav';
 import React, { useState } from 'react';
 import SetUpNav from './SetUpNav';
   
-export function SetUpPage() { 
+export function ExpensesInfoPage() { 
 
 	const [currentIndex, setCurrentIndex] = useState(0);
   
 	// Array of image URLs
 	const imageUrls = [
-		'/images/HomePage.PNG',
+		'/images/AddExpense.PNG',
+		'/images/ExpenseInfo.PNG',
 	];
 
 	const handleClick = () => {
@@ -21,7 +22,7 @@ export function SetUpPage() {
 	return (
 		<div>
 			<SettingsNav />
-			<h1>How to use RetireSimple</h1>
+			<h1>How to use Expenses</h1>
 			<SetUpNav />
 			<button onClick={handleClick}>Next Image</button>
 			<div>

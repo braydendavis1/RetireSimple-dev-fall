@@ -18,7 +18,7 @@ const SettingsNav = () => {
 			<Tab value='Engine Info' label='Engine Info' component={Link} to='/EngineInfoPage' />
 			<Tab value='About' label='About' component={Link} to='/AboutPage' />
 			<Tab value='Help' label='Help' component={Link} to='/HelpPage' />
-			<Tab value='Set Up Assistance' label='Set Up Assistance' component={Link} to='/SetUpPage' />
+			<Tab value='How To' label='How To' component={Link} to='/SetUpPage' />
 		</Tabs>
 	);
 }
