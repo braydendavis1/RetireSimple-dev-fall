@@ -1,8 +1,9 @@
-import {Box, Typography} from '@mui/material';
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import { Link } from 'react-router-dom'; 
 import SettingsNav from './SettingsNav';
 import React, { useState } from 'react';
 import SetUpNav from './SetUpNav';
+import Icon from '@mui/material/Icon';
   
 export function VehiclesInfoPage() { 
 
@@ -14,8 +15,11 @@ export function VehiclesInfoPage() {
 		'/images/VehicleInfo.PNG',
 	];
 
-	const handleClick = () => {
-		// Increment currentIndex, looping back to 0 if at the end
+	const goToPrevious = () => {
+		setCurrentIndex((prevIndex) => (prevIndex === 0 ? imageUrls.length - 1 : prevIndex - 1));
+	};
+    
+	const goToNext = () => {
 		setCurrentIndex((prevIndex) => (prevIndex + 1) % imageUrls.length);
 	};
   
@@ -24,9 +28,17 @@ export function VehiclesInfoPage() {
 			<SettingsNav />
 			<h1>How to use Vehicles</h1>
 			<SetUpNav />
-			<button onClick={handleClick}>Next Image</button>
-			<div>
-				<img src={imageUrls[currentIndex]} alt={`Image ${currentIndex + 1}`} />
+			<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh' }}>
+				<div style={{ display: 'flex', marginBottom: '10px' }}>
+					<button onClick={goToPrevious}>
+						<Icon sx={{ fontSize: 36 }}>arrow_backward</Icon>
+					</button>
+					<img style={{ maxWidth: '100%', maxHeight: '100%' }} 
+						src={imageUrls[currentIndex]} alt={`Image ${currentIndex + 1}`} />
+					<button onClick={goToNext}>
+						<Icon sx={{ fontSize: 36 }}>arrow_forward</Icon>
+					</button>
+				</div>
 			</div>
 		</div>
 	);

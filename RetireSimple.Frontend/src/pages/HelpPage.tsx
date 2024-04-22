@@ -22,9 +22,6 @@ export function HelpPage() {
 				You can come back here using the "Home" item in the top of the
 				sidebar list.
 			</Typography>
-			<br />
-			<Typography variant='h6'>TODO: Create help page/ wizard </Typography>
-			<br />
 		</Box>
 	</div>
 	);

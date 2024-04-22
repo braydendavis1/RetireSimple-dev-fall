@@ -46,7 +46,7 @@ export const InvestmentView = () => {
 		<><Box sx={{ display: 'flex', flexDirection: 'column' }}>
 			<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
 				<Typography variant='h6' component='div' sx={{ flexGrow: 1, marginBottom: '1rem' }}>
-					Vehicle Details: {investmentData.investmentVehicleName}
+					Investment Details: {investmentData.investmentVehicleName}
 				</Typography>
 				<FormProvider {...formContext}>
 					<InvestmentDataForm defaultValues={investmentData} disableTypeSelect={true}>
