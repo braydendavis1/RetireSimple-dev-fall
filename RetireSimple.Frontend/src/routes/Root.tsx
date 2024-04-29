@@ -51,7 +51,7 @@ export const Root = () => {
 					)}
 					{hasData && (
 						<Box>
-							<PortfolioAggregateGraph modelData={portfolioData} height={350} />
+							<PortfolioAggregateGraph yearOffset={0} modelData={portfolioData} height={350} />
 						</Box>
 					)}
 				</Box>

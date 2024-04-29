@@ -1,7 +1,8 @@
 import { Investment, InvestmentModel, ProjectionInfo } from "../../Interfaces";
+import {port } from "../ApiMapper";
 
 export const getInvestments = async () : Promise<Investment[]> => {
-	const response = await fetch(`https://localhost:7199/api/Investments`, {
+	const response = await fetch(`https://localhost:${port}/api/Investments`, {
 		method: 'GET',
 	});
 	const data = await response.json().then((data) => {
@@ -11,12 +12,12 @@ export const getInvestments = async () : Promise<Investment[]> => {
 }
 
 export const getInvestment = async (id : String) : Promise<InvestmentModel> => {
-	const response = await fetch(`https://localhost:7199/api/Investments/${id}`)
+	const response = await fetch(`https://localhost:${port}/api/Investments/${id}`)
 	return await response.json()
 }
 
 export const createInvestment = async(data : {[key: string]: string}, type : string) => {
-	const response = await fetch(`https://localhost:7199/api/Investments?Type=${type}`,{
+	const response = await fetch(`https://localhost:${port}/api/Investments?Type=${type}`,{
 		method: 'POST',
 		body: JSON.stringify(data),
 		headers: {
@@ -27,7 +28,7 @@ export const createInvestment = async(data : {[key: string]: string}, type : str
 }
 
 export const updateInvestment = async(data : {[key: string]: string}, id : string) => {
-	const response = await fetch(`https://localhost:7199/api/Investments?Id=${id}`, {
+	const response = await fetch(`https://localhost:${port}/api/Investments?Id=${id}`, {
 		method: 'PUT',
 		body: JSON.stringify(data),
 		headers: {
@@ -38,7 +39,7 @@ export const updateInvestment = async(data : {[key: string]: string}, id : strin
 }
 
 export const deleteInvestment = async(id : string) => {
-	const response = await fetch(`https://localhost:7199/api/Investments?id=${id}`, {
+	const response = await fetch(`https://localhost:${port}/api/Investments?id=${id}`, {
 		method: 'DELETE',
 		headers: {
 			Accept: 'application/json',
@@ -53,7 +54,7 @@ export const deleteInvestment = async(id : string) => {
 export const getInvestmentProjection = 
 async (id : string) : Promise<ProjectionInfo> => {
 	//remove years??
-	const response = await fetch(`https://localhost:7199/api/Investments/Projection/${id}`, {
+	const response = await fetch(`https://localhost:${port}/api/Investments/Projection/${id}`, {
 		method: 'GET',
 	});
 	return await response.json();

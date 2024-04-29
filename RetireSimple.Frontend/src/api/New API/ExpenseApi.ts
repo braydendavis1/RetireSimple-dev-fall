@@ -1,7 +1,8 @@
 import { Expense, ProjectionInfo } from "../../Interfaces";
+import {port } from "../ApiMapper";
 
 export const getExpenses = async () : Promise<Expense[]> => {
-	const response = await fetch(`https://localhost:7199/api/Expenses`, {
+	const response = await fetch(`https://localhost:${port}/api/Expenses`, {
 		method: 'GET',
 	});
 	const data = await response.json().then((data) => {
@@ -11,12 +12,12 @@ export const getExpenses = async () : Promise<Expense[]> => {
 }
 
 export const getExpense = async (id : String) : Promise<Expense> => {
-	const response = await fetch(`https://localhost:7199/api/Expenses/${id}`)
+	const response = await fetch(`https://localhost:${port}/api/Expenses/${id}`)
 	return await response.json()
 }
 
 export const createExpense = async(data : {[key: string]: string}, type : string) => {
-	const response = await fetch(`https://localhost:7199/api/Expenses?type=${type}`,{
+	const response = await fetch(`https://localhost:${port}/api/Expenses?type=${type}`,{
 		method: 'POST',
 		body: JSON.stringify(data),
 		headers: {
@@ -27,7 +28,7 @@ export const createExpense = async(data : {[key: string]: string}, type : string
 }
 
 export const updateExpense = async(data : {[key: string]: string}, id : string) => {
-	const response = await fetch(`https://localhost:7199/api/Expenses?Id=${id}`, {
+	const response = await fetch(`https://localhost:${port}/api/Expenses?Id=${id}`, {
 		method: 'PUT',
 		body: JSON.stringify(data),
 		headers: {
@@ -38,7 +39,7 @@ export const updateExpense = async(data : {[key: string]: string}, id : string) 
 }
 
 export const deleteExpense = async(id : string) => {
-	const response = await fetch(`https://localhost:7199/api/Expenses?id=${id}`, {
+	const response = await fetch(`https://localhost:${port}/api/Expenses?id=${id}`, {
 		method: 'DELETE',
 		headers: {
 			Accept: 'application/json',
@@ -53,7 +54,7 @@ export const deleteExpense = async(id : string) => {
 
 export const getExpenseProjection = 
 async (id : string, years : number) : Promise<ProjectionInfo> => {
-	const response = await fetch(`https://localhost:7199/api/Expenses/Projection/${id}`, {
+	const response = await fetch(`https://localhost:${port}/api/Expenses/Projection/${id}`, {
 		method: 'GET',
 	});
 	return await response.json();

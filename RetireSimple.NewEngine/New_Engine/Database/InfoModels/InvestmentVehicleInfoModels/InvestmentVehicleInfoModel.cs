@@ -38,7 +38,7 @@ namespace RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicl
 		//used for roth IRA and lump sum for 401k
 		public double? Annual_Contribution { get; set; }
 
-		public List<string> ExpenseIds { get; set; }
+		public List<string>? ExpenseIds { get; set; }
 
 
 	}

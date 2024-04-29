@@ -188,6 +188,9 @@ export const convertInvestmentVehiclesInfo = (data : any): InvestmentVehicleInfo
 			employerMatchCap: vehicleInfo.employerMatchCap,
 			projection: null,
 			contributionType: vehicleInfo.contributionType,
+			employerLumpSum: vehicleInfo.employerLumpSum,
+			retirementRate: vehicleInfo.retirementRate,
+			expenseIDs: vehicleInfo.expenseIDs,
 		};
 
 		vehicles.push(vehicle);
@@ -267,3 +270,5 @@ export const convertExpenseInfo = (data : any): Expense[] => {
 	return expenses;
 	
 }
+
+export const port = "7199"

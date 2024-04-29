@@ -1,7 +1,11 @@
 import { InvestmentVehicleInfo, ProjectionInfo } from "../../Interfaces";
+import {port } from "../ApiMapper";
+
+
+
 
 export const getInvestmentVehicles = async () : Promise<InvestmentVehicleInfo[]> => {
-	const response = await fetch(`https://localhost:7199/api/InvestmentVehicles`, {
+	const response = await fetch(`https://localhost:${port}/api/InvestmentVehicles`, {
 		method: 'GET',
 	});
 	const data = await response.json().then((data) => {
@@ -11,12 +15,12 @@ export const getInvestmentVehicles = async () : Promise<InvestmentVehicleInfo[]>
 }
 
 export const getInvestmentVehicle = async (id : String) : Promise<InvestmentVehicleInfo> => {
-	const response = await fetch(`https://localhost:7199/api/InvestmentVehicles/${id}`)
+	const response = await fetch(`https://localhost:${port}/api/InvestmentVehicles/${id}`)
 	return await response.json()
 }
 
 export const createInvestmentVehicle = async(data : {[key: string]: string}, type : string) => {
-	const response = await fetch(`https://localhost:7199/api/InvestmentVehicles?Type=${type}`,{
+	const response = await fetch(`https://localhost:${port}/api/InvestmentVehicles?Type=${type}`,{
 		method: 'POST',
 		body: JSON.stringify(data),
 		headers: {
@@ -27,7 +31,7 @@ export const createInvestmentVehicle = async(data : {[key: string]: string}, typ
 }
 
 export const updateInvestmentVehicle = async(data : {[key: string]: string}, id : string) => {
-	const response = await fetch(`https://localhost:7199/api/InvestmentVehicles?Id=${id}`, {
+	const response = await fetch(`https://localhost:${port}/api/InvestmentVehicles?Id=${id}`, {
 		method: 'PUT',
 		body: JSON.stringify(data),
 		headers: {
@@ -38,7 +42,7 @@ export const updateInvestmentVehicle = async(data : {[key: string]: string}, id 
 }
 
 export const deleteInvestmentVehicle = async(id : string) => {
-	const response = await fetch(`https://localhost:7199/api/InvestmentVehicles?id=${id}`, {
+	const response = await fetch(`https://localhost:${port}/api/InvestmentVehicles?id=${id}`, {
 		method: 'DELETE',
 		headers: {
 			Accept: 'application/json',
@@ -53,7 +57,7 @@ export const deleteInvestmentVehicle = async(id : string) => {
 export const getInvestmentVehicleProjection = 
 async (id : string, years : number) : Promise<ProjectionInfo> => {
 	//remove years??
-	const response = await fetch(`https://localhost:7199/api/InvestmentVehicles/Projection/${id}/${years}`, {
+	const response = await fetch(`https://localhost:${port}/api/InvestmentVehicles/Projection/${id}/${years}`, {
 		method: 'GET',
 	});
 	return await response.json();
@@ -61,7 +65,7 @@ async (id : string, years : number) : Promise<ProjectionInfo> => {
 }
 	
 export const getPortfolioProjection = async () : Promise<ProjectionInfo> => {
-	const response = await fetch(`https://localhost:7199/api/InvestmentVehicles/PortfolioProjection/0`, {
+	const response = await fetch(`https://localhost:${port}/api/InvestmentVehicles/PortfolioProjection/0`, {
 		method: 'GET',
 	});
 	return await response.json();

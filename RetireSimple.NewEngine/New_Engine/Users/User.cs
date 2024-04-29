@@ -51,6 +51,10 @@ namespace RetireSimple.NewEngine.New_Engine.Users {
 			await this.expenseManager.LoadExpenses();
 		}
 
+		public async Task LoadExpensesToVehicles() {
+			
+		}
+
 		
 	
 		public void AddTax(ITax tax) {
