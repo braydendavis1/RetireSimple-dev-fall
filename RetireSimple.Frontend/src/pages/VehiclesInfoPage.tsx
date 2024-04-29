@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'; 
 import SettingsNav from './SettingsNav';
 import React, { useState } from 'react';
-import SetUpNav from './SetUpNav';
+import SetUpNav from './HelpNav';
 import Icon from '@mui/material/Icon';
   
 export function VehiclesInfoPage() { 
@@ -38,6 +38,9 @@ export function VehiclesInfoPage() {
 					<button onClick={goToNext}>
 						<Icon sx={{ fontSize: 36 }}>arrow_forward</Icon>
 					</button>
+				</div>
+				<div style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', color: 'white', fontSize: '18px', backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: '5px 10px', borderRadius: '5px' }}>
+					Page {currentIndex + 1} of {imageUrls.length}
 				</div>
 			</div>
 		</div>

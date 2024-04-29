@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {Tab, Tabs} from '@mui/material';
 import React, { useState } from 'react';
 
-const SetUpNav = () => {
+const HelpNav = () => {
 	const [value, setValue] = useState('');
 	const handleChange = (event: React.SyntheticEvent, newValue: string) => {
 		setValue(newValue);
@@ -22,4 +22,4 @@ const SetUpNav = () => {
 	);
 }
 
-export default SetUpNav;
+export default HelpNav;
