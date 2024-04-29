@@ -130,10 +130,13 @@ export const AddVehicleDialog = (props: AddVehicleDialogProps) => {
 	});
 
 	const handleVehicleAdd = (data: FieldValues) => {
-		const vehicle: {[key: string]: string} = {};
+		const vehicle: {[key: string]: string} = {
+		};
 		Object.entries(data)
 			.map(([key, value]) => [key, value.toString()])
 			.forEach(([key, value]) => (vehicle[key] = value));
+
+		console.log(vehicle);
 		createInvestmentVehicle(vehicle, data.type).then(() => {
 			props.onClose();
 			props.loadVehicles();

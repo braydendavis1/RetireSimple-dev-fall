@@ -186,11 +186,11 @@ export const convertInvestmentVehiclesInfo = (data : any): InvestmentVehicleInfo
 			rate: vehicleInfo.rate,
 			employerMatch: vehicleInfo.employerMatch,
 			employerMatchCap: vehicleInfo.employerMatchCap,
-			projection: null,
 			contributionType: vehicleInfo.contributionType,
 			employerLumpSum: vehicleInfo.employerLumpSum,
 			retirementRate: vehicleInfo.retirementRate,
 			expenseIDs: vehicleInfo.expenseIDs,
+			projection: vehicleInfo.projection,
 		};
 
 		vehicles.push(vehicle);

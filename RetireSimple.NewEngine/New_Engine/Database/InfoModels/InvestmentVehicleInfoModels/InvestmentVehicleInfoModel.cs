@@ -40,6 +40,8 @@ namespace RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicl
 
 		public List<string>? ExpenseIds { get; set; }
 
+		public double? Projection { get; set; }
+
 
 	}
 }

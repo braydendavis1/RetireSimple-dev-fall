@@ -61,7 +61,17 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 			 await base.UpdateNestedObject(filter, update);
 
 		}
-		
+
+		public async Task SetProjectedValue() {
+			Projection projection = await this.Calculate(30);
+
+			double projectedValue = projection.yearly_projections[29];
+			Console.WriteLine(projectedValue);
+			var filter = Builders<InvestmentVehicleInfoModel>.Filter.Eq(InvestmentVehicle => InvestmentVehicle.Id, this.id);
+			var update = Builders<InvestmentVehicleInfoModel>.Update.Set<double?>(investmentVehicle => investmentVehicle.Projection, projectedValue);
+
+		}
+
 
 		public List<Investment> GetInvestments() {
 			return this.investments;
@@ -70,6 +80,8 @@ namespace RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles {
 		public void AddInvestment(Investment investment) {
 			this.investments.Add(investment);
 		}
+
+
 
 
 

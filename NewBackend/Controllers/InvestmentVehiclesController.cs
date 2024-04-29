@@ -5,6 +5,7 @@ using MongoDB.Driver;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInfoModels;
 using RetireSimple.Engine.New_Engine;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
+using RetireSimple.NewEngine.New_Engine.GrowthModels._401kGrowthModels;
 
 namespace UserstoreApi.Controllers;
 
@@ -97,6 +98,11 @@ public class InvestmentVehiclesController : ControllerBase {
 	public async Task<IActionResult> Post(InvestmentVehicleInfoModel vehicle, string Type) {
 
 		logger.Info("POST Investment Vehicle {0}", vehicle.Id);
+
+		_401kGrowth growth = new _401kGrowth();
+		Projection projection = growth.GenerateProjection(vehicle.Value, 30, vehicle, new List<RetireSimple.NewEngine.New_Engine.Financials.Expenses.Expense>());
+		vehicle.Projection = Math.Round(projection.yearly_projections[29], 2);
+		vehicle.ExpenseIds = new List<string>();
 
 		try {
 			await newEngineMain.HandleCreateInvestmentVehicle(vehicle, Type);
