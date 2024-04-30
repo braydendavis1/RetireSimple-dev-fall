@@ -33,14 +33,17 @@ export function VehiclesInfoPage() {
 					<button onClick={goToPrevious}>
 						<Icon sx={{ fontSize: 36 }}>arrow_backward</Icon>
 					</button>
-					<img style={{ maxWidth: '100%', maxHeight: '100%' }} 
-						src={imageUrls[currentIndex]} alt={`Image ${currentIndex + 1}`} />
+					<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+						<img style={{ maxWidth: '100%', minHeight: '100%' }} 
+							src={imageUrls[currentIndex]} alt={`Image ${currentIndex + 1}`} />
+						<div style={{ position:'relative', bottom:'-10px', maxWidth:'fit-content', color: 'white', fontSize: '18px', backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: '5px 10px', borderRadius: '5px' }}>
+							Page {currentIndex + 1} of {imageUrls.length}
+						</div>
+
+					</div>
 					<button onClick={goToNext}>
 						<Icon sx={{ fontSize: 36 }}>arrow_forward</Icon>
 					</button>
-				</div>
-				<div style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)', color: 'white', fontSize: '18px', backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: '5px 10px', borderRadius: '5px' }}>
-					Page {currentIndex + 1} of {imageUrls.length}
 				</div>
 			</div>
 		</div>
