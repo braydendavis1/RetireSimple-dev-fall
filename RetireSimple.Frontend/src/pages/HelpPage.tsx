@@ -26,7 +26,7 @@ export function HelpPage() {
 			<SettingsNav />
 			<h1>How to use RetireSimple</h1>
 			<SetUpNav />
-			<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh' }}>
+			<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 				<div style={{ display: 'flex', marginBottom: '10px' }}>
 					<button onClick={goToPrevious}>
 						<Icon sx={{ fontSize: 36 }}>arrow_backward</Icon>

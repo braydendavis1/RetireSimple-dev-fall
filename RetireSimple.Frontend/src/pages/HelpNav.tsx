@@ -14,7 +14,7 @@ const HelpNav = () => {
 			value={value}
 			onChange={handleChange}
 		>
-			<Tab value='Home' label='Home' component={Link} to='/SetUpPage' />
+			<Tab value='Home' label='Home' component={Link} to='/HelpPage' />
 			<Tab value='Investments' label='Investments' component={Link} to='/InvestmentsInfoPage' />
 			<Tab value='Vehicles' label='Vehicles' component={Link} to='/VehiclesInfoPage' />
 			<Tab value='Expenses' label='Expenses' component={Link} to='/ExpensesInfoPage' />
