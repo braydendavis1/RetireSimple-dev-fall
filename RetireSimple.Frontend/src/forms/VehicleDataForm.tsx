@@ -45,9 +45,12 @@ export const VehicleDataForm = (props: VehicleDataFormProps) => {
 			options={[
 				{ value: '401k', label: '401k', tooltip: '' },
 				// { value: 'IRA', label: 'IRA', tooltip: '' },
-				// { value: 'RothIRA', label: 'Roth IRA', tooltip: '' },
+				{ value: 'RothIRA', label: 'Roth IRA', tooltip: '' },
 				// { value: '403b', label: '403b', tooltip: '' },
-				// { value: '457', label: '457', tooltip: '' },
+				{ value: '457b', label: '457b', tooltip: '' },
+				{ value: 'Cash', label: 'Cash', tooltip: '' },
+				{ value: 'Pension', label: 'Pension', tooltip: '' },
+
 			]}
 			disable={props.disableTypeSelect ?? false}
 			tooltip='The type of vehicle this is. This does alter how we determine the tax-applied model.' 		/>
