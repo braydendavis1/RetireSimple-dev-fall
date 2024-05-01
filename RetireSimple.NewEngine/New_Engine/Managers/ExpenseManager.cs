@@ -61,9 +61,11 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 			} else if (info.Type.ToLower().Equals("annual")){
 				expense = new AnnualExpense(info.Id, info.Amount, info.Start, info.Name, info.End);
 
-			}else {
+			}else if (info.Type.ToLower().Equals("onetime")) {
 				expense = new OneTimeExpense(info.Id, info.Amount, info.Start, info.Name);
 
+			}else {
+				expense = new MonthlyExpense(info.Id, info.Amount, info.Start, info.Name, info.End);
 			}
 			this.expenses.Add(expense);
 			//Console.WriteLine(info.Id);

@@ -39,8 +39,9 @@ export const ExpenseDataForm = (props: ExpenseDataFormProps) => {
 			name='type'
 			label='Expense Type'
 			options={[
-				// {value: 'OneTime', label: 'One Time', tooltip: ''},
 				{value: 'Monthly', label: 'Monthly', tooltip: ''},
+				{value: 'OneTime', label: 'One Time', tooltip: ''},
+				{value: 'Annual', label: 'Annual', tooltip: ''},
 			]}
 			defaultOption={props.defaultValues ? props.defaultValues.type : ''}
 			errorField={undefined}

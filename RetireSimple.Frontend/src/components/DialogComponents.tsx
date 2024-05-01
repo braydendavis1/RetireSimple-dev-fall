@@ -285,8 +285,6 @@ export const AddExpenseDialog = (props: AddExpenseDialogProps) => {
 		Object.entries(data)
 			.map(([key, value]) => [key, value.toString()])
 			.forEach(([key, value]) => (expense[key] = value));
-		expense['type'] = "Monthly";
-		expense["id"] = '';
 		createExpense(expense, data.expenseType).then ( () => {
 			props.onClose();
 			props.loadExpenses();
