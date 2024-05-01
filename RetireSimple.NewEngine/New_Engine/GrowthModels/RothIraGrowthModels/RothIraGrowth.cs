@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RetireSimple.NewEngine.New_Engine.GrowthModels.RothIraGrowth {
 	public class RothIraGrowth : IGrowthModel {
-		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfoModel info) 
+		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfoModel info, List<Expense> expenses) 
 		{
 
 			List<double> values = new List<double>();
@@ -26,6 +26,6 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels.RothIraGrowth {
 
 		}
 
-		Projection IGrowthModel.GenerateProjection(double value, int years, InvestmentVehicleInfoModel info, List<Expense> expenses) => throw new NotImplementedException();
+		//Projection IGrowthModel.GenerateProjection(double value, int years, InvestmentVehicleInfoModel info, List<Expense> expenses) => throw new NotImplementedException();
 	}
 }

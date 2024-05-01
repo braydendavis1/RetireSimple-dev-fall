@@ -16,6 +16,9 @@ using RetireSimple.NewEngine.New_Engine.Financials.Expenses;
 using static System.Net.Mime.MediaTypeNames;
 using SharpCompress.Common;
 using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.RothIra;
+using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles._457b;
+using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.Cash;
+using RetireSimple.NewEngine.New_Engine.Financials.InvestmentVehicles.Pension;
 
 namespace RetireSimple.NewEngine.New_Engine.Managers {
 	public class PortfolioManager  {
@@ -64,18 +67,32 @@ namespace RetireSimple.NewEngine.New_Engine.Managers {
 		}
 
 		public async Task CreateInvestmentVehicle(InvestmentVehicleInfoModel info, string type) {
-			if (type.Equals("401k")) {
+			if (type.ToLower().Equals("401k")) {
 				_401k vehicle = new _401k(info.Id);
 				this.investmentVehicles.Add(vehicle);
 				await vehicle.SetInfo(info);
 				//await vehicle.SetProjectedValue();
 			}
-			else if (type.Equals("Roth")) {
+			else if (type.ToLower().Equals("rothira")) {
 				RothIra vehicle = new RothIra(info.Id);
 				this.investmentVehicles.Add(vehicle);
 				await vehicle.SetInfo(info);
+			} 
+			else if (type.ToLower().Equals("457b")) {
+				_457b vehicle = new _457b(info.Id);
+				this.investmentVehicles.Add(vehicle);
+				await vehicle.SetInfo(info);
+			} 
+			else if (type.ToLower().Equals("cash")) {
+				Cash vehicle = new Cash(info.Id);
+				this.investmentVehicles.Add(vehicle);
+				await vehicle.SetInfo(info);
+			} 
+			else if (type.ToLower().Equals("pension")) {
+				Pension vehicle = new Pension(info.Id);
+				this.investmentVehicles.Add(vehicle);
+				await vehicle.SetInfo(info);
 			}
-
 
 		}
 

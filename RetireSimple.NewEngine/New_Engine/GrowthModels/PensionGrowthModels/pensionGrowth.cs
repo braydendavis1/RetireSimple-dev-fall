@@ -11,12 +11,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-//used this website to verify calculations https://www.annuityexpertadvice.com/calculator/401k-calculator/ 
 
-namespace RetireSimple.NewEngine.New_Engine.GrowthModels.CashGrowthModels {
-	public class CashGrowth : IGrowthModel {
+namespace RetireSimple.NewEngine.New_Engine.GrowthModels.PensionGrowthModels {
+	public class PensionGrowth : IGrowthModel {
 
-		public CashGrowth() {
+		public PensionGrowth() {
 
 		}
 
@@ -24,13 +23,13 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels.CashGrowthModels {
 		public Projection GenerateProjection(double value, int years, InvestmentVehicleInfoModel info, List<Expense> expenses) {
 			List<double> values = new List<double>();
 
+			values.Add(value);
+
 			for (int i = 0; i < years; i++) {
-				values.Add(value - CalculateExpenses(expenses, i));
+				values.Add((double) info.Contributions - CalculateExpenses(expenses, i));
 			}
 
 			return new Projection(values, 0);
-
-
 		}
 
 		private static double CalculateExpenses(List<Expense> expenses, int year) {
@@ -47,6 +46,7 @@ namespace RetireSimple.NewEngine.New_Engine.GrowthModels.CashGrowthModels {
 
 			return total;
 		}
+
 
 	}
 }

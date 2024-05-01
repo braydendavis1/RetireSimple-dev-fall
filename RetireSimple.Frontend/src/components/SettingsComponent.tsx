@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getUserInfo, saveUserInfo } from '../api/New API/UserAPI'
 import { UserInfo } from '../Interfaces';
-import CurrencyInput from 'react-currency-input-field';
+// import CurrencyInput from 'react-currency-input-field';
 import { enqueueSnackbar } from 'notistack';
 
 

@@ -6,6 +6,11 @@ using RetireSimple.NewEngine.New_Engine.Database.InfoModels.InvestmentVehicleInf
 using RetireSimple.Engine.New_Engine;
 using RetireSimple.NewEngine.New_Engine.Database.InfoModels;
 using RetireSimple.NewEngine.New_Engine.GrowthModels._401kGrowthModels;
+using RetireSimple.NewEngine.New_Engine.GrowthModels;
+using RetireSimple.NewEngine.New_Engine.GrowthModels._457bGrowthModels;
+using RetireSimple.NewEngine.New_Engine.GrowthModels.RothIraGrowth;
+using RetireSimple.NewEngine.New_Engine.GrowthModels.CashGrowthModels;
+using RetireSimple.NewEngine.New_Engine.GrowthModels.PensionGrowthModels;
 
 namespace UserstoreApi.Controllers;
 
@@ -99,7 +104,21 @@ public class InvestmentVehiclesController : ControllerBase {
 
 		logger.Info("POST Investment Vehicle {0}", vehicle.Id);
 
-		_401kGrowth growth = new _401kGrowth();
+		IGrowthModel growth;
+		if (Type.ToLower().Equals("401k")) {
+			growth = new _401kGrowth();
+		} else if(Type.ToLower().Equals("rothira")) {
+			growth = new RothIraGrowth();
+		} else if (Type.ToLower().Equals("457b")) {
+			growth = new _457bGrowth();
+		} else if (Type.ToLower().Equals("cash")) {
+			growth = new CashGrowth();
+		} else if (Type.ToLower().Equals("pension")) {
+			growth = new PensionGrowth();
+		} else {
+			growth = new CashGrowth();
+		}
+
 		Projection projection = growth.GenerateProjection(vehicle.Value, 30, vehicle, new List<RetireSimple.NewEngine.New_Engine.Financials.Expenses.Expense>());
 		vehicle.Projection = Math.Round(projection.yearly_projections[29], 2);
 		vehicle.ExpenseIds = new List<string>();
