@@ -12,6 +12,7 @@ export function ExpensesInfoPage() {
 	const imageUrls = [
 		'/images/AddExpense.PNG',
 		'/images/ExpenseInfo.PNG',
+		'/images/CompletedExpense.PNG',
 	];
 
 	const goToPrevious = () => {

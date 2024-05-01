@@ -13,6 +13,8 @@ export function VehiclesInfoPage() {
 	const imageUrls = [
 		'/images/AddVehicle.PNG',
 		'/images/VehicleInfo.PNG',
+		'/images/CompletedVehicle.PNG',
+		'/images/CRUD_Vehicle.PNG',
 	];
 
 	const goToPrevious = () => {
